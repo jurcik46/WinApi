@@ -23,6 +23,10 @@ namespace WinApi
         public MainWindow()
         {
             InitializeComponent();
+
+            Signature test = new Signature();
+
+            bool t = test.SignFile();
         }
     }
 }
