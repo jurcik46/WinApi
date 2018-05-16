@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Net;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,11 +28,15 @@ namespace WinApi
             //  var SignPrograms = @"c:\program Files (x86)\adobe\acrobat Reader DC\reader\AcroRd32.exe";
             //    var FilePath = @"c:\users\jurco\desktop\test.txt";
             //  string proceName = @FilePath + " - Notepad++";
+            /* using (WebClient webClient = new WebClient())
+              {
+                  webClient.DownloadFile("http://192.168.33.10/test.pdf", "test.pdf");
+              }
+             */
+            PusherConnect test = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", "channel");
+            //Signature test = new Signature(@"c:\program Files (x86)\Notepad++\notepad++.exe", @"c:\users\jurco\desktop\test.txt", @"c:\users\jurco\desktop\test.txt - Notepad++");
 
-
-            Signature test = new Signature(@"c:\program Files (x86)\Notepad++\notepad++.exe", @"c:\users\jurco\desktop\test.txt", @"c:\users\jurco\desktop\test.txt - Notepad++");
-
-            bool t = test.SignFile();
+            //            bool t = test.SignFile();
         }
     }
 }
