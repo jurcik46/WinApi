@@ -23,8 +23,13 @@ namespace WinApi
         public MainWindow()
         {
             InitializeComponent();
+            //  var SignProgramPath = @"c:\program Files (x86)\Notepad++\notepad++.exe";
+            //  var SignPrograms = @"c:\program Files (x86)\adobe\acrobat Reader DC\reader\AcroRd32.exe";
+            //    var FilePath = @"c:\users\jurco\desktop\test.txt";
+            //  string proceName = @FilePath + " - Notepad++";
 
-            Signature test = new Signature();
+
+            Signature test = new Signature(@"c:\program Files (x86)\Notepad++\notepad++.exe", @"c:\users\jurco\desktop\test.txt", @"c:\users\jurco\desktop\test.txt - Notepad++");
 
             bool t = test.SignFile();
         }

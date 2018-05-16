@@ -13,29 +13,36 @@ namespace WinApi
 {
     class Signature
     {
+        private string SignProgramPath { get; set; }
+        private string FilePath { get; set; }
+        private string ProcessName { get; set; }
+
+        public Signature(string signProgramPath, string filePath, string processName)
+        {
+            SignProgramPath = signProgramPath;
+            FilePath = filePath;
+            ProcessName = processName;
+        }
 
 
         #region Sign
 
         public bool SignFile()
         {
-           /* Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();*/
+            /* Log.Logger = new LoggerConfiguration()
+     .WriteTo.Console()
+     .WriteTo.FilePath("log-.txt", rollingInterval: RollingInterval.Day)
+     .CreateLogger();*/
             bool result = false;
-            var SignProgram = @"c:\program Files (x86)\Notepad++\notepad++.exe";
-            var SignPrograms = @"c:\program Files (x86)\adobe\acrobat Reader DC\reader\AcroRd32.exe";
-            var file = @"c:\users\jurco\desktop\test.txt";
-            string proceName = @file + " - Notepad++";
+         
             var SignTimeout = 100;
 
-            var startInfo = new ProcessStartInfo(SignProgram, file);
+            var startInfo = new ProcessStartInfo(this.SignProgramPath, this.FilePath);
 
             Process.Start(startInfo);
             using (var process = Process.Start(startInfo))
             {
-                var fileInfo = new FileInfo(file);
+                var fileInfo = new FileInfo(this.FilePath);
                 var lastWrite = fileInfo.LastWriteTime;
 
                 var counter = 0;
@@ -46,14 +53,14 @@ namespace WinApi
                     Thread.Sleep(1000);
                     fileInfo.Refresh();
                     diff = fileInfo.LastWriteTime - lastWrite;
-                    
+
                     counter++;
                     if (diff.TotalSeconds > 1)
                     {
                         result = true;
                         break;
                     }
-                    var found = FindWindowAndClose(file,proceName, false);
+                    var found = FindWindowAndClose(false);
                     if (!foundWindow && found)
                     {
                         //Logger.Debug(SignServiceEvents.SignFileWindowFound, "Sign application window found for the first time in {Iteration}. iteration.", counter);
@@ -77,8 +84,8 @@ namespace WinApi
                 if (ForceClose)
                 {
                     //Messenger.Default.Send(new BusyMessage(this, callerReference, Resources.SignerClosing));
-                   
-                    FindWindowAndClose(file, proceName, true);
+
+                    FindWindowAndClose(true);
                 }
                 fileInfo.Refresh();
                 diff = fileInfo.LastWriteTime - lastWrite;
@@ -90,31 +97,31 @@ namespace WinApi
 
 
 
-        private bool FindWindowAndClose(string file, string processName, bool close)
+        private bool FindWindowAndClose(bool close)
         {
-            //file = Path.GetFileName(file);
-            var caption = string.Format(processName, file);// + " - Visual Studio Code";//string.Format(SettingsService.SignWindowCaptionFormat, file);
+            //FilePath = Path.GetFileName(FilePath);
+            var caption = string.Format(this.ProcessName, this.FilePath);// + " - Visual Studio Code";//string.Format(SettingsService.SignWindowCaptionFormat, FilePath);
             var windowPtr = FindWindowByCaption(IntPtr.Zero, caption);
             if (windowPtr == IntPtr.Zero)
             {
                 //  Logger.Debug(SignServiceEvents.WindowNotFound, "Window not found: {Caption}", caption);
-               
+
                 return false;
             }
             if (!close)
             {
-               // Logger.Debug(SignServiceEvents.WindowFound, "Window found: {Caption}", caption);
+                // Logger.Debug(SignServiceEvents.WindowFound, "Window found: {Caption}", caption);
                 return true;
             }
             //Logger.Debug(SignServiceEvents.WindowFoundAndClosing, "Window found and closing: {Caption}", caption);
             SendMessage(windowPtr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
             return false;
-        } 
+        }
 
         /// <summary>
         /// Find window by Caption only. Note you must pass IntPtr.Zero as the first parameter.
         /// </summary>
-       [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId = "1")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId = "1")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")]
         [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
         static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
@@ -124,7 +131,7 @@ namespace WinApi
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
 
         const UInt32 WM_CLOSE = 0x0010;
-        
+
         #endregion
 
 
