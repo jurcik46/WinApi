@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using Serilog;
 using Hardcodet.Wpf.TaskbarNotification;
 using PusherClient;
@@ -9,12 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinApi
+namespace WinApi.ViewModel
 {
-    class TrayIconViewModel
+    public partial class TrayIcon
     {
-        public TrayIconViewModel()
+        public TrayIcon()
         {
+           
+
+
             //  notifyIcon = (TaskbarIcon) FindResource("TrayIcon");
 
             //  var SignProgramPath = @"c:\program Files (x86)\Notepad++\notepad++.exe";
@@ -38,7 +41,7 @@ namespace WinApi
             ///   notifyIcon = (ResourceDictionary)this.TryFindResource("someResourceName")
 
             // notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
-            //    trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
 
             // trayIconTaskbar
 
@@ -47,10 +50,10 @@ namespace WinApi
             //bool t = test.SignFile();
         }
 
-    
+   
     }
 
 
-
-
+ 
 }
+

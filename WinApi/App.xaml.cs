@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace WinApi
 {
     /// <summary>
@@ -22,7 +23,10 @@ namespace WinApi
             base.OnStartup(e);
 
             //create the notifyicon (it's a resource declared in TrayIcon.xaml
-            notifyIcon = (TaskbarIcon)FindResource("TrayIcon");
+            notifyIcon = (TaskbarIcon)FindResource("TrayIconTaskbar");
+
+            
+        //    notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info  );
         }
 
         protected override void OnExit(ExitEventArgs e)
