@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace WinApi.ViewModel
 {
-    public partial class TrayIcon
+    public partial class TrayIcon 
     {
         public TrayIcon()
         {
@@ -41,7 +41,7 @@ namespace WinApi.ViewModel
             ///   notifyIcon = (ResourceDictionary)this.TryFindResource("someResourceName")
 
             // notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
-                trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
+               
 
             // trayIconTaskbar
 
@@ -50,7 +50,10 @@ namespace WinApi.ViewModel
             //bool t = test.SignFile();
         }
 
-   
+        private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
+        }
     }
 
 
