@@ -16,12 +16,14 @@ namespace WinApi
         private string SignProgramPath { get; set; }
         private string FilePath { get; set; }
         private string ProcessName { get; set; }
-
+       
         public Signature(string signProgramPath, string filePath, string processName)
         {
             SignProgramPath = signProgramPath;
             FilePath = filePath;
             ProcessName = processName;
+           
+        
         }
 
 

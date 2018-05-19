@@ -3,6 +3,10 @@ using PusherClient;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net;
+using Serilog;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace WinApi
@@ -30,11 +34,38 @@ namespace WinApi
             });
 
             _chatChannel = _pusher.Subscribe("private-" + channelName);
+            /*
+                        using (WebClient client = new WebClient())
+                        {
+                            client.UploadFile(@"http://192.168.33.10/test.pdf", "aa.pdf");
+                        }
+                        */
+            /*     try
+                 {
+                     //create WebClient object
+                     WebClient client = new WebClient();
+                     string myFile = @"aa.pdf";
+                     client.Credentials = CredentialCache.DefaultCredentials;
+                     client.UploadFile(@"http://192.168.33.10/aa.pdf", "POST", myFile);
+                     client.Dispose();
+                 }
+                 catch (Exception err)
+                 {
+                     Log.Error(err.Message, "Something went wrong");
+                     //MessageBox.Show(err.Message);
+                 }*/
 
+
+           // Stream fl = File.OpenRead("aa.pdf");
+
+           // Upload("http://192.168.33.10/","asdasda",fl);
+         
 
             InitPusher();
 
         }
+
+ 
 
         private void InitPusher()
         {
@@ -43,7 +74,6 @@ namespace WinApi
             _pusher.Error += _pusher_Error;
 
             // Setup private channel
-            //_chatChannel = _pusher.Subscribe("private-channel");
             _chatChannel.Subscribed += _chatChannel_Subscribed;
 
             // Inline binding!
@@ -69,6 +99,8 @@ namespace WinApi
 
             _pusher.Connect();
         }
+
+
 
         static void _pusher_Error(object sender, PusherException error)
         {
@@ -106,6 +138,28 @@ namespace WinApi
             //if (PropertyChanged != null)
               //  PropertyChanged(this, new PropertyChangedEventArgs(vlastnost));
         }
+
+        private System.IO.Stream Upload(string actionUrl, string paramString, Stream paramFileStream)
+        {
+         //   HttpContent stringContent = new StringContent(paramString);
+            HttpContent fileStreamContent = new StreamContent(paramFileStream);
+          //  HttpContent bytesContent = new ByteArrayContent(paramFileBytes);
+            using (var client = new HttpClient())
+            using (var formData = new MultipartFormDataContent())
+            {
+          //      formData.Add(stringContent, "param1", "param1");
+                formData.Add(fileStreamContent, "aa.pdf");
+           //     formData.Add(bytesContent, "file2", "file2");
+                var response = client.PostAsync(actionUrl, formData).Result;
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                return response.Content.ReadAsStreamAsync().Result;
+            }
+        }
+
+
 
 
 
