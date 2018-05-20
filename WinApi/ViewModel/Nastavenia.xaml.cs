@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WinApi.DataModels;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -19,9 +20,16 @@ namespace WinApi.ViewModel
     /// </summary>
     public partial class Nastavenia : Window
     {
+        private Options opt = new Options();
+
         public Nastavenia()
         {
+            opt.LoadOption();
+            DataContext = opt;
+            Console.WriteLine(opt.Data.ApiLink);
             InitializeComponent();
         }
+
+      
     }
 }

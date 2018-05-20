@@ -7,35 +7,74 @@ using Newtonsoft;
 using System.Threading.Tasks;
 using System.IO;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace WinApi.DataModels
 {
     class Options
     {
+        public OptionsData Data { get; set; }
+        private const string optionsFile = "options.json";
+        private const string passwordFile = "bitout.txt";
+        private string passwordHash { get; set; }
         public Options()
         {
-            OptionsData test = new OptionsData {
-                ApiLink = "111111111111",
-                ChannelName = "channel",
-                ProcessName = "processs",
-                ProgramPath = "programpatcasda"
-            };
-
-            SaveOption(test);
+            Data = new OptionsData();
             LoadOption();
+            createPass();
+           
         }
 
         public void SaveOption(OptionsData data)
         {
-            File.WriteAllText("options.json", JsonConvert.SerializeObject(data));
+            File.WriteAllText(optionsFile, JsonConvert.SerializeObject(data));
         }
 
         public void LoadOption() {
+            if (File.Exists(optionsFile))
+            {
+                this.Data = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText(optionsFile));
+            }
+            else
+            {
+                throw new Exception("Nastavte nastavenia");
+            }
 
-            OptionsData movie1 = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText("options.json"));
-            string json = JsonConvert.SerializeObject(movie1,Formatting.Indented);
-            Console.Write(json);
+           // string json = JsonConvert.SerializeObject(movie1,Formatting.Indented);
+           // Console.Write(json);
         }
+
+
+
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = SHA256.Create();  
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2")); // format for ToString from byte
+
+            return sb.ToString();
+        }
+
+        public void createPass() {
+
+            // Create the file.
+            using (FileStream fs = File.Create(passwordFile))
+            {
+
+                Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString("admin"));
+                // Add some information to the file.
+                fs.Write(info, 0, info.Length);
+            }
+
+        } 
+
+
 
     }
 }
