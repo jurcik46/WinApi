@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using Serilog;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WinApi
 {
@@ -17,13 +18,19 @@ namespace WinApi
         private string FilePath { get; set; }
         private string ProcessName { get; set; }
        
-        public Signature(string signProgramPath, string filePath, string processName)
+        public Signature(string signProgramPath, string fileLink, string processName)
         {
             SignProgramPath = signProgramPath;
-            FilePath = filePath;
-            ProcessName = processName;
+            FilePath = @fileLink;
            
-        
+            ProcessName = processName;
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadFile(FilePath, "podpis.txt");
+            }
+
+            FilePath = @"D:\Appky\C#\WinApi\WinApi\bin\Debug\podpis.txt";
+
         }
 
 
@@ -31,10 +38,7 @@ namespace WinApi
 
         public bool SignFile()
         {
-            /* Log.Logger = new LoggerConfiguration()
-     .WriteTo.Console()
-     .WriteTo.FilePath("log-.txt", rollingInterval: RollingInterval.Day)
-     .CreateLogger();*/
+            
             bool result = false;
          
             var SignTimeout = 100;

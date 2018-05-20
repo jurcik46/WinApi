@@ -31,10 +31,10 @@ namespace WinApi.ViewModel
                   webClient.DownloadFile("http://192.168.33.10/test.pdf", "test.pdf");
               }
              */
-            // PusherConnect test = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", "channel");
+            
             string title = "WPF NotifyIcon";
             string text = "This is a standard balloon";
-
+        
             //notifyIcon.ShowBalloonTip(title, text, BalloonIcon.Info);
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -45,11 +45,12 @@ namespace WinApi.ViewModel
             ///   notifyIcon = (ResourceDictionary)this.TryFindResource("someResourceName")
 
             // notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
-               
+
 
             // trayIconTaskbar
+            PusherConnect tt = new PusherConnect("31d14ddddef4c14b6ab5", s.Data.ApiLink, true, "eu", "channel",s);
 
-            //      Signature test = new Signature(@"c:\program Files (x86)\Notepad++\notepad++.exe", @"c:\users\jurco\desktop\test.txt", @"c:\users\jurco\desktop\test.txt - Notepad++");
+            //Signature test = new Signature(s.Data.ProgramPath, @"c:\users\jurco\desktop\test.txt", s.Data.ProcessName);
 
             //bool t = test.SignFile();
         }

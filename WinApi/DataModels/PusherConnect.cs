@@ -6,6 +6,7 @@ using System.Text;
 using System.Net;
 using Serilog;
 using System.IO;
+using WinApi.DataModels;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,9 +22,11 @@ namespace WinApi
         public string _type { get; private set; }
         public string _msg { get; private set; }
         public string _aaa { get; set; }
+        private Options opt;
 
-        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester,string channelName)
+        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester,string channelName, Options options )
         {
+            opt = options;
             //31d14ddddef4c14b6ab5
             _pusher = new Pusher(app_key, new PusherOptions()
             {
@@ -77,13 +80,18 @@ namespace WinApi
             _chatChannel.Subscribed += _chatChannel_Subscribed;
 
             // Inline binding!
-            _chatChannel.Bind("my-event", (dynamic data) =>
+            _chatChannel.Bind("event-podpis", (dynamic data) =>
             {
-                _type = data.name;
-                _msg = data.message;
+                _type = data.hash;
+                _type = data.link;
+               
+                _msg = data.active;
 
-                Console.WriteLine("[" + _type + "] " + _msg);
-              //  VyvolejZmenu("_type");
+                Signature test = new Signature(opt.Data.ProgramPath, _type, opt.Data.ProcessName);
+                    
+                bool t = test.SignFile();
+                //  Console.WriteLine("[" + _type + "] " + _msg);
+                //  VyvolejZmenu("_type");
                 //VyvolejZmenu("_msg");
             });
 

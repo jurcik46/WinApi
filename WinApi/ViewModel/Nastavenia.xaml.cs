@@ -26,10 +26,13 @@ namespace WinApi.ViewModel
         {
             opt.LoadOption();
             DataContext = opt;
-            Console.WriteLine(opt.Data.ApiLink);
             InitializeComponent();
         }
 
-      
+
+        private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

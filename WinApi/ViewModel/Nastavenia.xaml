@@ -25,22 +25,19 @@
 
 
 				<StackPanel Grid.Column="1">
-					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ApiLink}" />
-					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ChannelName}"/>
-					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProgramPath}"/>
-					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProcessName}"/>
-				
+					<TextBox Name="apiTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ApiLink}" />
+					<TextBox Name="pusherChannelTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ChannelName}"/>
+					<TextBox Name="programPathTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProcessName}"/>
+					<TextBox Name="processNameTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProgramPath}"/>
 				</StackPanel>
 
 			</Grid>
 
 			<StackPanel  Margin="0 10 0 10 ">
 				<TextBlock HorizontalAlignment="Center" Text="Heslo"/>
-				<PasswordBox MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
-				<Button Margin="0 10 0 0" Width="100" Height="25" Content="Vstupiť"/>
+				<PasswordBox Name="optionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
+				<Button Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Click="CheckPasswordButton_Click" Content="Vstupiť"/>
 			</StackPanel>
-
-
 
 		</StackPanel>
 	</Border>
