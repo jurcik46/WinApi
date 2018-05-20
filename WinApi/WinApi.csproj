@@ -92,14 +92,20 @@
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
     <Compile Include="DataModels\PusherConnect.cs" />
     <Compile Include="DataModels\Signature.cs" />
+    <Compile Include="ViewModel\Nastavenia.xaml.cs">
+      <DependentUpon>Nastavenia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\TrayIcon.xaml.cs">
       <DependentUpon>TrayIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\TrayIconViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ViewModel\Nastavenia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewModel\TrayIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

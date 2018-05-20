@@ -1,8 +1,9 @@
 ﻿
 using Serilog;
+using System.Diagnostics;
+using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using PusherClient;
-using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,8 @@ namespace WinApi.ViewModel
 
         private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
         {
+            Nastavenia nastaveniaWindows = new Nastavenia();
+            nastaveniaWindows.Show();
             trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
         }
     }

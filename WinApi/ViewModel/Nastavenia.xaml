@@ -1,0 +1,46 @@
+﻿<Window x:Class="WinApi.ViewModel.Nastavenia"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinApi.ViewModel"
+        mc:Ignorable="d"
+        Title="Nastavenia" Height="350" Width="600">
+	<Border Padding="10">
+	<StackPanel>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="100"/>
+				<ColumnDefinition Width="6*"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel VerticalAlignment="Center" Grid.Column="0">
+					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+				</StackPanel>
+
+
+				<StackPanel Grid.Column="1">
+					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
+					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
+					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
+					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
+					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
+				</StackPanel>
+
+			</Grid>
+		
+				<StackPanel  Margin="0 10 0 10 ">
+					<TextBlock HorizontalAlignment="Center" Text="Heslo"/>
+					<TextBox MinWidth="150" HorizontalAlignment="Center" Padding="2" Text=""/>
+					
+					<Button Margin="0 10 0 0" Width="100" Height="25" Content="Vstupiť"/>
+				</StackPanel>
+				
+
+
+		</StackPanel>
+	</Border>
+</Window>
