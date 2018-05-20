@@ -21,8 +21,8 @@ namespace WinApi.DataModels
         {
             Data = new OptionsData();
             LoadOption();
-            createPass();
-           
+            // createPass();
+      
         }
 
         public void SaveOption(OptionsData data)
@@ -61,7 +61,7 @@ namespace WinApi.DataModels
             return sb.ToString();
         }
 
-        public void createPass() {
+        public void CreatePass() {
 
             // Create the file.
             using (FileStream fs = File.Create(passwordFile))
@@ -72,7 +72,23 @@ namespace WinApi.DataModels
                 fs.Write(info, 0, info.Length);
             }
 
-        } 
+        }
+
+        public bool ComperPassword(string enteredPassword) {
+
+            string enteredPasswordHash = "";
+            string sourcPassword = "";
+            using (StreamReader sr = File.OpenText(passwordFile))
+            {
+                sourcPassword = sr.ReadLine();        
+            }
+
+
+            enteredPasswordHash = GetHashString(enteredPassword);
+            return String.Equals(enteredPasswordHash, sourcPassword);
+   
+
+        }
 
 
 
