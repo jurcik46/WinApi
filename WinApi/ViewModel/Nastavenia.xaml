@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinApi.ViewModel"
         mc:Ignorable="d"
-        Title="Nastavenia" Height="350" Width="600">
+        Title="Nastavenia" Height="300" Width="600">
 	<Border Padding="10">
 	<StackPanel>
 		<Grid>
@@ -14,16 +14,14 @@
 				<ColumnDefinition Width="6*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel VerticalAlignment="Center" Grid.Column="0">
-					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
-					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
-					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
-					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
-					<TextBlock Margin="5 20 0 0" Text="Asdad"/>
+					<TextBlock Margin="5 20 0 0" Text="API"/>
+					<TextBlock Margin="5 20 0 0" Text="Pusher Channel"/>
+					<TextBlock Margin="5 20 0 0" Text="Path to Program"/>
+					<TextBlock Margin="5 20 0 0" Text="Process Name"/>
 				</StackPanel>
 
 
 				<StackPanel Grid.Column="1">
-					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
 					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
 					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>
 					<TextBox IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="Asdad"/>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using PusherClient;
+using WinApi.DataModels;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,8 @@ namespace WinApi.ViewModel
                 .MinimumLevel.Debug()
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+
+            Options s = new Options();
             ///   notifyIcon = (ResourceDictionary)this.TryFindResource("someResourceName")
 
             // notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
