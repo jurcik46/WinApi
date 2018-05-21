@@ -17,16 +17,15 @@ namespace WinApi
         private string SignProgramPath { get; set; }
         private string FilePath { get; set; }
         private string ProcessName { get; set; }
-        private string pdfName = "podpis.txt";
+        private string pdfName;
        
-        public Signature(string signProgramPath, string fileLink, string processName)
+        public Signature(string signProgramPath, string fileLink, string processName, string fileName)
         {
             SignProgramPath = signProgramPath;
-            FilePath = @fileLink;
-           
+            FilePath = @fileLink;           
             ProcessName = processName;
-        //    pdfName = FilePath.Substring(FilePath.LastIndexOf("/")+1);
-           // Console.WriteLine(pdfName);
+            pdfName = fileName;
+
             using (WebClient webClient = new WebClient())
             {
                 webClient.DownloadFile(FilePath, pdfName);

@@ -10,6 +10,7 @@ using WinApi.DataModels;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+
 namespace WinApi
 {
     class PusherConnect
@@ -17,52 +18,23 @@ namespace WinApi
 
        // public event PropertyChangedEventHandler PropertyChanged;
         static Pusher _pusher = null;
-        static Channel _chatChannel = null;
-        static PresenceChannel _presenceChannel = null;
-        public string _type { get; private set; }
-        public string _msg { get; private set; }
-        public string _aaa { get; set; }
+        static Channel _channel = null;
         private Options opt;
 
+        #region pusher
         public PusherConnect(string app_key, string endPoint, bool encryption, string cluester,string channelName, Options options )
         {
-            opt = options;
-            //31d14ddddef4c14b6ab5
+            opt = options;      
             _pusher = new Pusher(app_key, new PusherOptions()
-            {
-                
+            {                
                 Authorizer = new HttpAuthorizer(endPoint),
                 Encrypted = encryption,
                 Cluster = cluester
             });
-
-            _chatChannel = _pusher.Subscribe("private-" + channelName);
-            /*
-                        using (WebClient client = new WebClient())
-                        {
-                            client.UploadFile(@"http://192.168.33.10/test.pdf", "aa.pdf");
-                        }
-                        */
-            /*     try
-                 {
-                     //create WebClient object
-                     WebClient client = new WebClient();
-                     string myFile = @"aa.pdf";
-                     client.Credentials = CredentialCache.DefaultCredentials;
-                     client.UploadFile(@"http://192.168.33.10/aa.pdf", "POST", myFile);
-                     client.Dispose();
-                 }
-                 catch (Exception err)
-                 {
-                     Log.Error(err.Message, "Something went wrong");
-                     //MessageBox.Show(err.Message);
-                 }*/
-
-
-   
-         
-
+            _channel = _pusher.Subscribe("private-" + channelName);                  
             InitPusher();
+
+        //    send("event","adsfa", "sdafs");
 
         }
 
@@ -75,40 +47,12 @@ namespace WinApi
             _pusher.Error += _pusher_Error;
 
             // Setup private channel
-            _chatChannel.Subscribed += _chatChannel_Subscribed;
+            _channel.Subscribed += _chatChannel_Subscribed;
 
             // Inline binding!
-            _chatChannel.Bind("event-podpis", (dynamic data) =>
+            _channel.Bind("event-podpis", (dynamic data) =>
             {
-                _type = data.hash;
-                _type = data.link;
-               
-                _msg = data.active;
-
-                Signature test = new Signature(opt.Data.ProgramPath, _type, opt.Data.ProcessName);
-
-                if (test.SignFile()) {
-
-                    _type = _type.Substring(_type.LastIndexOf("/") + 1);
-                    Stream fl = File.OpenRead("podpis.txt");
-                  //  byte[] bytes = System.IO.File.ReadAllBytes("1Schema.jpg");
-                    Upload("http://192.168.33.10/tess.php", "asdasda", fl, _type);
-
-                }
-               
-                //  Console.WriteLine("[" + _type + "] " + _msg);
-                //  VyvolejZmenu("_type");
-                //VyvolejZmenu("_msg");
-            });
-
-            _chatChannel.Bind("my-test", (dynamic data) =>
-            {
-                _type = data.name;
-                _msg = data.message;
-
-                Console.WriteLine("" + _type + " " + _msg);
-                //  VyvolejZmenu("_type");
-                //VyvolejZmenu("_msg");
+                EventSignature((string)data.link,(string)data.hash,(int)data.active);
             });
 
             _pusher.Connect();
@@ -137,7 +81,7 @@ namespace WinApi
         public void send(string eventType, string msgType, string msg)
         {
           //  _chatChannel.Trigger("client-my-event", new { message = msgType, name = msg });
-             _chatChannel.Trigger(eventType, new { message = msg, name = msgType});
+             _channel.Trigger(eventType, new { message = msg, name = msgType});
         }
 
         static void _chatChannel_Subscribed(object sender)
@@ -153,17 +97,19 @@ namespace WinApi
               //  PropertyChanged(this, new PropertyChangedEventArgs(vlastnost));
         }
 
+        #endregion
+
+        #region eventFunctions
         private System.IO.Stream Upload(string actionUrl, string paramString, Stream paramFileStream, string fileName)
         {
            HttpContent stringContent = new StringContent(paramString);
            HttpContent fileStreamContent = new StreamContent(paramFileStream);
-       //     HttpContent bytesContent = new ByteArrayContent(paramFileBytes);
-            using (var client = new HttpClient())
+                using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
-                formData.Add(stringContent, "test");
+                formData.Add(stringContent, "active");
                formData.Add(fileStreamContent, "file", fileName);
-          //     formData.Add(bytesContent, "file2", "tt.jpg");
+         
                 var response = client.PostAsync(actionUrl, formData).Result;
                 if (!response.IsSuccessStatusCode)
                 {
@@ -172,6 +118,29 @@ namespace WinApi
                 return response.Content.ReadAsStreamAsync().Result;
             }
         }
+
+        private void EventSignature(string link, string hash, int active) {
+
+            string pdfName = "podpis.txt";
+            Signature test = new Signature(opt.Data.ProgramPath, link, opt.Data.ProcessName, pdfName);
+
+            if (test.SignFile())
+            {
+
+               string pdfNameUpload = link.Substring(link.LastIndexOf("/") + 1);
+                Stream pdffile = File.OpenRead(pdfName);
+
+                Upload("http://192.168.33.10/tess.php", "1", pdffile, pdfNameUpload);
+
+            }
+            //_channel.Trigger("my-event", new { hash = "asdadasd", active = 1 });
+
+        }
+        #endregion
+
+
+
+
 
 
 

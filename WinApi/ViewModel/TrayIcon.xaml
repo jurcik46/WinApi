@@ -7,19 +7,16 @@
 	xmlns:local="clr-namespace:WinApi.ViewModel">
 
 
-	<!-- The taskbar context menu - the first row is a dummy to show off simple data binding -->
-	<!--
-        The "shared" directive is needed if we reopen the sample window a few times - WPF will otherwise
-        reuse the same context menu (which is a resource) again (which will have its DataContext set to the old TaskbarIcon)
-  -->
+	<!-- The taskbar context menu -->
+	
 	<ContextMenu x:Shared="false" x:Key="SysTrayMenu">
-		<MenuItem Header="Nastavenia" MouseEnter="MenuItem_MouseEnter" />
+		<MenuItem Header="Nastavenia" Click="MenuItem_Click"  />
 		<Separator />
 		<MenuItem Header="Exit" Command="{Commands:ExitAppCommand}"   /> 
 	</ContextMenu>
 
 
-	<!-- the application's NotifyIcon - started from App.xaml.cs. Declares its own view model. -->
+	<!-- TaskbarIcon -->
 	<tb:TaskbarIcon  x:Key="TrayIconTaskbar"
 					Name="trayIconTaskbar"					
                     IconSource="/Icons/test.ico"
@@ -36,21 +33,12 @@
 				Opacity="0.8"
 				Width="160"
 				Height="40">
-				<!-- use a binding expression rather than fixed text -->
 				<TextBlock
 				Text="{Binding Path=ToolTipText}"
 				HorizontalAlignment="Center"
 				 VerticalAlignment="Center" />
 			</Border>
 		</tb:TaskbarIcon.TrayToolTip>
-
-
-		<!-- self-assign a data context (could also be done programmatically) -->
-
-
-
 	</tb:TaskbarIcon>
-
 	
-
 </ResourceDictionary>
