@@ -33,7 +33,7 @@ namespace WinApi.ViewModel
 
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
-            opt.Data.ApiLink = apiTextBox.Text;
+         /*   opt.Data.ApiLink = apiTextBox.Text;
             opt.Data.ChannelName = pusherChannelTextBox.Text;
             opt.Data.ProgramPath = programPathTextBox.Text;
             opt.Data.ProcessName = processNameTextBox.Text;
@@ -43,7 +43,7 @@ namespace WinApi.ViewModel
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
 
-
+            */
         }
     }
 }

@@ -59,9 +59,9 @@ namespace WinApi
                  }*/
 
 
-           // Stream fl = File.OpenRead("aa.pdf");
-
-           // Upload("http://192.168.33.10/","asdasda",fl);
+           Stream fl = File.OpenRead("aa.pdf");
+            byte[] bytes = System.IO.File.ReadAllBytes("1Schema.jpg");
+            Console.WriteLine(Upload("http://192.168.33.10/tess.php", "asdasda", fl, bytes));
          
 
             InitPusher();
@@ -147,17 +147,17 @@ namespace WinApi
               //  PropertyChanged(this, new PropertyChangedEventArgs(vlastnost));
         }
 
-        private System.IO.Stream Upload(string actionUrl, string paramString, Stream paramFileStream)
+        private System.IO.Stream Upload(string actionUrl, string paramString, Stream paramFileStream, byte [] paramFileBytes)
         {
-         //   HttpContent stringContent = new StringContent(paramString);
-            HttpContent fileStreamContent = new StreamContent(paramFileStream);
-          //  HttpContent bytesContent = new ByteArrayContent(paramFileBytes);
+           HttpContent stringContent = new StringContent(paramString);
+           HttpContent fileStreamContent = new StreamContent(paramFileStream);
+            HttpContent bytesContent = new ByteArrayContent(paramFileBytes);
             using (var client = new HttpClient())
             using (var formData = new MultipartFormDataContent())
             {
-          //      formData.Add(stringContent, "param1", "param1");
-                formData.Add(fileStreamContent, "aa.pdf");
-           //     formData.Add(bytesContent, "file2", "file2");
+                formData.Add(stringContent, "test");
+               formData.Add(fileStreamContent, "file", "aa.pdf");
+               formData.Add(bytesContent, "file2", "tt.jpg");
                 var response = client.PostAsync(actionUrl, formData).Result;
                 if (!response.IsSuccessStatusCode)
                 {
