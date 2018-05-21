@@ -15,10 +15,13 @@ namespace WinApi.ViewModel
 {
     public partial class TrayIcon 
     {
+        private Nastavenia nastaveniaWindows = null;
+
         public TrayIcon()
         {
-           
 
+
+           
 
             //  notifyIcon = (TaskbarIcon) FindResource("TrayIcon");
 
@@ -31,7 +34,7 @@ namespace WinApi.ViewModel
                   webClient.DownloadFile("http://192.168.33.10/test.pdf", "test.pdf");
               }
              */
-            
+
             string title = "WPF NotifyIcon";
             string text = "This is a standard balloon";
         
@@ -48,7 +51,7 @@ namespace WinApi.ViewModel
 
 
             // trayIconTaskbar
-            PusherConnect tt = new PusherConnect("31d14ddddef4c14b6ab5", s.Data.ApiLink, true, "eu", "channel",s);
+            PusherConnect tt = new PusherConnect("31d14ddddef4c14b6ab5", s.Data.ApiLink, true, "eu", s.Data.ChannelName,s);
 
             //Signature test = new Signature(s.Data.ProgramPath, @"c:\users\jurco\desktop\test.txt", s.Data.ProcessName);
 
@@ -57,8 +60,22 @@ namespace WinApi.ViewModel
 
         private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
         {
-            Nastavenia nastaveniaWindows = new Nastavenia();
-            nastaveniaWindows.Show();
+
+
+
+            if (nastaveniaWindows != null && nastaveniaWindows.IsLoaded)
+            {
+                nastaveniaWindows.Topmost = true;
+                nastaveniaWindows.WindowState = WindowState.Normal;
+                nastaveniaWindows.Topmost = false;
+            }
+            else
+            {
+                nastaveniaWindows = new Nastavenia();
+                nastaveniaWindows.Show();
+            }
+            
+            //nastaveniaWindows.Hide();
             trayIconTaskbar.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info);
         }
     }

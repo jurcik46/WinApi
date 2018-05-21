@@ -8,7 +8,7 @@
         xmlns:Properties="clr-namespace:WinApi.Properties"
         x:Class="WinApi.ViewModel.Nastavenia"
         mc:Ignorable="d"
-        Title="Nastavenia" Height="300" Width="600">
+        Title="Nastavenia" Height="300" Width="600" WindowStartupLocation="CenterScreen">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>
@@ -25,10 +25,10 @@
 
 
 				<StackPanel Grid.Column="1">
-					<TextBox Name="apiTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ApiLink}" />
-					<TextBox Name="pusherChannelTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ChannelName}"/>
-					<TextBox Name="programPathTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProcessName}"/>
-					<TextBox Name="processNameTextBox" IsReadOnly="True" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProgramPath}"/>
+					<TextBox Name="apiTextBox" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ApiLink}" />
+					<TextBox Name="pusherChannelTextBox"  Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ChannelName}"/>
+					<TextBox Name="programPathTextBox" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProgramPath}"/>
+					<TextBox Name="processNameTextBox" Background="#eee" Margin="5 20 0 0" Text="{Binding Data.ProcessName}"/>
 				</StackPanel>
 
 			</Grid>

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace WinApi.ViewModel
 {
@@ -32,6 +33,16 @@ namespace WinApi.ViewModel
 
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            opt.Data.ApiLink = apiTextBox.Text;
+            opt.Data.ChannelName = pusherChannelTextBox.Text;
+            opt.Data.ProgramPath = programPathTextBox.Text;
+            opt.Data.ProcessName = processNameTextBox.Text;
+            
+            opt.SaveOption();
+
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+
 
         }
     }

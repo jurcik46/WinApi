@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using WinApi.DataModels.Data;
-using Newtonsoft;
-using System.Threading.Tasks;
-using System.IO;
-using Newtonsoft.Json;
-using System.Security.Cryptography;
 
 namespace WinApi.DataModels
 {
@@ -26,18 +22,18 @@ namespace WinApi.DataModels
       
         }
 
-        public void SaveOption(OptionsData data)
+        public void SaveOption()
         {
-            File.WriteAllText(optionsFile, JsonConvert.SerializeObject(data));
+            File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
         public void LoadOption() {
             if (File.Exists(optionsFile))
-            {
+            {            
                 this.Data = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText(optionsFile));
-                this.Data.ProcessName = this.Data.ProcessName.Replace(@"\\\\", @"\\");
-                this.Data.ProgramPath = this.Data.ProgramPath.Replace(@"\\\\", @"\\");
-                Console.WriteLine(this.Data.ProgramPath);
+               // this.Data.ProcessName = this.Data.ProcessName.Replace(@"\\\\", @"\\");
+             //   this.Data.ProgramPath = this.Data.ProgramPath.Replace(@"\\\\", @"\\");
+              //  Console.WriteLine(this.Data.ProgramPath);
             //    string test = this.Data.ProgramPath.Replace(@"\", @"\"); 
             }
             else
@@ -50,7 +46,7 @@ namespace WinApi.DataModels
         }
 
 
-
+        #region loginToOptions
         public static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = SHA256.Create();  
@@ -90,4 +86,5 @@ namespace WinApi.DataModels
             return String.Equals(enteredPasswordHash, sourcPassword);
            }        
     }
+            #endregion
 }
