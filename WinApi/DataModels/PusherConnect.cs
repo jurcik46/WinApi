@@ -86,10 +86,11 @@ namespace WinApi
                 _msg = data.active;
 
                 Signature test = new Signature(opt.Data.ProgramPath, _type, opt.Data.ProcessName);
+
                 if (test.SignFile()) {
 
-
-                    Stream fl = File.OpenRead(_type.Substring(_type.LastIndexOf("/")+1));
+                    _type = _type.Substring(_type.LastIndexOf("/") + 1);
+                    Stream fl = File.OpenRead("podpis.txt");
                   //  byte[] bytes = System.IO.File.ReadAllBytes("1Schema.jpg");
                     Upload("http://192.168.33.10/tess.php", "asdasda", fl, _type);
 
