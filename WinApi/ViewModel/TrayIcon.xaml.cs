@@ -34,7 +34,7 @@ namespace WinApi.ViewModel
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-
+            // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
             s = new Options();
             if (s.Data.Succes)
             {
@@ -48,7 +48,11 @@ namespace WinApi.ViewModel
          
 
         }
-
+        /// <summary>
+        /// Event pre kontrolu  connectivity pre pusher
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="state"></param>
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
@@ -77,7 +81,11 @@ namespace WinApi.ViewModel
            
 
         }
-
+        /// <summary>
+        /// Event pre chybova hlasky od pushera
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="error"></param>
         public void _pusher_Error(object sender, PusherException error)
         {
             if (error != null)
@@ -86,7 +94,11 @@ namespace WinApi.ViewModel
 
         }
 
-
+        /// <summary>
+        /// Menu event na zobrazenie okna s nastavenim 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             //pusher.send("my-event", "test", "asddddd");
@@ -104,6 +116,11 @@ namespace WinApi.ViewModel
            
         }
 
+        /// <summary>
+        /// Event pre dvojite kliknutnie na tray icon  spusti proces podpisovania
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
 

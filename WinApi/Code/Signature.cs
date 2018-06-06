@@ -30,7 +30,10 @@ namespace WinApi
 
 
         #region Sign
-
+        /// <summary>
+        /// Metoda na otvorenie suboru v procese a po ulozenej zmene jeho zatvorenie
+        /// </summary>
+        /// <returns></returns>
         public bool SignFile()
         {
             
@@ -98,7 +101,11 @@ namespace WinApi
         }
 
 
-
+        /// <summary>
+        /// Metoda na na najdenie okna a zatvorenie 
+        /// </summary>
+        /// <param name="close"></param>
+        /// <returns></returns>
         private bool FindWindowAndClose(bool close)
         {
             //FilePath = Path.GetFileName(FilePath);

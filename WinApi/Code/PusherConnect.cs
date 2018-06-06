@@ -38,14 +38,14 @@ namespace WinApi
             opt = options;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
-            _pusher = new Pusher(app_key, new PusherOptions()
+          /*  _pusher = new Pusher(app_key, new PusherOptions()
             {                
                 Authorizer = new HttpAuthorizer(endPoint),
                 Encrypted = encryption,
                 Cluster = cluester
             });
             _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-            InitPusher();
+            InitPusher();*/
             
         //    send("event","adsfa", "sdafs");
 
@@ -67,13 +67,23 @@ namespace WinApi
 
             _pusher.Connect();
         }   
-        
+        /// <summary>
+        /// Metoda na poslanie spravy pre pusher 
+        /// </summary>
+        /// <param name="eventType"> pre aky event </param>
+        /// <param name="msgType"> typ spravy</param>
+        /// <param name="msg"> samotna sprava</param>
         public void send(string eventType, string msgType, string msg)
         {
           
              _channel.Trigger(eventType, new { message = msg, name = msgType});
         }
 
+        /// <summary>
+        /// Metoda na overenie pripojenia 
+        /// </summary>
+        /// <param name="URL"> URL addresa</param>
+        /// <returns></returns>
         public bool CheckConnection(String URL)
         {
             try
@@ -99,7 +109,10 @@ namespace WinApi
 
         #region eventFunctions
 
-
+        /// <summary>
+        /// Metoda na zistanie od APIcka ci je dostupny dokument pre podpisanie  
+        /// 
+        /// </summary>
         public void GetInfo() {                
                     
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
@@ -133,13 +146,18 @@ namespace WinApi
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
             //    Console.WriteLine(decodedString);
-                EventSignature(data.Link, data.Hash + ".txt", decodedString);
+                EventSignature(data.Link, data.Hash + ".txt", decodedString); /// potreba zmenit .txt na format suboru aky sa bude otvarat 
             
             }
       
 
         }
-
+        /// <summary>
+        /// Metoda na poslanie podpisaneho suboru pre APIcko 
+        /// </summary>
+        /// <param name="hash">Hash suboru</param>
+        /// <param name="paramFileBytes"> Subor v bytoch  </param>
+        /// <param name="link"> Odkaz kam sa ma subor ulozit </param>
         public void UploadFile(string hash, byte[] paramFileBytes, string link) {
 
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
@@ -178,7 +196,12 @@ namespace WinApi
 
             }     
         }
-
+        /// <summary>
+        /// Metoda na spustenie eventu podpisovanie 
+        /// </summary>
+        /// <param name="link"> Odkaz kam sa ma subor ulozit /bozp/2000/1/1 </param>
+        /// <param name="hash"> Hash suboru</param>
+        /// <param name="file">Obsah suboru </param>
         private void EventSignature(string link, string hash, string file) {
 
             string k = data.Link.Replace('/', '\\');

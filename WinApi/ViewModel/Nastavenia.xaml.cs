@@ -22,7 +22,9 @@ namespace WinApi.ViewModel
     public partial class Nastavenia : Window
     {
         private Options opt = new Options();
-
+        /// <summary>
+        /// Pri  zapnuty okna nacita nastavenia zo suboru options.json
+        /// </summary>
         public Nastavenia()
         {
             opt.LoadOption();
@@ -30,7 +32,11 @@ namespace WinApi.ViewModel
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Event na tlacitko pre ulozenie nastaveni 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             //optionsPassowrdBox

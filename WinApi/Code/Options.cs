@@ -14,6 +14,8 @@ namespace WinApi.Models
         private const string password = "admin";
         private const string passwordFile = "bitout.txt";
         private string passwordHash { get; set; }
+
+
         public Options()
         {
             Data = new OptionsData();
@@ -23,10 +25,17 @@ namespace WinApi.Models
       
         }
 
+        /// <summary>
+        /// Metoda na ulozenie Nastaveni do suboru 
+        /// </summary>
         public void SaveOption()
         {
             File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
+
+        /// <summary>
+        /// Metoda na nacitanie nastaveni zo suboru do Data
+        /// </summary>
 
         public void LoadOption() {
             if (File.Exists(optionsFile))
@@ -42,11 +51,21 @@ namespace WinApi.Models
 
 
         #region loginToOptions
+        /// <summary>
+        /// Metoda na vygenerovanie hashu pre heslo
+        /// </summary>
+        /// <param name="inputString"></param>
+        /// <returns></returns>
         public static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = SHA256.Create();  
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputString"> Heslo </param>
+        /// <returns></returns>
 
         public static string GetHashString(string inputString)
         {
@@ -57,6 +76,9 @@ namespace WinApi.Models
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Metoda na vytvorenie suboru s hashom hesla
+        /// </summary>
         public void CreatePass() {
 
             // Create the file.
@@ -68,7 +90,11 @@ namespace WinApi.Models
             }
 
         }
-
+        /// <summary>
+        /// Metoda na porovnanie hesiel 
+        /// </summary>
+        /// <param name="enteredPassword"> Heslo ktore sa porovna s ulozenim </param>
+        /// <returns></returns>
         public bool ComperPassword(string enteredPassword) {
 
             string enteredPasswordHash = "";
