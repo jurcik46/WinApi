@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using WinApi.DataModels;
+using WinApi.Models;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -33,17 +33,29 @@ namespace WinApi.ViewModel
 
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
-         /*   opt.Data.ApiLink = apiTextBox.Text;
-            opt.Data.ChannelName = pusherChannelTextBox.Text;
-            opt.Data.ProgramPath = programPathTextBox.Text;
-            opt.Data.ProcessName = processNameTextBox.Text;
+            //optionsPassowrdBox
+
+            if (opt.ComperPassword(optionsPassowrdBox.Password.ToString()))
+            {
+                opt.Data.ApiLink = apiTextBox.Text;
+                opt.Data.UserID = userIdTextBox.Text;
+                opt.Data.ObjecID = objectIdTextBox.Text;
+                opt.Data.ModuleID = moduleIdTextBox.Text;
+                opt.Data.ProgramPath = programPathTextBox.Text;
+                opt.Data.ProcessName = processNameTextBox.Text;
+
+                opt.SaveOption();
+
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+
+            }
+            else {
+                MessageBox.Show("Nespravne heslo", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+
+            }
+
             
-            opt.SaveOption();
-
-            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-            Application.Current.Shutdown();
-
-            */
         }
     }
 }

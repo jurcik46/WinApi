@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using System.Runtime.InteropServices;
+using WinApi.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,22 +18,14 @@ namespace WinApi
         private string SignProgramPath { get; set; }
         private string FilePath { get; set; }
         private string ProcessName { get; set; }
-        private string pdfName;
+        
+
        
-        public Signature(string signProgramPath, string fileLink, string processName, string fileName)
+        public Signature( string fileName, string filePath, OptionsData options)
         {
-            SignProgramPath = signProgramPath;
-            FilePath = @fileLink;           
-            ProcessName = processName;
-            pdfName = fileName;
-
-            using (WebClient webClient = new WebClient())
-            {
-                webClient.DownloadFile(FilePath, pdfName);
-            }
-           
-            FilePath = pdfName;
-
+            SignProgramPath = options.ProgramPath;
+            FilePath = filePath+fileName;           
+            ProcessName = options.ProcessName;
         }
 
 
@@ -56,6 +49,7 @@ namespace WinApi
                 var counter = 0;
                 var foundWindow = false;
                 TimeSpan diff;
+                
                 do
                 {
                     Thread.Sleep(1000);

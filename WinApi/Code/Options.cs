@@ -3,9 +3,9 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using WinApi.DataModels.Data;
+using WinApi.Models;
 
-namespace WinApi.DataModels
+namespace WinApi.Models
 {
     class Options
     {
@@ -17,6 +17,7 @@ namespace WinApi.DataModels
         public Options()
         {
             Data = new OptionsData();
+            Data.Succes = false;
             LoadOption();
             CreatePass();
       
@@ -31,15 +32,9 @@ namespace WinApi.DataModels
             if (File.Exists(optionsFile))
             {            
                 this.Data = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText(optionsFile));
-               // this.Data.ProcessName = this.Data.ProcessName.Replace(@"\\\\", @"\\");
-             //   this.Data.ProgramPath = this.Data.ProgramPath.Replace(@"\\\\", @"\\");
-              //  Console.WriteLine(this.Data.ProgramPath);
-            //    string test = this.Data.ProgramPath.Replace(@"\", @"\"); 
+                this.Data.Succes = true;
             }
-            else
-            {
-                throw new Exception("Nastavte nastavenia");
-            }
+            
 
            // string json = JsonConvert.SerializeObject(movie1,Formatting.Indented);
            // Console.Write(json);
