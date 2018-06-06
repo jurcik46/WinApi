@@ -52,7 +52,7 @@ namespace WinApi.ViewModel
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
-            Console.WriteLine("Connection state: " + state.ToString());
+          //  Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
@@ -67,6 +67,11 @@ namespace WinApi.ViewModel
                     trayIconTaskbar.ShowBalloonTip("Status pripojenia", "Aplikacia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
+            }
+            if(state == ConnectionState.Connecting)
+            {
+                pusher = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", s); 
+
             }
 
            

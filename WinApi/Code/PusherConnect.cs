@@ -38,14 +38,14 @@ namespace WinApi
             opt = options;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
-         /*   _pusher = new Pusher(app_key, new PusherOptions()
+            _pusher = new Pusher(app_key, new PusherOptions()
             {                
                 Authorizer = new HttpAuthorizer(endPoint),
                 Encrypted = encryption,
                 Cluster = cluester
             });
             _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-            InitPusher();*/
+            InitPusher();
             
         //    send("event","adsfa", "sdafs");
 
