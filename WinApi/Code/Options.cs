@@ -45,7 +45,6 @@ namespace WinApi.Models
 
                 this.Data = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText(optionsFile));
                 this.Data.Succes = true;
-               // Log.Information("Nacitavania nastaveni : {0}", Data.ToString());
             }
             
 

@@ -144,17 +144,15 @@ namespace WinApi
 
             if (response.StatusCode == 0)
             {
-                Log.Warning("GetInfo Request zlyhal pre sietove spojenie", opt.Data.ModuleID);
+                Log.Warning("GetInfo Request zlyhal pre sietove spojenie {0}", opt.Data.ToString());
                 throw new MyException("Zlyhalo pripojenie k internetu");
             }
             data = deserial.Deserialize<FileData>(response);
-            Log.Warning("Respon Status : {0}  File : {1}  Hash : {2} Link : {3}", data.Status, data.File, data.Hash, data.Link);
-            Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel Send Modul id : {0} UserId:  {1} ObjectID : {2}", opt.Data.ModuleID, opt.Data.UserID, opt.Data.ObjecID);
-            
-            Log.Warning("Respon {0}  {1} {2} {3}", data.Status, data.File, data.Hash, data.Link);
+       
             if (data.Status != "ok") {
               
-                Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel {0}  {1} {2}", opt.Data.ModuleID , opt.Data.UserID , opt.Data.ObjecID);
+                Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel {0} ", opt.Data.ToString());
+                Log.Warning("Respon: {0}", data.ToString());
                 throw new MyException("Nenašiel sa žiadny subor pre podpisanie");               
             }
             else
@@ -204,13 +202,16 @@ namespace WinApi
             //Console.WriteLine(status.Status);
             if(status.Status != "ok")
             {
-                Log.Warning("Subor sa nepodarilo nahrat File hash : {0}  Link: {1}", hash, link);
+                Log.Warning("Subor sa nepodarilo nahrat REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
+                Log.Warning("Subor sa nepodarilo nahrat RESPON: {0} ", status.ToString());
+             
                 throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
             else
             {
-                Log.Information("Subor bol uspesne nahrany File hash : {0}  Link: {1}", hash, link);
+                Log.Information("Subor bol uspesne nahrany  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
+                Log.Information("Subor bol uspesne nahrany  RESPON : {0} ", status.ToString());             
                 throw new MyException("Súbor bol úspešne nahraný");
 
             }     
