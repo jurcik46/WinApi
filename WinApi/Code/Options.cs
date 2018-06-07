@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using Serilog;
 using WinApi.Models;
 
 namespace WinApi.Models
@@ -30,6 +31,7 @@ namespace WinApi.Models
         /// </summary>
         public void SaveOption()
         {
+            Log.Information("Ukladanie nastaveni : {0}", Data.ToString());
             File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
@@ -39,9 +41,11 @@ namespace WinApi.Models
 
         public void LoadOption() {
             if (File.Exists(optionsFile))
-            {            
+            {
+
                 this.Data = JsonConvert.DeserializeObject<OptionsData>(File.ReadAllText(optionsFile));
                 this.Data.Succes = true;
+               // Log.Information("Nacitavania nastaveni : {0}", Data.ToString());
             }
             
 

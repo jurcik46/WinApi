@@ -29,25 +29,29 @@ namespace WinApi
         public Boolean Proces { get => Proces; set { Proces = false; } }
         internal FileData Data { get => data; set => data = value; }
         private FileData data ;
+       // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
 
         #region pusher
-        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester, Options options )
+        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester, Options options)
         {
             // add api uri to RestClient
-                    
+
             opt = options;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
-          /*  _pusher = new Pusher(app_key, new PusherOptions()
-            {                
-                Authorizer = new HttpAuthorizer(endPoint),
-                Encrypted = encryption,
-                Cluster = cluester
-            });
-            _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-            InitPusher();*/
-            
-        //    send("event","adsfa", "sdafs");
+           
+           // Logger.Warning("asdasd");
+         //   Logger.With("FileName", myUri).Error(ex, FileServiceEvents.CleanUpDeleteError);
+            /*  _pusher = new Pusher(app_key, new PusherOptions()
+              {                
+                  Authorizer = new HttpAuthorizer(endPoint),
+                  Encrypted = encryption,
+                  Cluster = cluester
+              });
+              _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
+              InitPusher();*/
+
+            //    send("event","adsfa", "sdafs");
 
         }
 
@@ -60,9 +64,11 @@ namespace WinApi
             _channel.Bind("event-" + opt.Data.ModuleID, (dynamic data) =>
             {
                 // EventSignature((string)data.link,(string)data.hash,(int)data.active);
-                if (!opt.Data.InProcess) { 
-                GetInfo();
-                 }
+                if (!opt.Data.InProcess) {
+                    Log.Information("Bind na event : event-{0}", opt.Data.ModuleID );
+                    GetInfo();
+                    
+                }
             });
 
             _pusher.Connect();
@@ -75,8 +81,8 @@ namespace WinApi
         /// <param name="msg"> samotna sprava</param>
         public void send(string eventType, string msgType, string msg)
         {
-          
-             _channel.Trigger(eventType, new { message = msg, name = msgType});
+            Log.Information("Odoslanie spravu pre pusher: Event = {0}, MsgType = {1}, Msg = {2}", eventType, msgType, msg);
+            _channel.Trigger(eventType, new { message = msg, name = msgType});
         }
 
         /// <summary>
@@ -86,8 +92,10 @@ namespace WinApi
         /// <returns></returns>
         public bool CheckConnection(String URL)
         {
+            
             try
             {
+                Log.Information("Check Connection na URL : {0}",URL);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 request.Timeout = 5000;
                 request.Credentials = CredentialCache.DefaultNetworkCredentials;
@@ -100,7 +108,9 @@ namespace WinApi
             }
             catch
             {
+             //   Log.Warning("Check Connection na URL : {0}", URL);
                 return false;
+
             }
         }
 
@@ -125,28 +135,36 @@ namespace WinApi
             };
 
 
-            request.AddParameter("object_id", opt.Data.UserID);
-            request.AddParameter("user_id",opt.Data.ObjecID);
+            request.AddParameter("object_id", opt.Data.ObjecID);
+            request.AddParameter("user_id", opt.Data.UserID);
             request.AddParameter("module_id", opt.Data.ModuleID);
-                       
 
+          
             var response = client.Execute(request);
 
-            if(response.StatusCode == 0)                 
+            if (response.StatusCode == 0)
+            {
+                Log.Warning("GetInfo Request zlyhal pre sietove spojenie", opt.Data.ModuleID);
                 throw new MyException("Zlyhalo pripojenie k internetu");
-                
+            }
             data = deserial.Deserialize<FileData>(response);
-            if(data.Status != "ok") {              
+            Log.Warning("Respon Status : {0}  File : {1}  Hash : {2} Link : {3}", data.Status, data.File, data.Hash, data.Link);
+            Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel Send Modul id : {0} UserId:  {1} ObjectID : {2}", opt.Data.ModuleID, opt.Data.UserID, opt.Data.ObjecID);
+            
+            Log.Warning("Respon {0}  {1} {2} {3}", data.Status, data.File, data.Hash, data.Link);
+            if (data.Status != "ok") {
+              
+                Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel {0}  {1} {2}", opt.Data.ModuleID , opt.Data.UserID , opt.Data.ObjecID);
                 throw new MyException("Nenašiel sa žiadny subor pre podpisanie");               
             }
             else
             {
-
+                Log.Information("GetInfo Request bol uspesny s datami: {0}", data.ToString());
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
             //    Console.WriteLine(decodedString);
-                EventSignature(data.Link, data.Hash + ".txt", decodedString); /// potreba zmenit .txt na format suboru aky sa bude otvarat 
+                EventSignature(data.Link, data.Hash + ".pdf", decodedString); /// potreba zmenit .txt na format suboru aky sa bude otvarat 
             
             }
       
@@ -186,13 +204,14 @@ namespace WinApi
             //Console.WriteLine(status.Status);
             if(status.Status != "ok")
             {
-
-                throw new MyException("Pdf subor sa nepodarilo nahrat");
+                Log.Warning("Subor sa nepodarilo nahrat File hash : {0}  Link: {1}", hash, link);
+                throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
             else
             {
-                throw new MyException("Pdf subor bol uspesne nahrany");
+                Log.Information("Subor bol uspesne nahrany File hash : {0}  Link: {1}", hash, link);
+                throw new MyException("Súbor bol úspešne nahraný");
 
             }     
         }
@@ -208,22 +227,25 @@ namespace WinApi
             k = k.Substring(1, k.LastIndexOf("\\"));
             try
             {
-                if (!Directory.Exists(k))
+                if (!Directory.Exists(k)) { 
                     Directory.CreateDirectory(k);
-
+                    Log.Information("Vytvaram  zlozku : {0}", k);
+                }
             }
             catch (Exception ex)
             {
+                Log.Warning("Nepodarilo sa vytvorit zlozku : {0} : Exception {1}", k, ex.Message);
                 throw new MyException("Nepodarilo sa vytvorit zlozku pre dokument");
             }
             //  Console.WriteLine(k);
             try
             {
-
+                Log.Information("Vytvaram prijaty subor Hash: {0}", hash);
                 System.IO.File.WriteAllText(k+ hash, file);
              }
             catch (Exception ex)
             {
+                Log.Warning("Nepodarilo sa vytvorit dokument Hash: {0} : Exception {1}", hash,ex.Message );
                 throw new MyException("Nepodarilo sa uložiť dokument");
              }
 
@@ -245,13 +267,14 @@ namespace WinApi
                 }
                 catch (MyException ex)
                 {
+                    
                     throw new MyException(ex.Message);
                 }
                 finally
                 {
                     data = null;
                 }
-                }
+            }
 
            
             //  _channel.Trigger("event-podpis", new { hash = "asdadasd", active = "1" });

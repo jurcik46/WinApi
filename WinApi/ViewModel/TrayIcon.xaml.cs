@@ -30,9 +30,11 @@ namespace WinApi.ViewModel
            
          
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                //.MinimumLevel.Debug()
+               // .MinimumLevel.ControlledBy
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+        //    Log.Logger.ForContext
 
             // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
             s = new Options();

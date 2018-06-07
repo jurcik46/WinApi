@@ -94,6 +94,7 @@ namespace WinApi
                 }
                 fileInfo.Refresh();
                 diff = fileInfo.LastWriteTime - lastWrite;
+                Log.Information("FileInfo {0} TimeDifference {1} ", fileInfo, diff.TotalSeconds);
                 //Logger.With("FileInfo", fileInfo).With("TimeDifference", diff.TotalSeconds).Debug(SignServiceEvents.SignFileAfterWait);
                 result = diff.TotalSeconds > 1;
             }

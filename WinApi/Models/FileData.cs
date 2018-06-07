@@ -14,6 +14,10 @@ namespace WinApi.Models
         public string File { get; set; }
         public string Status { get; set; }
 
+        public override string ToString()
+        {
+            return base.ToString() + ": Link - " + Link + ", Hash - " + Hash +", Satus - " + Status  ;
+        }
 
     }
 }

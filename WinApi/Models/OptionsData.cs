@@ -17,8 +17,12 @@ namespace WinApi.Models
         public string ProcessName { get; set; }
         public bool Succes { get; set; }
         public bool InProcess { get; set; }
-       
 
 
+        public override string ToString()
+        {
+            return base.ToString() + ": ApiLink - " + ApiLink + ", Apikey - " + Apikey + ", UserID - " + UserID + ", ModuleID - " + ModuleID + ", ProgramPath - "
+                + ProgramPath + ", ProcessName - " + ProcessName + ", Succes - " + Succes + ", InProcess - " + InProcess;
+        }
     }
 }

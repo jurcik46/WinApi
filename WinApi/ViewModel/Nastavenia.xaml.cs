@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog;
 using System.Windows;
 using WinApi.Models;
 using System.Windows.Controls;
@@ -40,7 +41,7 @@ namespace WinApi.ViewModel
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             //optionsPassowrdBox
-
+       
             if (opt.ComperPassword(optionsPassowrdBox.Password.ToString()))
             {
                 opt.Data.ApiLink = apiTextBox.Text;
@@ -57,6 +58,7 @@ namespace WinApi.ViewModel
 
             }
             else {
+                Log.Warning("Bolo zadane nespravne heslo pri ukladany nastaveni  Heslo: {0} ", optionsPassowrdBox.Password.ToString());
                 MessageBox.Show("Nespravne heslo", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
             }
