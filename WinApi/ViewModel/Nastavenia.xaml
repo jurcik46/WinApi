@@ -1,0 +1,53 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="WinApi.ViewModel.Nastavenia"
+        mc:Ignorable="d"
+        Title="Nastavenia" Height="420" Width="600" WindowStartupLocation="CenterScreen">
+	<Border Padding="10">
+		<StackPanel>
+			<Grid>
+				<!-- Definovanie stlpcov -->
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="6*"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Popis pre textboxy -->
+				<StackPanel VerticalAlignment="Center" Grid.Column="0">
+					<TextBlock Margin="5 20 0 0" Text="API"/>
+					<TextBlock Margin="5 20 0 0" Text="API key"/>
+					<TextBlock Margin="5 20 0 0" Text="User ID"/>
+					<TextBlock Margin="5 20 0 0" Text="Object ID"/>
+					<TextBlock Margin="5 20 0 0" Text="Module ID"/>
+					<TextBlock Margin="5 20 0 0" Text="Path to Program"/>
+					<TextBlock Margin="5 20 0 0" Text="Process Name"/>
+					
+				</StackPanel>
+
+				<!-- Texboxy s nastaveniamy -->
+				<StackPanel Grid.Column="1">
+					<TextBox Name="apiTextBox"  Margin="5 20 0 0" Text="{Binding Data.ApiLink}" />
+					<TextBox Name="apiKeyTextBox"   Margin="5 20 0 0" Text="{Binding Data.Apikey}"/>
+					<TextBox Name="userIdTextBox"   Margin="5 20 0 0" Text="{Binding Data.UserID}"/>
+					<TextBox Name="objectIdTextBox" Margin="5 20 0 0" Text="{Binding Data.ObjecID}"/>
+					<TextBox Name="moduleIdTextBox"  Margin="5 20 0 0" Text="{Binding Data.ModuleID}"/>
+					<TextBox Name="programPathTextBox"  Margin="5 20 0 0" Text="{Binding Data.ProgramPath}"/>
+					<TextBox Name="processNameTextBox"  Margin="5 20 0 0" Text="{Binding Data.ProcessName}"/>
+
+				</StackPanel>
+			</Grid>
+			
+			<!-- Vstup do nastaveniach pre upravu  -->
+			
+			<StackPanel  Margin="0 10 0 10 ">
+				<TextBlock HorizontalAlignment="Center" Text="Heslo"/>
+				<PasswordBox Name="optionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
+				<Button Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Click="CheckPasswordButton_Click" Content="Uložiť"/>
+			</StackPanel>
+
+		</StackPanel>
+	</Border>
+</Window>
