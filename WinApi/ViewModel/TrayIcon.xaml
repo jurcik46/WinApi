@@ -23,7 +23,7 @@
 	<tb:TaskbarIcon   x:Key="TrayIconTaskbar"
 					Name="trayIconTaskbar"			
 					IconSource="/Icons/online.ico"
-                    ToolTipText="Double-click for window, right-click for menu"
+                    ToolTipText="Dvojklik pre podpísanie a klenutie pravým tlačidlom pre menu"
 					ContextMenu="{StaticResource SysTrayMenu}"
 					TrayMouseDoubleClick="trayIconTaskbar_TrayMouseDoubleClick">
 
@@ -35,7 +35,7 @@
 				CornerRadius="4"
 				Opacity="0.8"
 				Width="160"
-				Height="40">
+				Height="30">
 				<TextBlock
 				Text="{Binding Path=ToolTipText}"
 				HorizontalAlignment="Center"

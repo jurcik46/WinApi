@@ -29,7 +29,7 @@ namespace WinApi
         public Boolean Proces { get => Proces; set { Proces = false; } }
         internal FileData Data { get => data; set => data = value; }
         private FileData data ;
-       // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
+        // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
 
         #region pusher
         public PusherConnect(string app_key, string endPoint, bool encryption, string cluester, Options options)
@@ -39,19 +39,18 @@ namespace WinApi
             opt = options;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
-           
-           // Logger.Warning("asdasd");
-         //   Logger.With("FileName", myUri).Error(ex, FileServiceEvents.CleanUpDeleteError);
-             _pusher = new Pusher(app_key, new PusherOptions()
-              {                
-                  Authorizer = new HttpAuthorizer(endPoint),
-                  Encrypted = encryption,
-                  Cluster = cluester
-              });
-              _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-              InitPusher();
 
-            //    send("event","adsfa", "sdafs");
+            if (opt.Data.PusherON)
+            {
+                _pusher = new Pusher(app_key, new PusherOptions()
+                {
+                    Authorizer = new HttpAuthorizer(endPoint),
+                    Encrypted = encryption,
+                    Cluster = cluester
+                });
+                _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
+                InitPusher();
+            }
 
         }
 
@@ -60,19 +59,7 @@ namespace WinApi
         private void InitPusher()
         {
             _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
-            // Inline binding!
-          /*  _channel.Bind("event-" + opt.Data.ModuleID, (dynamic data) =>
-            {
-              
-                // EventSignature((string)data.link,(string)data.hash,(int)data.active);
-                if (!opt.Data.InProcess) {
-                    Log.Information("Bind na event : event-{0}", opt.Data.ModuleID );
-                    GetInfo();
-                    
-                }
-            });*/
-
-            _pusher.Connect();
+                     _pusher.Connect();
         }   
         /// <summary>
         /// Metoda na poslanie spravy pre pusher 

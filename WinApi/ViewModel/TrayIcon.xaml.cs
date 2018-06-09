@@ -59,11 +59,11 @@ namespace WinApi.ViewModel
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
-            Console.WriteLine("Connection state: " + state.ToString());
+           // Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-                trayIconTaskbar.ShowBalloonTip("Status pripojenia", "Aplikacia je pripojenia k internetu", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikacia je pripojenia k internetu", BalloonIcon.Info);
                 on = true;
             }
             if (state == ConnectionState.Disconnected) {
@@ -71,13 +71,14 @@ namespace WinApi.ViewModel
                 if (on)
                 {
                     trayIconTaskbar.Icon = new System.Drawing.Icon(offlineIcon);
-                    trayIconTaskbar.ShowBalloonTip("Status pripojenia", "Aplikacia stratila pripojenie k internetu", BalloonIcon.Warning);
+                    trayIconTaskbar.ShowBalloonTip("WinApi Status pripojenia", "Aplikacia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
             }
             if(state == ConnectionState.Connecting)
             {
                 pusher._pusher.Connect();
+                
                
 
             }
