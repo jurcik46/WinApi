@@ -1,20 +1,14 @@
 ﻿using System;
 using PusherClient;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net;
 using Serilog;
 using System.IO;
 using RestSharp;
 using WinApi.Code;
-using Newtonsoft.Json;
 using WinApi.Models;
-using System.Net.Http;
-using System.Threading.Tasks;
 using RestSharp.Deserializers;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.ComponentModel;
+
 
 namespace WinApi
 {
@@ -67,10 +61,10 @@ namespace WinApi
         /// <param name="eventType"> pre aky event </param>
         /// <param name="msgType"> typ spravy</param>
         /// <param name="msg"> samotna sprava</param>
-        public void send(string eventType, string msgType, string msg)
+        public void send(string msg)
         {
-            Log.Information("Odoslanie správy pre pusher: Event = {0}, MsgType = {1}, Msg = {2}", eventType, msgType, msg);
-            _channel.Trigger(eventType, new { message = msg, name = msgType});
+            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.ModuleID, msg);
+            _channel.Trigger("client-event-"+ opt.Data.ModuleID, new { status = msg });
         }
 
         /// <summary>
@@ -141,6 +135,8 @@ namespace WinApi
               
                 Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
                 Log.Warning("Respon: {0}", data.ToString());
+                if(opt.Data.PusherON)
+                send("notFound");
                 throw new MyException("Nenašiel sa žiadny súbor na podpisanie");               
             }
             else
@@ -150,7 +146,7 @@ namespace WinApi
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
             //    Console.WriteLine(decodedString);
-                EventSignature(data.Link, data.Hash + ".pdf", decodedString); 
+                EventSignature(data.Link, data.Hash, decodedString); 
             
             }
       
@@ -192,14 +188,17 @@ namespace WinApi
             {
                 Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
                 Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
-             
+                if (opt.Data.PusherON)
+                    send("fail");
                 throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
             else
             {
                 Log.Information("Súbor bol úspešne nahraný  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
-                Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());             
+                Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());
+                if (opt.Data.PusherON)
+                    send("ok");
                 throw new MyException("Súbor bol úspešne nahraný");
 
             }     
@@ -212,25 +211,26 @@ namespace WinApi
         /// <param name="file">Obsah suboru </param>
         private void EventSignature(string link, string hash, string file) {
 
-            string k = data.Link.Replace('/', '\\');
-            k = k.Substring(1, k.LastIndexOf("\\"));
+            hash += data.Link.Substring(data.Link.LastIndexOf("."));        
+            string directhoryPath = data.Link.Replace('/', '\\');
+            directhoryPath = directhoryPath.Substring(1, directhoryPath.LastIndexOf("\\"));
             try
             {
-                if (!Directory.Exists(k)) { 
-                    Directory.CreateDirectory(k);
-                    Log.Information("Vytváram  zložku : {0}", k);
+                if (!Directory.Exists(directhoryPath)) { 
+                    Directory.CreateDirectory(directhoryPath);
+                    Log.Information("Vytváram  zložku : {0}", directhoryPath);
                 }
             }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", k, ex.Message);
+                Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", directhoryPath, ex.Message);
                 throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
             }
-            //  Console.WriteLine(k);
+            //  Console.WriteLine(directhoryPath);
             try
             {
                 Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
-                System.IO.File.WriteAllText(k+ hash, file);
+                System.IO.File.WriteAllText(directhoryPath+ hash, file);
              }
             catch (Exception ex)
             {
@@ -238,18 +238,18 @@ namespace WinApi
                 throw new MyException("Nepodarilo sa uložiť dokument");
              }
 
-            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash,k);
+            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash,directhoryPath);
      
 
 
-            Signature test = new Signature( hash, k, opt.Data);
+            Signature test = new Signature( hash, directhoryPath, opt.Data);
 
             if (test.SignFile())
             {
 
                           
-                Stream pdffile = File.OpenRead(k+hash);
-                Byte[] bytes = File.ReadAllBytes(k+hash);
+                Stream pdffile = File.OpenRead(directhoryPath+hash);
+                Byte[] bytes = File.ReadAllBytes(directhoryPath+hash);
                 try
                 {
                     UploadFile(hash, bytes, link);
