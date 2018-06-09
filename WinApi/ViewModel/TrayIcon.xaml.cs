@@ -29,12 +29,10 @@ namespace WinApi.ViewModel
         {
            
          
-            Log.Logger = new LoggerConfiguration()
-                //.MinimumLevel.Debug()
-               // .MinimumLevel.ControlledBy
+            Log.Logger = new LoggerConfiguration()         
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-        //    Log.Logger.ForContext
+      
 
             // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
             option = new Options();
@@ -129,8 +127,7 @@ namespace WinApi.ViewModel
         private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
 
-            if (option.Data.Succes) {
-              //  if (pusher.CheckConnection(@"https://www.google.com/")) {
+            if (option.Data.Succes) {             
                     if (!option.Data.InProcess)
                     {
                         try
@@ -149,12 +146,7 @@ namespace WinApi.ViewModel
                     else {
                         trayIconTaskbar.ShowBalloonTip("Info", "Pravé sa vykonáva podpisovanie", BalloonIcon.Info);
                     }
-                /*}else
-                {
-
-                    trayIconTaskbar.ShowBalloonTip("Info", "Pripojenie k internetu je nefuknce", BalloonIcon.Warning);
-
-                }*/
+            
             }
             else
             {
@@ -171,7 +163,7 @@ namespace WinApi.ViewModel
 
             pusher._channel.Bind("event-" + option.Data.ModuleID, (dynamic data) =>
             {
-               // Console.WriteLine(data.name);
+               
                 try
                 {
                     if (!option.Data.InProcess)

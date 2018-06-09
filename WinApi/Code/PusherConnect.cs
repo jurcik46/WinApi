@@ -23,7 +23,7 @@ namespace WinApi
         public Boolean Proces { get => Proces; set { Proces = false; } }
         internal FileData Data { get => data; set => data = value; }
         private FileData data ;
-        // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
+        
 
         #region pusher
         public PusherConnect( bool encryption, string cluester, Options options)
@@ -90,7 +90,7 @@ namespace WinApi
             }
             catch
             {
-             //   Log.Warning("Check Connection na URL : {0}", URL);
+             
                 return false;
 
             }
@@ -183,7 +183,7 @@ namespace WinApi
             var response = client.Execute(request);
             status = deserial.Deserialize<FileData>(response);
             opt.Data.InProcess = false;
-            //Console.WriteLine(status.Status);
+         
             if(status.Status != "ok")
             {
                 Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
@@ -226,7 +226,7 @@ namespace WinApi
                 Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", directhoryPath, ex.Message);
                 throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
             }
-            //  Console.WriteLine(directhoryPath);
+            
             try
             {
                 Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
@@ -266,7 +266,7 @@ namespace WinApi
             }
 
            
-            //  _channel.Trigger("event-podpis", new { hash = "asdadasd", active = "1" });
+            
 
         }
         #endregion
