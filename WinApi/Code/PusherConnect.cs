@@ -22,7 +22,7 @@ namespace WinApi
     {
         
         public  Pusher _pusher = null;
-        static Channel _channel = null;
+        public Channel _channel = null;
         private Options opt;
         private RestClient client = new RestClient();
         private Uri myUri;
@@ -42,14 +42,14 @@ namespace WinApi
            
            // Logger.Warning("asdasd");
          //   Logger.With("FileName", myUri).Error(ex, FileServiceEvents.CleanUpDeleteError);
-            /*  _pusher = new Pusher(app_key, new PusherOptions()
+             _pusher = new Pusher(app_key, new PusherOptions()
               {                
                   Authorizer = new HttpAuthorizer(endPoint),
                   Encrypted = encryption,
                   Cluster = cluester
               });
               _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-              InitPusher();*/
+              InitPusher();
 
             //    send("event","adsfa", "sdafs");
 
@@ -58,18 +58,19 @@ namespace WinApi
  
 
         private void InitPusher()
-        {      
-
+        {
+            _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
             // Inline binding!
-            _channel.Bind("event-" + opt.Data.ModuleID, (dynamic data) =>
+          /*  _channel.Bind("event-" + opt.Data.ModuleID, (dynamic data) =>
             {
+              
                 // EventSignature((string)data.link,(string)data.hash,(int)data.active);
                 if (!opt.Data.InProcess) {
                     Log.Information("Bind na event : event-{0}", opt.Data.ModuleID );
                     GetInfo();
                     
                 }
-            });
+            });*/
 
             _pusher.Connect();
         }   
@@ -157,7 +158,7 @@ namespace WinApi
             }
             else
             {
-                Log.Information("GetInfo Request bol uspesny s datami: {0}", data.ToString());
+                Log.Information("GetInfo Request bol uspesny - Data: {0}", data.ToString());
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);

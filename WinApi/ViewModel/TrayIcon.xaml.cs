@@ -20,7 +20,7 @@ namespace WinApi.ViewModel
     {
         private Nastavenia nastaveniaWindows = null;
         private PusherConnect pusher = null;
-        private Options s = null;
+        private Options option = null;
         public string workingIcon = @"Icons/working.ico";
         public string onlineIcon = @"Icons/online.ico";
         public string offlineIcon = @"Icons/offline.ico";
@@ -37,14 +37,15 @@ namespace WinApi.ViewModel
         //    Log.Logger.ForContext
 
             // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
-            s = new Options();
-            if (s.Data.Succes)
+            option = new Options();
+            if (option.Data.Succes)
             {
-                pusher = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", s);
+                pusher = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", option);
                 if (pusher._pusher != null)
                 {
                     pusher._pusher.ConnectionStateChanged += _pusher_ConnectionStateChanged;
                     pusher._pusher.Error += _pusher_Error;
+                    pusher_binding();
                 }
             }
          
@@ -58,7 +59,7 @@ namespace WinApi.ViewModel
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
-          //  Console.WriteLine("Connection state: " + state.ToString());
+            Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
@@ -76,7 +77,8 @@ namespace WinApi.ViewModel
             }
             if(state == ConnectionState.Connecting)
             {
-                pusher = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", s); 
+                pusher._pusher.Connect();
+               
 
             }
 
@@ -97,7 +99,7 @@ namespace WinApi.ViewModel
         }
 
         /// <summary>
-        /// Menu event na zobrazenie okna s nastavenim 
+        /// Menu event na zobrazenie okna option nastavenim 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -126,9 +128,9 @@ namespace WinApi.ViewModel
         private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
 
-            if (s.Data.Succes) {
+            if (option.Data.Succes) {
               //  if (pusher.CheckConnection(@"https://www.google.com/")) {
-                    if (!s.Data.InProcess)
+                    if (!option.Data.InProcess)
                     {
                         try
                         {
@@ -140,7 +142,7 @@ namespace WinApi.ViewModel
                         trayIconTaskbar.ShowBalloonTip("WinApi", ex.Message, BalloonIcon.Info);
                          }                       
                         finally {
-                            s.Data.InProcess = false;
+                            option.Data.InProcess = false;
                         }
                     }
                     else {
@@ -162,6 +164,32 @@ namespace WinApi.ViewModel
 
             trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
 
+        }
+
+        private void pusher_binding() {
+
+            pusher._channel.Bind("event-" + option.Data.ModuleID, (dynamic data) =>
+            {
+               // Console.WriteLine(data.name);
+                try
+                {
+                    if (!option.Data.InProcess)
+                    {
+                        Log.Information("Bind na event : event-{0}", option.Data.ModuleID);
+                        pusher.GetInfo();
+
+                    }
+                }
+                catch (MyException ex)
+                {
+                    trayIconTaskbar.ShowBalloonTip("WinApi", ex.Message, BalloonIcon.Info);
+                }
+                finally
+                {
+                    option.Data.InProcess = false;
+                }
+              
+            });
         }
     }
 

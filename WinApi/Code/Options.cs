@@ -80,7 +80,7 @@ namespace WinApi.Models
         }
 
         /// <summary>
-        /// Metoda na vytvorenie suboru s hashom hesla
+        /// Metoda na vytvorenie suboru option hashom hesla
         /// </summary>
         public void CreatePass() {
 
@@ -96,7 +96,7 @@ namespace WinApi.Models
         /// <summary>
         /// Metoda na porovnanie hesiel 
         /// </summary>
-        /// <param name="enteredPassword"> Heslo ktore sa porovna s ulozenim </param>
+        /// <param name="enteredPassword"> Heslo ktore sa porovna option ulozenim </param>
         /// <returns></returns>
         public bool ComperPassword(string enteredPassword) {
 

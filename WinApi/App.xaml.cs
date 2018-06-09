@@ -22,7 +22,7 @@ namespace WinApi
         {
             base.OnStartup(e);
 
-            //create the notifyicon (it's a resource declared in TrayIcon.xaml
+            //create the notifyicon (it'option a resource declared in TrayIcon.xaml
             notifyIcon = (TaskbarIcon)FindResource("TrayIconTaskbar");
 
             
