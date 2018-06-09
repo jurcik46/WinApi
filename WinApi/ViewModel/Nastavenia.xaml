@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="WinApi.ViewModel.Nastavenia"
         mc:Ignorable="d"
-        Title="Nastavenia" Height="500" Width="600" WindowStartupLocation="CenterScreen">
+        Title="Nastavenia" Height="550" Width="600" WindowStartupLocation="CenterScreen">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>
@@ -14,6 +14,8 @@
 					<ColumnDefinition Width="140"/>
 					<ColumnDefinition Width="6*"/>				
 				</Grid.ColumnDefinitions>
+
+				<!-- Definovanie riadkov -->
 				<Grid.RowDefinitions >
 					<RowDefinition Height="*"/>
 					<RowDefinition Height="25"/>

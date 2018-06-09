@@ -63,7 +63,7 @@ namespace WinApi.ViewModel
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikacia je pripojenia k internetu", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikácia  je pripojenia k internetu", BalloonIcon.Info);
                 on = true;
             }
             if (state == ConnectionState.Disconnected) {
@@ -71,7 +71,7 @@ namespace WinApi.ViewModel
                 if (on)
                 {
                     trayIconTaskbar.Icon = new System.Drawing.Icon(offlineIcon);
-                    trayIconTaskbar.ShowBalloonTip("WinApi Status pripojenia", "Aplikacia stratila pripojenie k internetu", BalloonIcon.Warning);
+                    trayIconTaskbar.ShowBalloonTip("WinApi Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
             }
@@ -147,7 +147,7 @@ namespace WinApi.ViewModel
                         }
                     }
                     else {
-                        trayIconTaskbar.ShowBalloonTip("Info", "Prave sa vykonva podpisovanie", BalloonIcon.Info);
+                        trayIconTaskbar.ShowBalloonTip("Info", "Pravé sa vykonáva podpisovanie", BalloonIcon.Info);
                     }
                 /*}else
                 {
@@ -158,7 +158,7 @@ namespace WinApi.ViewModel
             }
             else
             {
-                trayIconTaskbar.ShowBalloonTip("Nastavenia", "Vyplnte nastavenia", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip("Nastavenia", "Vyplňte nastavenia", BalloonIcon.Info);
 
             }
 

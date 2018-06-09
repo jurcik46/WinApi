@@ -69,7 +69,7 @@ namespace WinApi
         /// <param name="msg"> samotna sprava</param>
         public void send(string eventType, string msgType, string msg)
         {
-            Log.Information("Odoslanie spravu pre pusher: Event = {0}, MsgType = {1}, Msg = {2}", eventType, msgType, msg);
+            Log.Information("Odoslanie správy pre pusher: Event = {0}, MsgType = {1}, Msg = {2}", eventType, msgType, msg);
             _channel.Trigger(eventType, new { message = msg, name = msgType});
         }
 
@@ -139,18 +139,18 @@ namespace WinApi
        
             if (data.Status != "ok") {
               
-                Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel {0} ", opt.Data.ToString());
+                Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
                 Log.Warning("Respon: {0}", data.ToString());
-                throw new MyException("Nenašiel sa žiadny subor pre podpisanie");               
+                throw new MyException("Nenašiel sa žiadny súbor na podpisanie");               
             }
             else
             {
-                Log.Information("GetInfo Request bol uspesny - Data: {0}", data.ToString());
+                Log.Information("GetInfo Request bol úspešný - Data: {0}", data.ToString());
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
             //    Console.WriteLine(decodedString);
-                EventSignature(data.Link, data.Hash + ".pdf", decodedString); /// potreba zmenit .txt na format suboru aky sa bude otvarat 
+                EventSignature(data.Link, data.Hash + ".pdf", decodedString); 
             
             }
       
@@ -190,16 +190,16 @@ namespace WinApi
             //Console.WriteLine(status.Status);
             if(status.Status != "ok")
             {
-                Log.Warning("Subor sa nepodarilo nahrat REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
-                Log.Warning("Subor sa nepodarilo nahrat RESPON: {0} ", status.ToString());
+                Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
+                Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
              
                 throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
             else
             {
-                Log.Information("Subor bol uspesne nahrany  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
-                Log.Information("Subor bol uspesne nahrany  RESPON : {0} ", status.ToString());             
+                Log.Information("Súbor bol úspešne nahraný  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
+                Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());             
                 throw new MyException("Súbor bol úspešne nahraný");
 
             }     
@@ -218,23 +218,23 @@ namespace WinApi
             {
                 if (!Directory.Exists(k)) { 
                     Directory.CreateDirectory(k);
-                    Log.Information("Vytvaram  zlozku : {0}", k);
+                    Log.Information("Vytváram  zložku : {0}", k);
                 }
             }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvorit zlozku : {0} : Exception {1}", k, ex.Message);
-                throw new MyException("Nepodarilo sa vytvorit zlozku pre dokument");
+                Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", k, ex.Message);
+                throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
             }
             //  Console.WriteLine(k);
             try
             {
-                Log.Information("Vytvaram prijaty subor Hash: {0}", hash);
+                Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
                 System.IO.File.WriteAllText(k+ hash, file);
              }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvorit dokument Hash: {0} : Exception {1}", hash,ex.Message );
+                Log.Warning("Nepodarilo sa vytvoriť dokument Hash: {0} : Exception {1}", hash,ex.Message );
                 throw new MyException("Nepodarilo sa uložiť dokument");
              }
 

@@ -66,8 +66,8 @@ namespace WinApi.ViewModel
 
             }
             else {
-                Log.Warning("Bolo zadane nespravne heslo pri ukladaní nastaveni  Heslo: {0} ", optionsPassowrdBox.Password.ToString());
-                MessageBox.Show("Nespravne heslo", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Log.Warning("Bolo zadane nesprávne heslo pri ukladaní nastavení");
+                MessageBox.Show("Nesprávne heslo!!!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
             }
 
