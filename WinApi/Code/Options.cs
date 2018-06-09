@@ -21,7 +21,7 @@ namespace WinApi.Models
             Data = new OptionsData();
             Data.Succes = false;
             LoadOption();
-        //    CreatePass("admin");
+          //  CreatePass("admin");
       
         }
 
@@ -47,8 +47,7 @@ namespace WinApi.Models
             }
             
 
-           // string json = JsonConvert.SerializeObject(movie1,Formatting.Indented);
-           // Console.Write(json);
+       
         }
 
 

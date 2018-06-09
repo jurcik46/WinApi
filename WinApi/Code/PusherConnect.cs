@@ -145,7 +145,7 @@ namespace WinApi
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
-            //    Console.WriteLine(decodedString);
+            
                 EventSignature(data.Link, data.Hash, decodedString); 
             
             }
