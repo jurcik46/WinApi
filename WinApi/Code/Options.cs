@@ -12,7 +12,6 @@ namespace WinApi.Models
     {
         public OptionsData Data { get; set; }
         private const string optionsFile = "options.json";
-        private const string password = "admin";
         private const string passwordFile = "bitout.txt";
         private string passwordHash { get; set; }
 
@@ -22,7 +21,7 @@ namespace WinApi.Models
             Data = new OptionsData();
             Data.Succes = false;
             LoadOption();
-            CreatePass();
+        //    CreatePass("admin");
       
         }
 
@@ -82,12 +81,12 @@ namespace WinApi.Models
         /// <summary>
         /// Metoda na vytvorenie suboru option hashom hesla
         /// </summary>
-        public void CreatePass() {
+        public void CreatePass(string heslo) {
 
             // Create the file.
             using (FileStream fs = File.Create(passwordFile))
             {
-                Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(password));
+                Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(heslo));
                 // Add some information to the file.
                 fs.Write(info, 0, info.Length);
             }

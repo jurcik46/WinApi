@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="WinApi.ViewModel.Nastavenia"
         mc:Ignorable="d"
-        Title="Nastavenia" Height="550" Width="600" WindowStartupLocation="CenterScreen">
+        Title="Nastavenia" Height="600" Width="600" WindowStartupLocation="CenterScreen">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>
@@ -55,8 +55,9 @@
 			
 			<!-- Vstup do nastaveniach pre upravu  -->			
 			<StackPanel  Margin="0 10 0 10 ">
-				
-				<TextBlock HorizontalAlignment="Center" Text="Heslo"/>
+				<TextBlock HorizontalAlignment="Center" Text="Zmena hesla"/>
+				<PasswordBox Name="newoptionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
+				<TextBlock HorizontalAlignment="Center" Text="Heslo pre Uloženie"/>
 				<PasswordBox Name="optionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
 				<Button  IsDefault="True"  Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Click="CheckPasswordButton_Click" Content="Uložiť"/>
 			

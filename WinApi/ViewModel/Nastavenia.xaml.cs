@@ -59,6 +59,11 @@ namespace WinApi.ViewModel
                 else {
                     opt.Data.PusherON = false;
                 }
+                if (newoptionsPassowrdBox.Password.Length > 0)
+                {
+                    opt.CreatePass(newoptionsPassowrdBox.Password.ToString());
+                }
+              
                 opt.SaveOption();
 
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
