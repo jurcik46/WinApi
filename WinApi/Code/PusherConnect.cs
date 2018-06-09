@@ -63,8 +63,9 @@ namespace WinApi
         /// <param name="msg"> samotna sprava</param>
         public void send(string msg)
         {
+            
             Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.ModuleID, msg);
-            _channel.Trigger("client-event-"+ opt.Data.ModuleID, new { status = msg });
+            _channel.Trigger(String.Format("client-event-{0}-{1}", opt.Data.UserID, opt.Data.ModuleID), new { status = msg });
         }
 
         /// <summary>
