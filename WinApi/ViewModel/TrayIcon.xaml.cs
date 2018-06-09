@@ -168,7 +168,7 @@ namespace WinApi.ViewModel
                 {
                     if (!option.Data.InProcess)
                     {
-                        Log.Information("Bind na event : event-{0}", option.Data.ModuleID);
+                        Log.Information("Bind na event : event-{0}-{1}", option.Data.UserID, option.Data.ModuleID);
                         pusher.GetInfo();
 
                     }

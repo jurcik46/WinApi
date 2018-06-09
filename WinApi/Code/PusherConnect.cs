@@ -64,7 +64,7 @@ namespace WinApi
         public void send(string msg)
         {
             
-            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.ModuleID, msg);
+            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}-{1}, Msg = {2}", opt.Data.UserID, opt.Data.ModuleID, msg);
             _channel.Trigger(String.Format("client-event-{0}-{1}", opt.Data.UserID, opt.Data.ModuleID), new { status = msg });
         }
 
