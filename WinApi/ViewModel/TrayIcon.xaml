@@ -23,23 +23,23 @@
 	<tb:TaskbarIcon   x:Key="TrayIconTaskbar"
 					Name="trayIconTaskbar"			
 					IconSource="/Icons/online.ico"
-                    ToolTipText="Dvojklik pre podpísanie a klenutie pravým tlačidlom pre menu"
+                    ToolTipText="Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu"
 					ContextMenu="{StaticResource SysTrayMenu}"
 					TrayMouseDoubleClick="trayIconTaskbar_TrayMouseDoubleClick">
 
 		<tb:TaskbarIcon.TrayToolTip>
 			<Border    
 				Background="White"
-				BorderBrush="Orange"
+				BorderBrush="OrangeRed"
 				BorderThickness="2"
 				CornerRadius="4"
-				Opacity="0.8"
-				Width="160"
-				Height="30">
+				Opacity="0.9"
+				Padding="10"
+				Height="40">
 				<TextBlock
 				Text="{Binding Path=ToolTipText}"
 				HorizontalAlignment="Center"
-				 VerticalAlignment="Center" />
+				VerticalAlignment="Center" />
 			</Border>
 		</tb:TaskbarIcon.TrayToolTip>
 	</tb:TaskbarIcon>

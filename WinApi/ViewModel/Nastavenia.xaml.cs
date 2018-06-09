@@ -51,6 +51,7 @@ namespace WinApi.ViewModel
                 opt.Data.ProgramPath = programPathTextBox.Text;
                 opt.Data.ProcessName = processNameTextBox.Text;
                 opt.Data.PusherKey = pusherKeyTextBox.Text;
+                opt.Data.PusherAuthorizer = pusherHttpAuthorizerTextBox.Text;
                 if (pusherOnCheckBox.IsChecked == true)
                 {
                     opt.Data.PusherON = true;

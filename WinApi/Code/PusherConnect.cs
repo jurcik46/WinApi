@@ -32,7 +32,7 @@ namespace WinApi
         // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
 
         #region pusher
-        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester, Options options)
+        public PusherConnect( bool encryption, string cluester, Options options)
         {
             // add api uri to RestClient
 
@@ -42,9 +42,9 @@ namespace WinApi
 
             if (opt.Data.PusherON)
             {
-                _pusher = new Pusher(app_key, new PusherOptions()
+                _pusher = new Pusher(opt.Data.PusherKey, new PusherOptions()
                 {
-                    Authorizer = new HttpAuthorizer(endPoint),
+                    Authorizer = new HttpAuthorizer(opt.Data.PusherAuthorizer),
                     Encrypted = encryption,
                     Cluster = cluester
                 });

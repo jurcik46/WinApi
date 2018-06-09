@@ -40,7 +40,7 @@ namespace WinApi.ViewModel
             option = new Options();
             if (option.Data.Succes)
             {
-                pusher = new PusherConnect("31d14ddddef4c14b6ab5", "http://192.168.33.10/", true, "eu", option);
+                pusher = new PusherConnect(true, "eu", option);
                 if (pusher._pusher != null)
                 {
                     pusher._pusher.ConnectionStateChanged += _pusher_ConnectionStateChanged;

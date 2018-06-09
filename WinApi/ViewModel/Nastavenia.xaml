@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="WinApi.ViewModel.Nastavenia"
         mc:Ignorable="d"
-        Title="Nastavenia" Height="480" Width="600" WindowStartupLocation="CenterScreen">
+        Title="Nastavenia" Height="500" Width="600" WindowStartupLocation="CenterScreen">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>
 				<!-- Definovanie stlpcov -->
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="100"/>
+					<ColumnDefinition Width="140"/>
 					<ColumnDefinition Width="6*"/>				
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions >
@@ -29,6 +29,8 @@
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Path to Program"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Process Name"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Pusher Key"/>
+					<TextBlock Margin="5 10 0 10" Height="20" Text="Pusher HttpAuthorizer"/>
+
 				</StackPanel>
 
 				<!-- Texboxy s nastaveniamy -->
@@ -41,6 +43,8 @@
 					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding Data.ProgramPath}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding Data.ProcessName}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding Data.PusherKey}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherHttpAuthorizerTextBox" Text="{Binding Data.PusherAuthorizer}"/>
+
 				</StackPanel>
 
 				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding Data.PusherON}" Name="pusherOnCheckBox"/>
@@ -52,7 +56,7 @@
 				
 				<TextBlock HorizontalAlignment="Center" Text="Heslo"/>
 				<PasswordBox Name="optionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
-				<Button Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Click="CheckPasswordButton_Click" Content="Uložiť"/>
+				<Button  IsDefault="True"  Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Click="CheckPasswordButton_Click" Content="Uložiť"/>
 			
 			</StackPanel>
 

@@ -16,6 +16,7 @@ namespace WinApi.Models
         public string ProgramPath { get; set; }
         public string ProcessName { get; set; }
         public string PusherKey { get; set; }
+        public string PusherAuthorizer { get; set; }
         public bool PusherON { get; set; }
         public bool Succes { get; set; }
         public bool InProcess { get; set; }
