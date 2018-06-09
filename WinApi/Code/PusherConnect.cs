@@ -1,20 +1,14 @@
 ﻿using System;
 using PusherClient;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Net;
 using Serilog;
 using System.IO;
 using RestSharp;
 using WinApi.Code;
-using Newtonsoft.Json;
 using WinApi.Models;
-using System.Net.Http;
-using System.Threading.Tasks;
 using RestSharp.Deserializers;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.ComponentModel;
+
 
 namespace WinApi
 {
@@ -22,56 +16,44 @@ namespace WinApi
     {
         
         public  Pusher _pusher = null;
-        static Channel _channel = null;
+        public Channel _channel = null;
         private Options opt;
         private RestClient client = new RestClient();
         private Uri myUri;
         public Boolean Proces { get => Proces; set { Proces = false; } }
         internal FileData Data { get => data; set => data = value; }
         private FileData data ;
-       // public ILogger Logger => Log.Logger.ForContext<PusherConnect>();
+        
 
         #region pusher
-        public PusherConnect(string app_key, string endPoint, bool encryption, string cluester, Options options)
+        public PusherConnect( bool encryption, string cluester, Options options)
         {
             // add api uri to RestClient
 
             opt = options;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
-           
-           // Logger.Warning("asdasd");
-         //   Logger.With("FileName", myUri).Error(ex, FileServiceEvents.CleanUpDeleteError);
-            /*  _pusher = new Pusher(app_key, new PusherOptions()
-              {                
-                  Authorizer = new HttpAuthorizer(endPoint),
-                  Encrypted = encryption,
-                  Cluster = cluester
-              });
-              _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);                  
-              InitPusher();*/
 
-            //    send("event","adsfa", "sdafs");
+            if (opt.Data.PusherON)
+            {
+                _pusher = new Pusher(opt.Data.PusherKey, new PusherOptions()
+                {
+                    Authorizer = new HttpAuthorizer(opt.Data.PusherAuthorizer),
+                    Encrypted = encryption,
+                    Cluster = cluester
+                });
+                _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
+                InitPusher();
+            }
 
         }
 
  
 
         private void InitPusher()
-        {      
-
-            // Inline binding!
-            _channel.Bind("event-" + opt.Data.ModuleID, (dynamic data) =>
-            {
-                // EventSignature((string)data.link,(string)data.hash,(int)data.active);
-                if (!opt.Data.InProcess) {
-                    Log.Information("Bind na event : event-{0}", opt.Data.ModuleID );
-                    GetInfo();
-                    
-                }
-            });
-
-            _pusher.Connect();
+        {
+            _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
+                     _pusher.Connect();
         }   
         /// <summary>
         /// Metoda na poslanie spravy pre pusher 
@@ -79,10 +61,10 @@ namespace WinApi
         /// <param name="eventType"> pre aky event </param>
         /// <param name="msgType"> typ spravy</param>
         /// <param name="msg"> samotna sprava</param>
-        public void send(string eventType, string msgType, string msg)
+        public void send(string msg)
         {
-            Log.Information("Odoslanie spravu pre pusher: Event = {0}, MsgType = {1}, Msg = {2}", eventType, msgType, msg);
-            _channel.Trigger(eventType, new { message = msg, name = msgType});
+            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.ModuleID, msg);
+            _channel.Trigger("client-event-"+ opt.Data.ModuleID, new { status = msg });
         }
 
         /// <summary>
@@ -108,7 +90,7 @@ namespace WinApi
             }
             catch
             {
-             //   Log.Warning("Check Connection na URL : {0}", URL);
+             
                 return false;
 
             }
@@ -151,18 +133,20 @@ namespace WinApi
        
             if (data.Status != "ok") {
               
-                Log.Warning("GetInfo Request ziadny subor sa na podpisanie nenasiel {0} ", opt.Data.ToString());
+                Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
                 Log.Warning("Respon: {0}", data.ToString());
-                throw new MyException("Nenašiel sa žiadny subor pre podpisanie");               
+                if(opt.Data.PusherON)
+                send("notFound");
+                throw new MyException("Nenašiel sa žiadny súbor na podpisanie");               
             }
             else
             {
-                Log.Information("GetInfo Request bol uspesny s datami: {0}", data.ToString());
+                Log.Information("GetInfo Request bol úspešný - Data: {0}", data.ToString());
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 string decodedString = Encoding.UTF8.GetString(file);
-            //    Console.WriteLine(decodedString);
-                EventSignature(data.Link, data.Hash + ".pdf", decodedString); /// potreba zmenit .txt na format suboru aky sa bude otvarat 
+            
+                EventSignature(data.Link, data.Hash, decodedString); 
             
             }
       
@@ -199,19 +183,22 @@ namespace WinApi
             var response = client.Execute(request);
             status = deserial.Deserialize<FileData>(response);
             opt.Data.InProcess = false;
-            //Console.WriteLine(status.Status);
+         
             if(status.Status != "ok")
             {
-                Log.Warning("Subor sa nepodarilo nahrat REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
-                Log.Warning("Subor sa nepodarilo nahrat RESPON: {0} ", status.ToString());
-             
+                Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
+                Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
+                if (opt.Data.PusherON)
+                    send("fail");
                 throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
             else
             {
-                Log.Information("Subor bol uspesne nahrany  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
-                Log.Information("Subor bol uspesne nahrany  RESPON : {0} ", status.ToString());             
+                Log.Information("Súbor bol úspešne nahraný  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
+                Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());
+                if (opt.Data.PusherON)
+                    send("ok");
                 throw new MyException("Súbor bol úspešne nahraný");
 
             }     
@@ -224,44 +211,45 @@ namespace WinApi
         /// <param name="file">Obsah suboru </param>
         private void EventSignature(string link, string hash, string file) {
 
-            string k = data.Link.Replace('/', '\\');
-            k = k.Substring(1, k.LastIndexOf("\\"));
+            hash += data.Link.Substring(data.Link.LastIndexOf("."));        
+            string directhoryPath = data.Link.Replace('/', '\\');
+            directhoryPath = directhoryPath.Substring(1, directhoryPath.LastIndexOf("\\"));
             try
             {
-                if (!Directory.Exists(k)) { 
-                    Directory.CreateDirectory(k);
-                    Log.Information("Vytvaram  zlozku : {0}", k);
+                if (!Directory.Exists(directhoryPath)) { 
+                    Directory.CreateDirectory(directhoryPath);
+                    Log.Information("Vytváram  zložku : {0}", directhoryPath);
                 }
             }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvorit zlozku : {0} : Exception {1}", k, ex.Message);
-                throw new MyException("Nepodarilo sa vytvorit zlozku pre dokument");
+                Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", directhoryPath, ex.Message);
+                throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
             }
-            //  Console.WriteLine(k);
+            
             try
             {
-                Log.Information("Vytvaram prijaty subor Hash: {0}", hash);
-                System.IO.File.WriteAllText(k+ hash, file);
+                Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
+                System.IO.File.WriteAllText(directhoryPath+ hash, file);
              }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvorit dokument Hash: {0} : Exception {1}", hash,ex.Message );
+                Log.Warning("Nepodarilo sa vytvoriť dokument Hash: {0} : Exception {1}", hash,ex.Message );
                 throw new MyException("Nepodarilo sa uložiť dokument");
              }
 
-            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash,k);
+            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash,directhoryPath);
      
 
 
-            Signature test = new Signature( hash, k, opt.Data);
+            Signature test = new Signature( hash, directhoryPath, opt.Data);
 
             if (test.SignFile())
             {
 
                           
-                Stream pdffile = File.OpenRead(k+hash);
-                Byte[] bytes = File.ReadAllBytes(k+hash);
+                Stream pdffile = File.OpenRead(directhoryPath+hash);
+                Byte[] bytes = File.ReadAllBytes(directhoryPath+hash);
                 try
                 {
                     UploadFile(hash, bytes, link);
@@ -278,7 +266,7 @@ namespace WinApi
             }
 
            
-            //  _channel.Trigger("event-podpis", new { hash = "asdadasd", active = "1" });
+            
 
         }
         #endregion

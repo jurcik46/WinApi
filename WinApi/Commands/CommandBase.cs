@@ -126,13 +126,13 @@ namespace WinApi.Commands
         }
 
         /// <summary>
-        /// This method is an alternative to WPF's
+        /// This method is an alternative to WPF'option
         /// <see cref="VisualTreeHelper.GetParent"/> method, which also
         /// supports content elements. Keep in mind that for content element,
         /// this method falls back to the logical tree of the element!
         /// </summary>
         /// <param name="child">The item to be processed.</param>
-        /// <returns>The submitted item's parent, if available. Otherwise
+        /// <returns>The submitted item'option parent, if available. Otherwise
         /// null.</returns>
         public static DependencyObject GetParentObject(DependencyObject child)
         {
@@ -148,7 +148,7 @@ namespace WinApi.Commands
                 return fce != null ? fce.Parent : null;
             }
 
-            //if it's not a ContentElement, rely on VisualTreeHelper
+            //if it'option not a ContentElement, rely on VisualTreeHelper
             return VisualTreeHelper.GetParent(child);
         }
 

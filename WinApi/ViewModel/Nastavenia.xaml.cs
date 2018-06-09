@@ -41,7 +41,7 @@ namespace WinApi.ViewModel
         private void CheckPasswordButton_Click(object sender, RoutedEventArgs e)
         {
             //optionsPassowrdBox
-       
+
             if (opt.ComperPassword(optionsPassowrdBox.Password.ToString()))
             {
                 opt.Data.ApiLink = apiTextBox.Text;
@@ -50,7 +50,20 @@ namespace WinApi.ViewModel
                 opt.Data.ModuleID = moduleIdTextBox.Text;
                 opt.Data.ProgramPath = programPathTextBox.Text;
                 opt.Data.ProcessName = processNameTextBox.Text;
-
+                opt.Data.PusherKey = pusherKeyTextBox.Text;
+                opt.Data.PusherAuthorizer = pusherHttpAuthorizerTextBox.Text;
+                if (pusherOnCheckBox.IsChecked == true)
+                {
+                    opt.Data.PusherON = true;
+                }
+                else {
+                    opt.Data.PusherON = false;
+                }
+                if (newoptionsPassowrdBox.Password.Length > 0)
+                {
+                    opt.CreatePass(newoptionsPassowrdBox.Password.ToString());
+                }
+              
                 opt.SaveOption();
 
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
@@ -58,8 +71,8 @@ namespace WinApi.ViewModel
 
             }
             else {
-                Log.Warning("Bolo zadane nespravne heslo pri ukladany nastaveni  Heslo: {0} ", optionsPassowrdBox.Password.ToString());
-                MessageBox.Show("Nespravne heslo", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Log.Warning("Bolo zadane nesprávne heslo pri ukladaní nastavení");
+                MessageBox.Show("Nesprávne heslo!!!", "Chyba", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
             }
 
