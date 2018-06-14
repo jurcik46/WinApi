@@ -21,7 +21,10 @@ namespace WinApi.Models
             Data = new OptionsData();
             Data.Succes = false;
             LoadOption();
-          //  CreatePass("admin");
+            if (!File.Exists(passwordFile))
+            {
+                CreatePass("admin");
+            }
       
         }
 
@@ -83,6 +86,7 @@ namespace WinApi.Models
         public void CreatePass(string heslo) {
 
             // Create the file.
+            
             using (FileStream fs = File.Create(passwordFile))
             {
                 Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(heslo));
