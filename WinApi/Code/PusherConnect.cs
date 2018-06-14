@@ -145,9 +145,9 @@ namespace WinApi
                 Log.Information("GetInfo Request bol úspešný - Data: {0}", data.ToString());
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
-                string decodedString = Encoding.UTF8.GetString(file);
+                //string decodedString = Encoding.UTF8.GetString(file);
             
-                EventSignature(data.Link, data.Hash, decodedString); 
+                EventSignature(data.Link, data.Hash, file); 
             
             }
       
@@ -210,7 +210,7 @@ namespace WinApi
         /// <param name="link"> Odkaz kam sa ma subor ulozit /bozp/2000/1/1 </param>
         /// <param name="hash"> Hash suboru</param>
         /// <param name="file">Obsah suboru </param>
-        private void EventSignature(string link, string hash, string file) {
+        private void EventSignature(string link, string hash, byte[] file) {
 
             hash += data.Link.Substring(data.Link.LastIndexOf("."));        
             string directhoryPath = data.Link.Replace('/', '\\');
@@ -231,7 +231,7 @@ namespace WinApi
             try
             {
                 Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
-                System.IO.File.WriteAllText(directhoryPath+ hash, file);
+                System.IO.File.WriteAllBytes(directhoryPath+ hash, file);
              }
             catch (Exception ex)
             {

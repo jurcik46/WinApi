@@ -21,8 +21,13 @@ namespace WinApi.Models
             Data = new OptionsData();
             Data.Succes = false;
             LoadOption();
-          //  CreatePass("admin");
-      
+            //  CreatePass("admin");
+            if (!File.Exists(passwordFile))
+            {
+                CreatePass("admin");
+            }
+
+
         }
 
         /// <summary>
