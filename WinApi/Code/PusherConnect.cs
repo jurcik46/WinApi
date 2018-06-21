@@ -159,7 +159,7 @@ namespace WinApi
         /// <param name="hash">Hash suboru</param>
         /// <param name="paramFileBytes"> Subor v bytoch  </param>
         /// <param name="link"> Odkaz kam sa ma subor ulozit </param>
-        public void UploadFile(string hash, byte[] paramFileBytes, string link) {
+        public void UploadFile(string hash, byte[] paramFileBytes, string link, string path) {
 
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
             var request = new RestRequest
@@ -169,19 +169,23 @@ namespace WinApi
                 RequestFormat = DataFormat.Json,
             };
 
-
-            String file = Convert.ToBase64String(paramFileBytes);
-            Console.WriteLine(file);
+            
+        //    String file = Convert.ToBase64String(paramFileBytes);
+         // file = file.Replace('+', '-');
+         // file = file.Replace('/', '_');
+         //   Console.WriteLine(file);
+          //  request.AddHeader("Content-Type", "multipart/form-data");
             request.AddParameter("user_id", opt.Data.UserID);
             request.AddParameter("object_id", opt.Data.ObjecID);
             request.AddParameter("module_id", opt.Data.ModuleID);
-            request.AddParameter("file", file);
+         //  request.AddParameter("file", "asd");
             request.AddParameter("hash", hash);
             request.AddParameter("link", link);
 
-           
+            request.AddFile("filee", path+hash);
             FileData status = new FileData();
             var response = client.Execute(request);
+            
             status = deserial.Deserialize<FileData>(response);
             opt.Data.InProcess = false;
          
@@ -253,7 +257,7 @@ namespace WinApi
                 Byte[] bytes = File.ReadAllBytes(directhoryPath+hash);
                 try
                 {
-                    UploadFile(hash, bytes, link);
+                    UploadFile(hash, bytes, link, directhoryPath);
                 }
                 catch (MyException ex)
                 {
