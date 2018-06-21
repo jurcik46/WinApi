@@ -43,7 +43,7 @@ namespace WinApi
 
             var startInfo = new ProcessStartInfo(this.SignProgramPath, this.FilePath);
 
-            Process.Start(startInfo);
+           // Process.Start(startInfo);
             using (var process = Process.Start(startInfo))
             {
                 var fileInfo = new FileInfo(this.FilePath);

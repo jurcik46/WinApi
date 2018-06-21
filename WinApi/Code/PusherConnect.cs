@@ -171,7 +171,7 @@ namespace WinApi
 
 
             String file = Convert.ToBase64String(paramFileBytes);
-
+            Console.WriteLine(file);
             request.AddParameter("user_id", opt.Data.UserID);
             request.AddParameter("object_id", opt.Data.ObjecID);
             request.AddParameter("module_id", opt.Data.ModuleID);
@@ -179,7 +179,7 @@ namespace WinApi
             request.AddParameter("hash", hash);
             request.AddParameter("link", link);
 
-
+           
             FileData status = new FileData();
             var response = client.Execute(request);
             status = deserial.Deserialize<FileData>(response);
