@@ -18,7 +18,7 @@ namespace WinApi.ViewModel
 {
     public partial class TrayIcon 
     {
-        private Nastavenia nastaveniaWindows = null;
+        private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
         public string workingIcon = @"Icons/working.ico";
@@ -104,17 +104,19 @@ namespace WinApi.ViewModel
         /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
+          
+
             //pusher.send("my-event", "test", "asddddd");
-            if (nastaveniaWindows != null && nastaveniaWindows.IsLoaded)
+            if (vstupWindows != null && vstupWindows.IsLoaded)
             {
-                nastaveniaWindows.Topmost = true;
-                nastaveniaWindows.WindowState = WindowState.Normal;
-                nastaveniaWindows.Topmost = false;
+                vstupWindows.Topmost = true;
+                vstupWindows.WindowState = WindowState.Normal;
+                vstupWindows.Topmost = false;
             }
             else
             {
-                nastaveniaWindows = new Nastavenia();
-                nastaveniaWindows.Show();
+                vstupWindows = new Vstup();
+                vstupWindows.Show();
             }
            
         }
