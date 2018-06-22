@@ -7,11 +7,12 @@
         mc:Ignorable="d"
         Title="Vstup" Height="150" Width="150" WindowStartupLocation="CenterScreen">
     <Grid>
+		
 		<StackPanel VerticalAlignment="Center">
-
 			<TextBlock HorizontalAlignment="Center" Text="Heslo pre vstup"/>
 			<PasswordBox  Margin="0 5" HorizontalAlignment="Center" MinWidth="100"  Name="optionsPassowrdBox" />
 			<Button IsDefault="True" Margin="0 5" Content="Vstúpiť" Width="75" Click="Button_Click" Name="enterPasswordButton" />
 		</StackPanel>
+		
 	</Grid>
 </Window>
