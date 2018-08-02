@@ -93,7 +93,8 @@ namespace WinApi.ViewModel
         {
             if (error != null)
                 trayIconTaskbar.ShowBalloonTip("Chyba", error.ToString(), BalloonIcon.Error);
-            
+                Log.Error("Pusher Error Msg = {0}", error.ToString());
+
 
         }
 
