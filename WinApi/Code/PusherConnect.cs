@@ -42,7 +42,6 @@ namespace WinApi
                     Encrypted = encryption,
                     Cluster = cluester
                 });
-                _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
                 InitPusher();
             }
 
@@ -52,7 +51,7 @@ namespace WinApi
 
         private void InitPusher()
         {
-            _channel = _pusher.Subscribe("private-" + opt.Data.ObjecID);
+            _channel = _pusher.Subscribe("private-bozp-" + opt.Data.ObjecID);
                      _pusher.Connect();
         }   
         /// <summary>
