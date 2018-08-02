@@ -136,7 +136,7 @@ namespace WinApi
                 Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
                 Log.Warning("Respon: {0}", data.ToString());
                 if(opt.Data.PusherON)
-                send("notFound");
+                send("404");
                 throw new MyException("Nenašiel sa žiadny súbor na podpisanie");               
             }
             else
@@ -193,7 +193,7 @@ namespace WinApi
                 Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
                 Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
                 if (opt.Data.PusherON)
-                    send("fail");
+                    send("500");
                 throw new MyException("Súbor sa nepodarilo nahrať");
 
             }
@@ -202,7 +202,7 @@ namespace WinApi
                 Log.Information("Súbor bol úspešne nahraný  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
                 Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());
                 if (opt.Data.PusherON)
-                    send("ok");
+                    send("200");
                 throw new MyException("Súbor bol úspešne nahraný");
 
             }     
