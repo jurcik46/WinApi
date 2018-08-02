@@ -61,7 +61,7 @@ namespace WinApi.ViewModel
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikácia  je pripojenia k internetu", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
                 on = true;
             }
             if (state == ConnectionState.Disconnected) {
