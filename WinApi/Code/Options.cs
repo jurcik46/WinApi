@@ -36,7 +36,8 @@ namespace WinApi.Models
         public void SaveOption()
         {
             Log.Information("Ukladanie nastaveni : {0}", Data.ToString());
-            File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
+
+           // File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
         /// <summary>
@@ -44,6 +45,19 @@ namespace WinApi.Models
         /// </summary>
 
         public void LoadOption() {
+
+            this.Data.ApiLink = Properties.Settings.Default.ApiLink;
+            this.Data.Apikey = Properties.Settings.Default.ApiKey;
+            this.Data.ObjecID = Properties.Settings.Default.ObjecID;
+            this.Data.UserID = Properties.Settings.Default.UserID;
+            this.Data.ModuleID = Properties.Settings.Default.ModuleID;
+            this.Data.ProgramPath = Properties.Settings.Default.ProgramPath;
+            this.Data.ProcessName = Properties.Settings.Default.ProcessName;
+            this.Data.PusherKey = Properties.Settings.Default.PusherKey;
+            this.Data.PusherAuthorizer = Properties.Settings.Default.PusherAuthorizer;
+            this.Data.PusherON = Properties.Settings.Default.PusherON;
+            this.Data.Succes = Properties.Settings.Default.Success;
+            this.Data.InProcess = Properties.Settings.Default.InProcess;
             if (File.Exists(optionsFile))
             {
 
