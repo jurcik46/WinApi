@@ -11,8 +11,8 @@ namespace WinApi.Models
     class Options
     {
         public OptionsData Data { get; set; }
-        private const string optionsFile = "options.json";
-        private const string passwordFile = "bitout.txt";
+        //private const string optionsFile = "options.json";
+        //private const string passwordFile = "bitout.txt";
         private string passwordHash { get; set; }
 
 
@@ -22,7 +22,8 @@ namespace WinApi.Models
             Data.Succes = false;
             LoadOption();
             //  CreatePass("admin");
-            if (!File.Exists(passwordFile))
+
+            if (Properties.Settings.Default.password == "")
             {
                 CreatePass("admin");
             }
@@ -122,14 +123,16 @@ namespace WinApi.Models
         /// Metoda na vytvorenie suboru option hashom hesla
         /// </summary>
         public void CreatePass(string heslo) {
-
+            Properties.Settings.Default.password = GetHashString(heslo);
+            Properties.Settings.Default.Save();
             // Create the file.
+            /*
             using (FileStream fs = File.Create(passwordFile))
             {
                 Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(heslo));
                 // Add some information to the file.
                 fs.Write(info, 0, info.Length);
-            }
+            }*/
 
         }
         /// <summary>
@@ -140,11 +143,13 @@ namespace WinApi.Models
         public bool ComperPassword(string enteredPassword) {
 
             string enteredPasswordHash = "";
-            string sourcPassword = "";
-            using (StreamReader sr = File.OpenText(passwordFile))
+            string sourcPassword = Properties.Settings.Default.password;
+            /*using (StreamReader sr = File.OpenText(passwordFile))
             {
                 sourcPassword = sr.ReadLine();        
             }
+            */
+
             enteredPasswordHash = GetHashString(enteredPassword);
             return String.Equals(enteredPasswordHash, sourcPassword);
            }        
