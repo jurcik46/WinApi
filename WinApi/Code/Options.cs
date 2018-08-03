@@ -36,7 +36,7 @@ namespace WinApi.Models
         public void SaveOption()
         {
             Log.Information("Ukladanie nastaveni : {0}", Data.ToString());
-
+            Properties.Settings.Default.Save();
            // File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
@@ -50,7 +50,7 @@ namespace WinApi.Models
             this.Data.Apikey = Properties.Settings.Default.ApiKey;
             this.Data.ObjecID = Properties.Settings.Default.ObjecID;
             this.Data.UserID = Properties.Settings.Default.UserID;
-            this.Data.ModuleID = Properties.Settings.Default.ModuleID;
+           // this.Data.ModuleID = Properties.Settings.Default.ModuleID;
             this.Data.ProgramPath = Properties.Settings.Default.ProgramPath;
             this.Data.ProcessName = Properties.Settings.Default.ProcessName;
             this.Data.PusherKey = Properties.Settings.Default.PusherKey;

@@ -164,14 +164,14 @@ namespace WinApi.ViewModel
 
         private void pusher_binding() {
           
-            pusher._channel.Bind(String.Format("event-{0}-{1}", option.Data.UserID ,option.Data.ModuleID), (dynamic data) =>
+            pusher._channel.Bind(String.Format("event-{0}", option.Data.UserID), (dynamic data) =>
             {
                
                 try
                 {
                     if (!option.Data.InProcess)
                     {
-                        Log.Information("Bind na event : event-{0}-{1}", option.Data.UserID, option.Data.ModuleID);
+                        Log.Information("Bind na event : event-{0}", option.Data.UserID);
                         pusher.GetInfo();
 
                     }
