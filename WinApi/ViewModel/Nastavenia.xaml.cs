@@ -47,7 +47,7 @@ namespace WinApi.ViewModel
                 opt.Data.ApiLink = apiTextBox.Text;
                 opt.Data.UserID = userIdTextBox.Text;
                 opt.Data.ObjecID = objectIdTextBox.Text;
-                opt.Data.ModuleID = moduleIdTextBox.Text;
+               // opt.Data.ModuleID = moduleIdTextBox.Text;
                 opt.Data.ProgramPath = programPathTextBox.Text;
                 opt.Data.ProcessName = processNameTextBox.Text;
                 opt.Data.PusherKey = pusherKeyTextBox.Text;

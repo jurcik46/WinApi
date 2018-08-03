@@ -11,8 +11,8 @@ namespace WinApi.Models
     class Options
     {
         public OptionsData Data { get; set; }
-        private const string optionsFile = "options.json";
-        private const string passwordFile = "bitout.txt";
+        //private const string optionsFile = "options.json";
+        //private const string passwordFile = "bitout.txt";
         private string passwordHash { get; set; }
 
 
@@ -22,7 +22,8 @@ namespace WinApi.Models
             Data.Succes = false;
             LoadOption();
             //  CreatePass("admin");
-            if (!File.Exists(passwordFile))
+
+            if (Properties.Settings.Default.password == "")
             {
                 CreatePass("admin");
             }
@@ -36,7 +37,20 @@ namespace WinApi.Models
         public void SaveOption()
         {
             Log.Information("Ukladanie nastaveni : {0}", Data.ToString());
-            File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
+            Properties.Settings.Default.ApiLink = this.Data.ApiLink;
+            Properties.Settings.Default.ApiKey = this.Data.Apikey;
+            Properties.Settings.Default.ObjecID = this.Data.ObjecID;
+            Properties.Settings.Default.UserID = this.Data.UserID;
+            Properties.Settings.Default.ProgramPath = this.Data.ProgramPath;
+            Properties.Settings.Default.ProcessName = this.Data.ProcessName;
+            Properties.Settings.Default.PusherKey = this.Data.PusherKey;
+            Properties.Settings.Default.PusherAuthorizer = this.Data.PusherAuthorizer;
+            Properties.Settings.Default.PusherON = this.Data.PusherON;
+            Properties.Settings.Default.Success = this.Data.Succes;
+            Properties.Settings.Default.InProcess = this.Data.InProcess;
+
+            Properties.Settings.Default.Save();
+            // File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
         /// <summary>
@@ -44,6 +58,29 @@ namespace WinApi.Models
         /// </summary>
 
         public void LoadOption() {
+
+            try
+            {
+                this.Data.ApiLink = Properties.Settings.Default.ApiLink;
+                this.Data.Apikey = Properties.Settings.Default.ApiKey;
+                this.Data.ObjecID = Properties.Settings.Default.ObjecID;
+                this.Data.UserID = Properties.Settings.Default.UserID;
+                this.Data.ProgramPath = Properties.Settings.Default.ProgramPath;
+                this.Data.ProcessName = Properties.Settings.Default.ProcessName;
+                this.Data.PusherKey = Properties.Settings.Default.PusherKey;
+                this.Data.PusherAuthorizer = Properties.Settings.Default.PusherAuthorizer;
+                this.Data.PusherON = Properties.Settings.Default.PusherON;
+                this.Data.Succes = Properties.Settings.Default.Success;
+                this.Data.InProcess = Properties.Settings.Default.InProcess;
+                this.Data.Succes = true;
+            }
+            catch(Exception)
+            {
+                this.Data.Succes = false;
+            }
+         
+            // this.Data.ModuleID = Properties.Settings.Default.ModuleID;
+            /*
             if (File.Exists(optionsFile))
             {
 
@@ -51,7 +88,7 @@ namespace WinApi.Models
                 this.Data.Succes = true;
             }
             
-
+            */
        
         }
 
@@ -86,14 +123,16 @@ namespace WinApi.Models
         /// Metoda na vytvorenie suboru option hashom hesla
         /// </summary>
         public void CreatePass(string heslo) {
-
+            Properties.Settings.Default.password = GetHashString(heslo);
+            Properties.Settings.Default.Save();
             // Create the file.
+            /*
             using (FileStream fs = File.Create(passwordFile))
             {
                 Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(heslo));
                 // Add some information to the file.
                 fs.Write(info, 0, info.Length);
-            }
+            }*/
 
         }
         /// <summary>
@@ -104,11 +143,13 @@ namespace WinApi.Models
         public bool ComperPassword(string enteredPassword) {
 
             string enteredPasswordHash = "";
-            string sourcPassword = "";
-            using (StreamReader sr = File.OpenText(passwordFile))
+            string sourcPassword = Properties.Settings.Default.password;
+            /*using (StreamReader sr = File.OpenText(passwordFile))
             {
                 sourcPassword = sr.ReadLine();        
             }
+            */
+
             enteredPasswordHash = GetHashString(enteredPassword);
             return String.Equals(enteredPasswordHash, sourcPassword);
            }        

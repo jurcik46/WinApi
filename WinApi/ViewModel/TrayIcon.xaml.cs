@@ -18,6 +18,7 @@ namespace WinApi.ViewModel
 {
     public partial class TrayIcon 
     {
+        private string appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
@@ -61,7 +62,7 @@ namespace WinApi.ViewModel
             if (state == ConnectionState.Connected)
             {
                 trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-                trayIconTaskbar.ShowBalloonTip("WinAPi Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip(appName +" Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
                 on = true;
             }
             if (state == ConnectionState.Disconnected) {
@@ -69,7 +70,7 @@ namespace WinApi.ViewModel
                 if (on)
                 {
                     trayIconTaskbar.Icon = new System.Drawing.Icon(offlineIcon);
-                    trayIconTaskbar.ShowBalloonTip("WinApi Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
+                    trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
             }
@@ -140,7 +141,7 @@ namespace WinApi.ViewModel
                         }
                         catch (MyException ex )
                         {
-                        trayIconTaskbar.ShowBalloonTip("WinApi", ex.Message, BalloonIcon.Info);
+                        trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
                          }                       
                         finally {
                             option.Data.InProcess = false;
@@ -164,21 +165,21 @@ namespace WinApi.ViewModel
 
         private void pusher_binding() {
           
-            pusher._channel.Bind(String.Format("event-{0}-{1}", option.Data.UserID ,option.Data.ModuleID), (dynamic data) =>
+            pusher._channel.Bind(String.Format("event-{0}", option.Data.UserID), (dynamic data) =>
             {
                
                 try
                 {
                     if (!option.Data.InProcess)
                     {
-                        Log.Information("Bind na event : event-{0}-{1}", option.Data.UserID, option.Data.ModuleID);
+                        Log.Information("Bind na event : event-{0}", option.Data.UserID);
                         pusher.GetInfo();
 
                     }
                 }
                 catch (MyException ex)
                 {
-                    trayIconTaskbar.ShowBalloonTip("WinApi", ex.Message, BalloonIcon.Info);
+                    trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
                 }
                 finally
                 {

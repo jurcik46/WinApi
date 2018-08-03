@@ -7,7 +7,7 @@
     <ProjectGuid>{1A2CD75B-52F7-4930-8A45-C150F1EC55C4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WinApi</RootNamespace>
-    <AssemblyName>WinApi</AssemblyName>
+    <AssemblyName>Aplikacia</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icons\test.ico</ApplicationIcon>
+    <ApplicationIcon>test.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>3C5B99CC49BBB6768A89C03C11690218D7381DB9</ManifestCertificateThumbprint>
@@ -131,6 +131,7 @@
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />
     <Compile Include="Code\Signature.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="ViewModel\Nastavenia.xaml.cs">
       <DependentUpon>Nastavenia.xaml</DependentUpon>
     </Compile>
@@ -185,19 +186,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\test.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\offline.ico" />
-    <Resource Include="Icons\online.ico" />
-    <Resource Include="Icons\working.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\offline.ico" />
+    <Resource Include="Icons\online.ico" />
+    <Resource Include="Icons\test.ico" />
+    <Resource Include="Icons\working.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="test.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

@@ -63,8 +63,8 @@ namespace WinApi
         public void send(string msg)
         {
             
-            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}-{1}, Msg = {2}", opt.Data.UserID, opt.Data.ModuleID, msg);
-            _channel.Trigger(String.Format("client-event-{0}-{1}", opt.Data.UserID, opt.Data.ModuleID), new { status = msg });
+            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.UserID, msg);
+            _channel.Trigger(String.Format("client-event-{0}", opt.Data.UserID), new { status = msg });
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace WinApi
 
             request.AddParameter("object_id", opt.Data.ObjecID);
             request.AddParameter("user_id", opt.Data.UserID);
-            request.AddParameter("module_id", opt.Data.ModuleID);
+            //request.AddParameter("module_id", opt.Data.ModuleID);
 
           
             var response = client.Execute(request);
@@ -176,7 +176,7 @@ namespace WinApi
           //  request.AddHeader("Content-Type", "multipart/form-data");
             request.AddParameter("user_id", opt.Data.UserID);
             request.AddParameter("object_id", opt.Data.ObjecID);
-            request.AddParameter("module_id", opt.Data.ModuleID);
+         //   request.AddParameter("module_id", opt.Data.ModuleID);
          //  request.AddParameter("file", "asd");
             request.AddParameter("hash", hash);
             request.AddParameter("link", link);

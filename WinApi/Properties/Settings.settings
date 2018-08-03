@@ -1,7 +1,42 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinApi.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ApiLink" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://devel.ccsipro.sk/sendmail/web/api/api_ccsipro3/v1/winapii/</Value>
+    </Setting>
+    <Setting Name="ApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">asdfjkhafkshfdkjaskfhls1561561ds</Value>
+    </Setting>
+    <Setting Name="ObjecID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="UserID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="ProgramPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\\program Files (x86)\\Notepad++\\notepad++.exe</Value>
+    </Setting>
+    <Setting Name="ProcessName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\\Appky\\C#\\WinApi\\WinApi\\bin\\Debug\\{1}{0} - Notepad++</Value>
+    </Setting>
+    <Setting Name="PusherKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">31d14ddddef4c14b6ab5</Value>
+    </Setting>
+    <Setting Name="PusherAuthorizer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://192.168.33.10/pusher/</Value>
+    </Setting>
+    <Setting Name="PusherON" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Success" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="InProcess" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
 </SettingsFile>

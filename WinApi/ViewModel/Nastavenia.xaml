@@ -27,7 +27,7 @@
 					<TextBlock Margin="5 10 0 10" Height="20" Text="API key"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="User ID"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Object ID"/>
-					<TextBlock Margin="5 10 0 10" Height="20" Text="Module ID"/>
+					<!--	<TextBlock Margin="5 10 0 10" Height="20" Text="Module ID"/> -->
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Path to Program"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Process Name"/>
 					<TextBlock Margin="5 10 0 10" Height="20" Text="Pusher Key"/>
@@ -41,7 +41,7 @@
 					<TextBox Margin="5 10 0 10" Height="20"	Name="apiKeyTextBox"  Text="{Binding Data.Apikey}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="userIdTextBox"    Text="{Binding Data.UserID}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="objectIdTextBox"  Text="{Binding Data.ObjecID}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="moduleIdTextBox"   Text="{Binding Data.ModuleID}"/>
+					<!--<TextBox Margin="5 10 0 10" Height="20"	Name="moduleIdTextBox"   Text="{Binding Data.ModuleID}"/>-->
 					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding Data.ProgramPath}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding Data.ProcessName}"/>
 					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding Data.PusherKey}"/>
