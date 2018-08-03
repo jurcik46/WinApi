@@ -25,7 +25,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://devel.ccsipro.sk/sendmail/web/api/api_ccsipro3/v1/winapii/")]
         public string ApiLink {
             get {
                 return ((string)(this["ApiLink"]));
@@ -37,7 +37,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("asdfjkhafkshfdkjaskfhls1561561ds")]
         public string ApiKey {
             get {
                 return ((string)(this["ApiKey"]));
@@ -49,7 +49,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string ObjecID {
             get {
                 return ((string)(this["ObjecID"]));
@@ -61,7 +61,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public string UserID {
             get {
                 return ((string)(this["UserID"]));
@@ -85,7 +85,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\\\program Files (x86)\\\\Notepad++\\\\notepad++.exe")]
         public string ProgramPath {
             get {
                 return ((string)(this["ProgramPath"]));
@@ -97,7 +97,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\Appky\\\\C#\\\\WinApi\\\\WinApi\\\\bin\\\\Debug\\\\{1}{0} - Notepad++")]
         public string ProcessName {
             get {
                 return ((string)(this["ProcessName"]));
@@ -109,7 +109,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("31d14ddddef4c14b6ab5")]
         public string PusherKey {
             get {
                 return ((string)(this["PusherKey"]));
@@ -121,7 +121,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.33.10/pusher/")]
         public string PusherAuthorizer {
             get {
                 return ((string)(this["PusherAuthorizer"]));
@@ -145,7 +145,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Success {
             get {
                 return ((bool)(this["Success"]));
