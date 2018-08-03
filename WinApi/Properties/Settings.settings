@@ -14,9 +14,6 @@
     <Setting Name="UserID" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="ModuleID" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ProgramPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\\program Files (x86)\\Notepad++\\notepad++.exe</Value>
     </Setting>

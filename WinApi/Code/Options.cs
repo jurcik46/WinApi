@@ -73,7 +73,7 @@ namespace WinApi.Models
                 this.Data.InProcess = Properties.Settings.Default.InProcess;
                 this.Data.Succes = true;
             }
-            catch(Exception er)
+            catch(Exception)
             {
                 this.Data.Succes = false;
             }

@@ -73,18 +73,6 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ModuleID {
-            get {
-                return ((string)(this["ModuleID"]));
-            }
-            set {
-                this["ModuleID"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("c:\\\\program Files (x86)\\\\Notepad++\\\\notepad++.exe")]
         public string ProgramPath {
             get {
