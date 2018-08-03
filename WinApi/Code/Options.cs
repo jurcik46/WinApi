@@ -36,8 +36,20 @@ namespace WinApi.Models
         public void SaveOption()
         {
             Log.Information("Ukladanie nastaveni : {0}", Data.ToString());
+            Properties.Settings.Default.ApiLink = this.Data.ApiLink;
+            Properties.Settings.Default.ApiKey = this.Data.Apikey;
+            Properties.Settings.Default.ObjecID = this.Data.ObjecID;
+            Properties.Settings.Default.UserID = this.Data.UserID;
+            Properties.Settings.Default.ProgramPath = this.Data.ProgramPath;
+            Properties.Settings.Default.ProcessName = this.Data.ProcessName;
+            Properties.Settings.Default.PusherKey = this.Data.PusherKey;
+            Properties.Settings.Default.PusherAuthorizer = this.Data.PusherAuthorizer;
+            Properties.Settings.Default.PusherON = this.Data.PusherON;
+            Properties.Settings.Default.Success = this.Data.Succes;
+            Properties.Settings.Default.InProcess = this.Data.InProcess;
+
             Properties.Settings.Default.Save();
-           // File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
+            // File.WriteAllText(optionsFile, JsonConvert.SerializeObject(Data));
         }
 
         /// <summary>
@@ -50,7 +62,6 @@ namespace WinApi.Models
             this.Data.Apikey = Properties.Settings.Default.ApiKey;
             this.Data.ObjecID = Properties.Settings.Default.ObjecID;
             this.Data.UserID = Properties.Settings.Default.UserID;
-           // this.Data.ModuleID = Properties.Settings.Default.ModuleID;
             this.Data.ProgramPath = Properties.Settings.Default.ProgramPath;
             this.Data.ProcessName = Properties.Settings.Default.ProcessName;
             this.Data.PusherKey = Properties.Settings.Default.PusherKey;
@@ -58,6 +69,8 @@ namespace WinApi.Models
             this.Data.PusherON = Properties.Settings.Default.PusherON;
             this.Data.Succes = Properties.Settings.Default.Success;
             this.Data.InProcess = Properties.Settings.Default.InProcess;
+            // this.Data.ModuleID = Properties.Settings.Default.ModuleID;
+
             if (File.Exists(optionsFile))
             {
 
