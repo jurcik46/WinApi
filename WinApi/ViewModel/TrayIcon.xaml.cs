@@ -23,13 +23,14 @@ namespace WinApi.ViewModel
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
-        private string appPath = "pack://application:,,,/";
-        public string workingIcon = @"Icons/working.ico";
-        public string onlineIcon = @"Icons/online.ico";
-        public string offlineIcon = @"Icons/offline.ico";
+        private System.Drawing.Icon workingIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/working.ico")).Stream);
+        private System.Drawing.Icon onlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/online.ico")).Stream);
+        private System.Drawing.Icon offlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/offline.ico")).Stream);
         private bool on;
         public TrayIcon()
         {
+
+
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
@@ -60,9 +61,8 @@ namespace WinApi.ViewModel
             // Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
-                Stream iconStream = Application.GetResourceStream(new Uri(appPath + onlineIcon)).Stream;
 
-                trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
+                trayIconTaskbar.Icon = onlineIcon;
                 trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
                 on = true;
             }
@@ -71,9 +71,8 @@ namespace WinApi.ViewModel
 
                 if (on)
                 {
-                    Stream iconStream = Application.GetResourceStream(new Uri(appPath + offlineIcon)).Stream;
 
-                    trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
+                    trayIconTaskbar.Icon = offlineIcon;
                     trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
@@ -126,13 +125,10 @@ namespace WinApi.ViewModel
             }
 
         }
-
         /// <summary>
-        /// Event pre dvojite kliknutnie na tray icon  spusti proces podpisovania
+        /// methoda na spustenie podpisovania
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        private void SingAction()
         {
 
             if (option.Data.Succes)
@@ -141,8 +137,7 @@ namespace WinApi.ViewModel
                 {
                     try
                     {
-                        Stream iconStream = Application.GetResourceStream(new Uri(appPath + workingIcon)).Stream;
-                        trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
+                        trayIconTaskbar.Icon = workingIcon;
                         pusher.GetInfo();
                     }
                     catch (MyException ex)
@@ -152,6 +147,7 @@ namespace WinApi.ViewModel
                     finally
                     {
                         option.Data.InProcess = false;
+                        trayIconTaskbar.Icon = onlineIcon;
                     }
                 }
                 else
@@ -167,8 +163,17 @@ namespace WinApi.ViewModel
             }
 
 
-            trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
 
+        }
+
+        /// <summary>
+        /// Event pre dvojite kliknutnie na tray icon  spusti proces podpisovania
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            this.SingAction();
         }
 
         private void pusher_binding()
@@ -176,24 +181,8 @@ namespace WinApi.ViewModel
 
             pusher._channel.Bind(String.Format("event-{0}", option.Data.UserID), (dynamic data) =>
             {
-
-                try
-                {
-                    if (!option.Data.InProcess)
-                    {
-                        Log.Information("Bind na event : event-{0}", option.Data.UserID);
-                        pusher.GetInfo();
-
-                    }
-                }
-                catch (MyException ex)
-                {
-                    trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
-                }
-                finally
-                {
-                    option.Data.InProcess = false;
-                }
+                Log.Information("Bind na event : event-{0}", option.Data.UserID);
+                this.SingAction();
 
             });
         }
