@@ -192,7 +192,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Icons\offline.ico" />
     <Resource Include="Icons\online.ico" />

@@ -39,7 +39,7 @@ namespace WinApi.ViewModel
             option = new Options();
             if (option.Data.Succes)
             {
-                pusher = new PusherConnect(true, "eu", option);
+                pusher = new PusherConnect(true, "eu", option, appName);
                 if (pusher._pusher != null)
                 {
                     pusher._pusher.ConnectionStateChanged += _pusher_ConnectionStateChanged;
@@ -58,7 +58,6 @@ namespace WinApi.ViewModel
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
-            // Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
 
@@ -130,7 +129,6 @@ namespace WinApi.ViewModel
         /// </summary>
         private void SingAction()
         {
-
             if (option.Data.Succes)
             {
                 if (!option.Data.InProcess)
@@ -138,6 +136,7 @@ namespace WinApi.ViewModel
                     try
                     {
                         trayIconTaskbar.Icon = workingIcon;
+                        pusher.TrayIcon = trayIconTaskbar;
                         pusher.GetInfo();
                     }
                     catch (MyException ex)
@@ -161,9 +160,6 @@ namespace WinApi.ViewModel
                 trayIconTaskbar.ShowBalloonTip("Nastavenia", "Vyplňte nastavenia", BalloonIcon.Info);
 
             }
-
-
-
         }
 
         /// <summary>
