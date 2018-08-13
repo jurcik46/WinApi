@@ -13,33 +13,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.Net;
+using System.IO;
 
 namespace WinApi.ViewModel
 {
-    public partial class TrayIcon 
+    public partial class TrayIcon
     {
         private string appName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
-        public string workingIcon = @"Icons/working.ico";
-        public string onlineIcon = @"Icons/online.ico";
-        public string offlineIcon = @"Icons/offline.ico";
+        private System.Drawing.Icon workingIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/working.ico")).Stream);
+        private System.Drawing.Icon onlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/online.ico")).Stream);
+        private System.Drawing.Icon offlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/offline.ico")).Stream);
         private bool on;
         public TrayIcon()
         {
-           
-         
-            Log.Logger = new LoggerConfiguration()         
+
+
+            Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-      
 
             // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
             option = new Options();
             if (option.Data.Succes)
             {
-                pusher = new PusherConnect(true, "eu", option);
+                pusher = new PusherConnect(true, "eu", option, appName);
                 if (pusher._pusher != null)
                 {
                     pusher._pusher.ConnectionStateChanged += _pusher_ConnectionStateChanged;
@@ -47,7 +47,7 @@ namespace WinApi.ViewModel
                     pusher_binding();
                 }
             }
-         
+
 
         }
         /// <summary>
@@ -58,31 +58,33 @@ namespace WinApi.ViewModel
         public void _pusher_ConnectionStateChanged(object sender, ConnectionState state)
         {
 
-           // Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
-                trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-                trayIconTaskbar.ShowBalloonTip(appName +" Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
+
+                trayIconTaskbar.Icon = onlineIcon;
+                trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
                 on = true;
             }
-            if (state == ConnectionState.Disconnected) {
-               
+            if (state == ConnectionState.Disconnected)
+            {
+
                 if (on)
                 {
-                    trayIconTaskbar.Icon = new System.Drawing.Icon(offlineIcon);
+
+                    trayIconTaskbar.Icon = offlineIcon;
                     trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
             }
-            if(state == ConnectionState.Connecting)
+            if (state == ConnectionState.Connecting)
             {
                 pusher._pusher.Connect();
-                
-               
+
+
 
             }
 
-           
+
 
         }
         /// <summary>
@@ -94,7 +96,7 @@ namespace WinApi.ViewModel
         {
             if (error != null)
                 trayIconTaskbar.ShowBalloonTip("Chyba", error.ToString(), BalloonIcon.Error);
-                Log.Error("Pusher Error Msg = {0}", error.ToString());
+            Log.Error("Pusher Error Msg = {0}", error.ToString());
 
 
         }
@@ -106,7 +108,7 @@ namespace WinApi.ViewModel
         /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-          
+
 
             //pusher.send("my-event", "test", "asddddd");
             if (vstupWindows != null && vstupWindows.IsLoaded)
@@ -120,7 +122,44 @@ namespace WinApi.ViewModel
                 vstupWindows = new Vstup();
                 vstupWindows.Show();
             }
-           
+
+        }
+        /// <summary>
+        /// methoda na spustenie podpisovania
+        /// </summary>
+        private void SingAction()
+        {
+            if (option.Data.Succes)
+            {
+                if (!option.Data.InProcess)
+                {
+                    try
+                    {
+                        trayIconTaskbar.Icon = workingIcon;
+                        pusher.TrayIcon = trayIconTaskbar;
+                        pusher.GetInfo();
+                    }
+                    catch (MyException ex)
+                    {
+                        trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
+                    }
+                    finally
+                    {
+                        option.Data.InProcess = false;
+                        trayIconTaskbar.Icon = onlineIcon;
+                    }
+                }
+                else
+                {
+                    trayIconTaskbar.ShowBalloonTip("Info", "Pravé sa vykonáva podpisovanie", BalloonIcon.Info);
+                }
+
+            }
+            else
+            {
+                trayIconTaskbar.ShowBalloonTip("Nastavenia", "Vyplňte nastavenia", BalloonIcon.Info);
+
+            }
         }
 
         /// <summary>
@@ -130,67 +169,22 @@ namespace WinApi.ViewModel
         /// <param name="e"></param>
         private void trayIconTaskbar_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
         {
-
-            if (option.Data.Succes) {             
-                    if (!option.Data.InProcess)
-                    {
-                        try
-                        {
-                            trayIconTaskbar.Icon = new System.Drawing.Icon(workingIcon);
-                            pusher.GetInfo();
-                        }
-                        catch (MyException ex )
-                        {
-                        trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
-                         }                       
-                        finally {
-                            option.Data.InProcess = false;
-                        }
-                    }
-                    else {
-                        trayIconTaskbar.ShowBalloonTip("Info", "Pravé sa vykonáva podpisovanie", BalloonIcon.Info);
-                    }
-            
-            }
-            else
-            {
-                trayIconTaskbar.ShowBalloonTip("Nastavenia", "Vyplňte nastavenia", BalloonIcon.Info);
-
-            }
-
-
-            trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
-
+            this.SingAction();
         }
 
-        private void pusher_binding() {
-          
+        private void pusher_binding()
+        {
+
             pusher._channel.Bind(String.Format("event-{0}", option.Data.UserID), (dynamic data) =>
             {
-               
-                try
-                {
-                    if (!option.Data.InProcess)
-                    {
-                        Log.Information("Bind na event : event-{0}", option.Data.UserID);
-                        pusher.GetInfo();
+                Log.Information("Bind na event : event-{0}", option.Data.UserID);
+                this.SingAction();
 
-                    }
-                }
-                catch (MyException ex)
-                {
-                    trayIconTaskbar.ShowBalloonTip(appName, ex.Message, BalloonIcon.Info);
-                }
-                finally
-                {
-                    option.Data.InProcess = false;
-                }
-              
             });
         }
     }
 
 
- 
+
 }
 

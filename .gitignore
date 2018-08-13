@@ -259,3 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/WinApi/Images
+/WinApi/ViewModel/InfoBallonControl.xaml
+/WinApi/ViewModel/InfoBallonControl.xaml.cs

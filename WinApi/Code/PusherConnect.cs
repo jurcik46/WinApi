@@ -7,30 +7,35 @@ using System.IO;
 using RestSharp;
 using WinApi.Code;
 using WinApi.Models;
+using WinApi.ViewModel;
 using RestSharp.Deserializers;
-
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace WinApi
 {
     class PusherConnect
     {
-        
-        public  Pusher _pusher = null;
+
+        public Pusher _pusher = null;
         public Channel _channel = null;
+        private TaskbarIcon _trayIcon;
         private Options opt;
+        private string appName;
         private RestClient client = new RestClient();
         private Uri myUri;
         public Boolean Proces { get => Proces; set { Proces = false; } }
         internal FileData Data { get => data; set => data = value; }
-        private FileData data ;
-        
+        public TaskbarIcon TrayIcon { get => _trayIcon; set => _trayIcon = value; }
+
+        private FileData data;
+
 
         #region pusher
-        public PusherConnect( bool encryption, string cluester, Options options)
+        public PusherConnect(bool encryption, string cluester, Options options, string appName)
         {
             // add api uri to RestClient
-
             opt = options;
+            this.appName = appName;
             myUri = new Uri(opt.Data.ApiLink);
             client.BaseUrl = myUri.OriginalString;
 
@@ -47,13 +52,13 @@ namespace WinApi
 
         }
 
- 
+
 
         private void InitPusher()
         {
             _channel = _pusher.Subscribe("private-bozp-" + opt.Data.ObjecID);
-                     _pusher.Connect();
-        }   
+            _pusher.Connect();
+        }
         /// <summary>
         /// Metoda na poslanie spravy pre pusher 
         /// </summary>
@@ -62,7 +67,7 @@ namespace WinApi
         /// <param name="msg"> samotna sprava</param>
         public void send(string msg)
         {
-            
+
             Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.UserID, msg);
             _channel.Trigger(String.Format("client-event-{0}", opt.Data.UserID), new { status = msg });
         }
@@ -74,10 +79,10 @@ namespace WinApi
         /// <returns></returns>
         public bool CheckConnection(String URL)
         {
-            
+
             try
             {
-                Log.Information("Check Connection na URL : {0}",URL);
+                Log.Information("Check Connection na URL : {0}", URL);
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 request.Timeout = 5000;
                 request.Credentials = CredentialCache.DefaultNetworkCredentials;
@@ -90,7 +95,7 @@ namespace WinApi
             }
             catch
             {
-             
+
                 return false;
 
             }
@@ -105,8 +110,10 @@ namespace WinApi
         /// Metoda na zistanie od APIcka ci je dostupny dokument pre podpisanie  
         /// 
         /// </summary>
-        public void GetInfo() {                
-                    
+        public void GetInfo()
+        {
+            TrayIcon.ShowBalloonTip(appName, "Hľadám nový súbory na podpísanie", BalloonIcon.Info);
+            //TrayIcon.ShowCustomBalloon(ballon, System.Windows.Controls.Primitives.PopupAnimation.Slide, 3000);
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
             var request = new RestRequest
             {
@@ -121,7 +128,7 @@ namespace WinApi
             request.AddParameter("user_id", opt.Data.UserID);
             //request.AddParameter("module_id", opt.Data.ModuleID);
 
-          
+
             var response = client.Execute(request);
 
             if (response.StatusCode == 0)
@@ -130,14 +137,15 @@ namespace WinApi
                 throw new MyException("Zlyhalo pripojenie k internetu");
             }
             data = deserial.Deserialize<FileData>(response);
-       
-            if (data.Status != "ok") {
-              
+
+            if (data.Status != "ok")
+            {
+
                 Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
                 Log.Warning("Respon: {0}", data.ToString());
-                if(opt.Data.PusherON)
-                send("404");
-                throw new MyException("Nenašiel sa žiadny súbor na podpisanie");               
+                if (opt.Data.PusherON)
+                    send("404");
+                throw new MyException("Nenašiel sa žiadny súbor na podpisanie");
             }
             else
             {
@@ -145,11 +153,11 @@ namespace WinApi
                 opt.Data.InProcess = true;
                 byte[] file = Convert.FromBase64String(data.File);
                 //string decodedString = Encoding.UTF8.GetString(file);
-            
-                EventSignature(data.Link, data.Hash, file); 
-            
+                TrayIcon.ShowBalloonTip(this.appName, "Súbor na podpísanie bol úspešne stiahnutý. Spúšťam aplikáciu na podpísanie", BalloonIcon.Info);
+                EventSignature(data.Link, data.Hash, file);
+
             }
-      
+
 
         }
         /// <summary>
@@ -158,8 +166,9 @@ namespace WinApi
         /// <param name="hash">Hash suboru</param>
         /// <param name="paramFileBytes"> Subor v bytoch  </param>
         /// <param name="link"> Odkaz kam sa ma subor ulozit </param>
-        public void UploadFile(string hash, byte[] paramFileBytes, string link, string path) {
-
+        public void UploadFile(string hash, byte[] paramFileBytes, string link, string path)
+        {
+            TrayIcon.ShowBalloonTip(this.appName, "Prebieha nahrávanie súbor na server", BalloonIcon.Info);
             RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
             var request = new RestRequest
             {
@@ -168,29 +177,29 @@ namespace WinApi
                 RequestFormat = DataFormat.Json,
             };
 
-            
-        //    String file = Convert.ToBase64String(paramFileBytes);
-         // file = file.Replace('+', '-');
-         // file = file.Replace('/', '_');
-         //   Console.WriteLine(file);
-          //  request.AddHeader("Content-Type", "multipart/form-data");
+
+            //    String file = Convert.ToBase64String(paramFileBytes);
+            // file = file.Replace('+', '-');
+            // file = file.Replace('/', '_');
+            //   Console.WriteLine(file);
+            //  request.AddHeader("Content-Type", "multipart/form-data");
             request.AddParameter("user_id", opt.Data.UserID);
             request.AddParameter("object_id", opt.Data.ObjecID);
-         //   request.AddParameter("module_id", opt.Data.ModuleID);
-         //  request.AddParameter("file", "asd");
+            //   request.AddParameter("module_id", opt.Data.ModuleID);
+            //  request.AddParameter("file", "asd");
             request.AddParameter("hash", hash);
             request.AddParameter("link", link);
 
-            request.AddFile("filee", path+hash);
+            request.AddFile("filee", path + hash);
             FileData status = new FileData();
             var response = client.Execute(request);
-            
+
             status = deserial.Deserialize<FileData>(response);
             opt.Data.InProcess = false;
-         
-            if(status.Status != "ok")
+
+            if (status.Status != "ok")
             {
-                Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString() , hash , link);
+                Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
                 Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
                 if (opt.Data.PusherON)
                     send("500");
@@ -205,7 +214,7 @@ namespace WinApi
                     send("200");
                 throw new MyException("Súbor bol úspešne nahraný");
 
-            }     
+            }
         }
         /// <summary>
         /// Metoda na spustenie eventu podpisovanie 
@@ -213,14 +222,16 @@ namespace WinApi
         /// <param name="link"> Odkaz kam sa ma subor ulozit /bozp/2000/1/1 </param>
         /// <param name="hash"> Hash suboru</param>
         /// <param name="file">Obsah suboru </param>
-        private void EventSignature(string link, string hash, byte[] file) {
+        private void EventSignature(string link, string hash, byte[] file)
+        {
 
-            hash += data.Link.Substring(data.Link.LastIndexOf("."));        
+            hash += data.Link.Substring(data.Link.LastIndexOf("."));
             string directhoryPath = data.Link.Replace('/', '\\');
             directhoryPath = directhoryPath.Substring(1, directhoryPath.LastIndexOf("\\"));
             try
             {
-                if (!Directory.Exists(directhoryPath)) { 
+                if (!Directory.Exists(directhoryPath))
+                {
                     Directory.CreateDirectory(directhoryPath);
                     Log.Information("Vytváram  zložku : {0}", directhoryPath);
                 }
@@ -230,37 +241,37 @@ namespace WinApi
                 Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", directhoryPath, ex.Message);
                 throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
             }
-            
+
             try
             {
                 Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
-                System.IO.File.WriteAllBytes(directhoryPath+ hash, file);
-             }
+                System.IO.File.WriteAllBytes(directhoryPath + hash, file);
+            }
             catch (Exception ex)
             {
-                Log.Warning("Nepodarilo sa vytvoriť dokument Hash: {0} : Exception {1}", hash,ex.Message );
+                Log.Warning("Nepodarilo sa vytvoriť dokument Hash: {0} : Exception {1}", hash, ex.Message);
                 throw new MyException("Nepodarilo sa uložiť dokument");
-             }
+            }
 
-            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash,directhoryPath);
-     
+            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash, directhoryPath);
 
 
-            Signature test = new Signature( hash, directhoryPath, opt.Data);
+
+            Signature test = new Signature(hash, directhoryPath, opt.Data);
 
             if (test.SignFile())
             {
 
-                          
-                Stream pdffile = File.OpenRead(directhoryPath+hash);
-                Byte[] bytes = File.ReadAllBytes(directhoryPath+hash);
+
+                Stream pdffile = File.OpenRead(directhoryPath + hash);
+                Byte[] bytes = File.ReadAllBytes(directhoryPath + hash);
                 try
                 {
                     UploadFile(hash, bytes, link, directhoryPath);
                 }
                 catch (MyException ex)
                 {
-                    
+
                     throw new MyException(ex.Message);
                 }
                 finally
@@ -269,13 +280,13 @@ namespace WinApi
                 }
             }
 
-           
-            
+
+
 
         }
         #endregion
 
-      
+
 
 
 

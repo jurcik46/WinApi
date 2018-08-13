@@ -18,13 +18,13 @@ namespace WinApi
         private string SignProgramPath { get; set; }
         private string FilePath { get; set; }
         private string ProcessName { get; set; }
-        
 
-       
-        public Signature( string fileName, string filePath, OptionsData options)
+
+
+        public Signature(string fileName, string filePath, OptionsData options)
         {
             SignProgramPath = options.ProgramPath;
-            FilePath = filePath+fileName;           
+            FilePath = filePath + fileName;
             ProcessName = options.ProcessName;
         }
 
@@ -36,14 +36,14 @@ namespace WinApi
         /// <returns></returns>
         public bool SignFile()
         {
-            
+
             bool result = false;
-         
-            var SignTimeout = 100;
+
+            var SignTimeout = Properties.Settings.Default.singTimeOut; ;
 
             var startInfo = new ProcessStartInfo(this.SignProgramPath, this.FilePath);
 
-           // Process.Start(startInfo);
+            // Process.Start(startInfo);
             using (var process = Process.Start(startInfo))
             {
                 var fileInfo = new FileInfo(this.FilePath);
@@ -52,7 +52,7 @@ namespace WinApi
                 var counter = 0;
                 var foundWindow = false;
                 TimeSpan diff;
-                
+
                 do
                 {
                     Thread.Sleep(1000);
