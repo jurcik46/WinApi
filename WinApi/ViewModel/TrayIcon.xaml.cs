@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System;
 using System.Net;
+using System.IO;
 
 namespace WinApi.ViewModel
 {
@@ -22,18 +23,16 @@ namespace WinApi.ViewModel
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
-        public string workingIcon = @"pack://application:,,,/Icons/working.ico";
-        public string onlineIcon = @"pack://application:,,,/Icons/online.ico";
-        public string offlineIcon = @"pack://application:,,,/Icons/offline.ico";
+        private string appPath = "pack://application:,,,/Aplikacia;";
+        public string workingIcon = @"/Icons/working.ico";
+        public string onlineIcon = @"/Icons/online.ico";
+        public string offlineIcon = @"/Icons/offline.ico";
         private bool on;
         public TrayIcon()
         {
-
-
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.File("logs\\log-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-
 
             // pri uspesnom nacitany nastaveni sa vytvori trieda pusher ktora sluzi na komunikaciu pomocou pushera a APIcka
             option = new Options();
@@ -61,7 +60,9 @@ namespace WinApi.ViewModel
             // Console.WriteLine("Connection state: " + state.ToString());
             if (state == ConnectionState.Connected)
             {
-                trayIconTaskbar.Icon = new System.Drawing.Icon(onlineIcon);
+                Stream iconStream = Application.GetResourceStream(new Uri(appPath + onlineIcon)).Stream;
+
+                trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
                 trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia  je pripojena k internetu", BalloonIcon.Info);
                 on = true;
             }
@@ -70,7 +71,9 @@ namespace WinApi.ViewModel
 
                 if (on)
                 {
-                    trayIconTaskbar.Icon = new System.Drawing.Icon(offlineIcon);
+                    Stream iconStream = Application.GetResourceStream(new Uri(appPath + offlineIcon)).Stream;
+
+                    trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
                     trayIconTaskbar.ShowBalloonTip(appName + " Status pripojenia", "Aplikácia stratila pripojenie k internetu", BalloonIcon.Warning);
                     on = false;
                 }
@@ -138,7 +141,8 @@ namespace WinApi.ViewModel
                 {
                     try
                     {
-                        trayIconTaskbar.Icon = new System.Drawing.Icon(workingIcon);
+                        Stream iconStream = Application.GetResourceStream(new Uri(appPath + workingIcon)).Stream;
+                        trayIconTaskbar.Icon = new System.Drawing.Icon(iconStream);
                         pusher.GetInfo();
                     }
                     catch (MyException ex)
