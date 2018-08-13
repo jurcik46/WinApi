@@ -23,10 +23,10 @@ namespace WinApi.ViewModel
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
-        private string appPath = "pack://application:,,,/Aplikacia;";
-        public string workingIcon = @"/Icons/working.ico";
-        public string onlineIcon = @"/Icons/online.ico";
-        public string offlineIcon = @"/Icons/offline.ico";
+        private string appPath = "pack://application:,,,/";
+        public string workingIcon = @"Icons/working.ico";
+        public string onlineIcon = @"Icons/online.ico";
+        public string offlineIcon = @"Icons/offline.ico";
         private bool on;
         public TrayIcon()
         {
