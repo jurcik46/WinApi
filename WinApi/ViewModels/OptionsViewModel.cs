@@ -9,5 +9,6 @@ namespace WinApi.ViewModels
 {
     public class OptionsViewModel : ViewModelBase
     {
+
     }
 }

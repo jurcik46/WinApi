@@ -16,6 +16,12 @@ namespace WinApi.ViewModels
 
         public OptionsLoginViewModel()
         {
+            this.CommandInit();
+        }
+
+
+        private void CommandInit()
+        {
             this.Enter = new RelayCommand(this.EnterToOptions, this.CanEnter());
         }
 
