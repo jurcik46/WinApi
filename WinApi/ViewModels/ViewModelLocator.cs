@@ -35,6 +35,16 @@ namespace WinApi.ViewModels
             {
                 SimpleIoc.Default.Register<TrayIconViewModel>();
             }
+
+            if (!SimpleIoc.Default.IsRegistered<OptionsViewModel>())
+            {
+                SimpleIoc.Default.Register<OptionsViewModel>();
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
+            {
+                SimpleIoc.Default.Register<OptionsLoginViewModel>();
+            }
         }
 
         public static void Cleanup()

@@ -16,12 +16,11 @@
 
 
 	<!-- TaskbarIcon -->
-	<tb:TaskbarIcon   x:Key="TrayIconTaskbar"
-					Name="trayIconTaskbar"	
-					IconSource="{Binding Aaa}"
+	<tb:TaskbarIcon x:Key="TrayIconTaskbar"
+					Name="trayIconTaskbar"
+					IconSource="/Resources/Icons/online.ico"
                     ToolTipText="Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu"
-					ContextMenu="{StaticResource SysTrayMenu}"
-					>
+					ContextMenu="{StaticResource SysTrayMenu}">
 
 		<tb:TaskbarIcon.TrayToolTip>
 			<Border    
