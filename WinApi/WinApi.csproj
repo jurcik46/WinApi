@@ -145,6 +145,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
+    <Compile Include="Messages\TestMessage.cs" />
     <Compile Include="Models\FileData.cs" />
     <Compile Include="Models\OptionsData.cs" />
     <Compile Include="Code\Options.cs" />
@@ -163,6 +164,9 @@
     </Compile>
     <Compile Include="Views\OptionsWindowView.xaml.cs">
       <DependentUpon>OptionsWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TrayIconView.xaml.cs">
+      <DependentUpon>TrayIconView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TrayInView.xaml.cs">
       <DependentUpon>TrayInView.xaml</DependentUpon>
@@ -244,7 +248,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="Messages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
