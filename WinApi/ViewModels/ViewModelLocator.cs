@@ -1,7 +1,7 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
-
+using GalaSoft.MvvmLight.Views;
 
 namespace WinApi.ViewModels
 {
@@ -12,7 +12,6 @@ namespace WinApi.ViewModels
         {
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 // Create design time view services and models

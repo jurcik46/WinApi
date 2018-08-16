@@ -10,7 +10,7 @@
 		<StackPanel VerticalAlignment="Center">
 			<TextBlock HorizontalAlignment="Center" Text="Heslo pre vstup"/>
 			<PasswordBox  Margin="0 5" HorizontalAlignment="Center" MinWidth="100"  Name="optionsPassowrdBox" />
-			<Button IsDefault="True" Margin="0 5" Content="Vstúpiť" Width="75" Name="enterPasswordButton" />
+			<Button IsDefault="True" Margin="0 5" Content="Vstúpiť" Width="75" Name="enterPasswordButton" Command="{Binding Enter}"/>
 		</StackPanel>
 
 	</Grid>

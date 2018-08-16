@@ -8,6 +8,7 @@ namespace WinApi.Views
     /// </summary>
     public partial class OptionsLoginWindowView : Window
     {
+
         public OptionsLoginWindowView()
         {
             InitializeComponent();

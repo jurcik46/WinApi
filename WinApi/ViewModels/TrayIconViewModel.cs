@@ -11,23 +11,29 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using WinApi.Messages;
 using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.CommandWpf;
+using WinApi.Views;
 
 namespace WinApi.ViewModels
 {
     public class TrayIconViewModel : ViewModelBase
     {
+        private RelayCommand _options;
         private string _aaa;
+        private OptionsLoginWindowView OptionsLoginWindow;
         private readonly NotificationManager _notificationManager = new NotificationManager();
         public string Aaa { get => _aaa; set => _aaa = value; }
+        public RelayCommand Options { get => _options; set => _options = value; }
+
 
         public string ToolTipText { get; set; } = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
+
         public TrayIconViewModel()
         {
             Aaa = "/Resources/Icons/online.ico";
             //var notificationManager = new NotificationManager();
             _notificationManager.Show("asdsadasdasd");
             _notificationManager.Show(new NotificationContent { Title = "asdad", Message = "asdsad" });
-            Messenger.Default.Send<TestMessage>(new TestMessage() { AaT = "22222222222222" });
 
             //notificationManager.Show(new NotificationContent
             //{
@@ -42,8 +48,31 @@ namespace WinApi.ViewModels
             //timer.Start();
 
             // Test. = Properties.Resources.online;
+            this.CommandInit();
 
         }
+
+        private void CommandInit()
+        {
+            this.Options = new RelayCommand(this.ShowOptions, this.CanShowOptions);
+
+        }
+
+        private bool CanShowOptions()
+        {
+            if (this.OptionsLoginWindow != null)
+                return (this.OptionsLoginWindow.IsLoaded) ? false : true;
+            else
+                return true;
+        }
+
+        private void ShowOptions()
+        {
+            this.OptionsLoginWindow = new OptionsLoginWindowView();
+            this.OptionsLoginWindow.Show();
+        }
+
+
 
 
     }

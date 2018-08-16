@@ -16,7 +16,7 @@
 
 	<!-- The taskbar context menu -->
 	<ContextMenu x:Shared="false" x:Key="SysTrayMenu">
-		<MenuItem Header="Nastavenia"   />
+		<MenuItem Header="Nastavenia"  Command="{Binding Options}" />
 		<Separator />
 		<MenuItem Header="Restart" Command="{Commands:RestartAppCommand}"   />
 		<MenuItem Header="Exit" Command="{Commands:ExitAppCommand}"   />

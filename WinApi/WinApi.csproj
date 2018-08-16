@@ -145,6 +145,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
+    <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Messages\TestMessage.cs" />
     <Compile Include="Models\FileData.cs" />
     <Compile Include="Models\OptionsData.cs" />

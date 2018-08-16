@@ -13,14 +13,20 @@ namespace WinApi.Views
     {
         public TrayIconView()
         {
-            Messenger.Default.Register<TestMessage>(this, (message) =>
+            this.RegistrationMessage();
+        }
+
+        private void RegistrationMessage()
+        {
+            Messenger.Default.Register<ShowBallonTipMessage>(this, (message) =>
             {
 
-                trayIconTaskbar.ShowBalloonTip("asdad", message.AaT, BalloonIcon.Info);
+                trayIconTaskbar.ShowBalloonTip(message.Title, message.Msg, message.IconType);
 
                 // ITestService test = ServiceLocator.Current.GetInstance<ITestService>();
                 // test.Test = message.ButtonText;
             });
+
         }
 
         private void trayIconTaskbar_TrayMouseDoubleClick(object sender, System.Windows.RoutedEventArgs e)
