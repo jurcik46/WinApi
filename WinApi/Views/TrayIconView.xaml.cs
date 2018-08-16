@@ -15,7 +15,7 @@ using System;
 using System.Net;
 using System.IO;
 
-namespace WinApi.ViewModel
+namespace WinApi.Views
 {
     public partial class TrayIcon
     {
@@ -23,9 +23,9 @@ namespace WinApi.ViewModel
         private Vstup vstupWindows = null;
         private PusherConnect pusher = null;
         private Options option = null;
-        private System.Drawing.Icon workingIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/working.ico")).Stream);
-        private System.Drawing.Icon onlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/online.ico")).Stream);
-        private System.Drawing.Icon offlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Icons/offline.ico")).Stream);
+        private System.Drawing.Icon workingIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/working.ico")).Stream);
+        private System.Drawing.Icon onlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/online.ico")).Stream);
+        private System.Drawing.Icon offlineIcon = new System.Drawing.Icon(Application.GetResourceStream(new Uri("pack://application:,,,/Resources/Icons/offline.ico")).Stream);
         private bool on;
         public TrayIcon()
         {
