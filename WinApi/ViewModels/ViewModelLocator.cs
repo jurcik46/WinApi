@@ -42,7 +42,7 @@ namespace WinApi.ViewModels
             // TODO Clear the ViewModels
         }
 
-        public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
+        // public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
 
 
     }

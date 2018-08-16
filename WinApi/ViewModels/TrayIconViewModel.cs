@@ -8,7 +8,13 @@ namespace WinApi.ViewModels
 {
     public class TrayIconViewModel
     {
-        public string aaa;
+        private string _aaa;
 
+        public string Aaa { get => _aaa; set => _aaa = value; }
+
+        public TrayIconViewModel()
+        {
+            Aaa = "/Resources/Icons/online.ico";
+        }
     }
 }

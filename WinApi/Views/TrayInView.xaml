@@ -20,7 +20,6 @@
 	<!-- TaskbarIcon -->
 	<tb:TaskbarIcon   x:Key="TrayIconTaskbar"
 					Name="trayIconTaskbar"			
-					IconSource="{Binding }"
 					IconSource="/Resources/Icons/online.ico"
                     ToolTipText="Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu"
 					ContextMenu="{StaticResource SysTrayMenu}"
