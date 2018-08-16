@@ -4,14 +4,10 @@
              xmlns:local="clr-namespace:WinApi"
 			 ShutdownMode="OnExplicitShutdown">
 	<Application.Resources>
-
-
-
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Views/TrayIcon.xaml" />
+				<ResourceDictionary Source="Views/TrayIconView.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
-
 	</Application.Resources>
 </Application>

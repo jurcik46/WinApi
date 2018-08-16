@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
@@ -36,9 +31,9 @@ namespace WinApi.ViewModels
 
         internal static void RegisterViewModels()
         {
-            if (!SimpleIoc.Default.IsRegistered<MainViewModel>())
+            if (!SimpleIoc.Default.IsRegistered<TrayIconViewModel>())
             {
-                SimpleIoc.Default.Register<MainViewModel>();
+                SimpleIoc.Default.Register<TrayIconViewModel>();
             }
         }
 
@@ -47,7 +42,7 @@ namespace WinApi.ViewModels
             // TODO Clear the ViewModels
         }
 
-        // public static MainViewModel MainViewModel => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
 
 
     }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WinApi.ViewModels
 {
-    class TrayIconViewModel
+    public class TrayIconViewModel
     {
+        public string aaa;
+
     }
 }
