@@ -8,15 +8,14 @@ namespace WinApi.Service
     public class PasswordService : IPasswordService
     {
         private string _password = Properties.Settings.Default.password;
-        private string _enterPassword;
         public string Password { get => _password; set => _password = value; }
-        public string EnteredPassword { get => _enterPassword; set => _enterPassword = value; }
 
         public PasswordService()
         {
-            if (Properties.Settings.Default.password == "")
+            if (this.Password == "")
             {
                 CreatePass("admin");
+                this.Password = Properties.Settings.Default.password;
             }
         }
 
@@ -55,10 +54,9 @@ namespace WinApi.Service
         {
 
             string enteredPasswordHash = "";
-            string sourcPassword = Properties.Settings.Default.password;
 
             enteredPasswordHash = GetHashString(enteredPassword);
-            return String.Equals(enteredPasswordHash, sourcPassword);
+            return String.Equals(enteredPasswordHash, this.Password);
         }
     }
 }

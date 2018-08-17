@@ -9,7 +9,6 @@ namespace WinApi.Interfaces.Service
     public interface IPasswordService
     {
         string Password { get; set; }
-        string EnteredPassword { get; set; }
 
         byte[] GetHash(string inputString);
         string GetHashString(string inputString);

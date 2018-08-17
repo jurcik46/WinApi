@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using WinApi.ViewModels;
 
 namespace WinApi.Views
@@ -11,7 +13,8 @@ namespace WinApi.Views
         public OptionsWindowView()
         {
             InitializeComponent();
-            this.DataContext = new OptionsViewModel();
+            this.DataContext = new ViewModelLocator.OptionsViewModel;
         }
     }
+
 }

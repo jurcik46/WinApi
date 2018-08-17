@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WinApi.Views"
+		xmlns:local="clr-namespace:WinApi.Views"
         mc:Ignorable="d"
-        Title="OptionsWindowView" Height="550" Width="600">
+        Title="OptionsWindowView" Height="600" Width="600">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>
@@ -49,20 +49,14 @@
 
 				</StackPanel>
 
-				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding Data.PusherON}" Name="pusherOnCheckBox"/>
+				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding Data.PusherON}" Name="pusherOnCheckBox" FontWeight="Bold"/>
 			</Grid>
 
+			<local:ChangePasswordUserControl/>
 
-			<!-- Vstup do nastaveniach pre upravu  -->
-			<StackPanel  Margin="0 10 0 10 ">
-				<TextBlock HorizontalAlignment="Center" Text="Zmena hesla"/>
-				<PasswordBox Name="newoptionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
-				<TextBlock HorizontalAlignment="Center" Text="Heslo pre Uloženie"/>
-				<PasswordBox Name="optionsPassowrdBox" MinWidth="150" HorizontalAlignment="Center" Padding="2"/>
-				<Button  IsDefault="True"  Name="checkPasswordButton" Margin="0 10 0 0" Width="100" Height="25" Content="Uložiť"/>
 
-			</StackPanel>
-
+			<Button  IsDefault="True"  Name="checkPasswordButton" Margin="0 15 0 0" Width="100" Height="25" Content="Uložiť"/>
 		</StackPanel>
+
 	</Border>
 </Window>

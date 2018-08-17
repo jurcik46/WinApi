@@ -28,7 +28,7 @@ namespace WinApi.Views
                 return;
             }
 
-            viewModel.Passwrod = passwordBox.Password;
+            viewModel.EnteredPasswrod = passwordBox.Password;
             VizualizePasswordValidation(passwordBox);
 
         }

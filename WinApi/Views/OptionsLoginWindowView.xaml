@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:WinApi.ViewModels"
 		mc:Ignorable="d"
         Title="Vstup" Height="150" Width="150" MaxHeight="150" MaxWidth="150" MinWidth="150" MinHeight="150" WindowStartupLocation="CenterScreen">
 	<Grid>

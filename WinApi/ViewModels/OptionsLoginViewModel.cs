@@ -19,7 +19,7 @@ namespace WinApi.ViewModels
 {
     public class OptionsLoginViewModel : ViewModelBase
     {
-        private string _passwrod;
+        private string _enteredPassword;
         private IPasswordService _passwordService;
         private OptionsWindowView OptionsWindow;
         private RelayCommand<IClosable> _enter;
@@ -47,21 +47,29 @@ namespace WinApi.ViewModels
 
         private void EnterToOptions(IClosable win)
         {
-
-
-            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Success, ExpTime = 4 });
-
-            this.OptionsWindow = new OptionsWindowView();
-            this.OptionsWindow.Show();
-            if (win != null)
+            if (this._passwordService.ComperPassword(this.EnteredPasswrod))
             {
-                win.Close();
+                this.OptionsWindow = new OptionsWindowView();
+                this.OptionsWindow.Show();
+                if (win != null)
+                {
+                    win.Close();
+                }
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Success, ExpTime = 4 });
+
             }
+            else
+            {
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Error, ExpTime = 4 });
+
+            }
+
+
         }
 
 
 
-        public string Passwrod { get => _passwrod; set => _passwrod = value; }
+        public string EnteredPasswrod { get => _enteredPassword; set => _enteredPassword = value; }
         public RelayCommand<IClosable> Enter { get => _enter; set => _enter = value; }
     }
 }
