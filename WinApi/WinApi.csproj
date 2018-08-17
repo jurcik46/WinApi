@@ -146,6 +146,7 @@
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
     <Compile Include="Interfaces\IClosable.cs" />
+    <Compile Include="Interfaces\Service\IOptionsService.cs" />
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Code\Signature.cs" />
     <Compile Include="Models\OptionsModel.cs" />
     <Compile Include="Models\SignatureModel.cs" />
+    <Compile Include="Service\OptionsService.cs" />
     <Compile Include="Service\PasswordService.cs" />
     <Compile Include="Service\PusherService.cs" />
     <Compile Include="Settings.cs" />

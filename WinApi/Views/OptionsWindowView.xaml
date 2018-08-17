@@ -36,14 +36,14 @@
 
 				<!-- Texboxy s nastaveniamy -->
 				<StackPanel Grid.Column="1" Grid.Row="0">
-					<TextBox Margin="5 10 0 10" Height="20"	Name="apiTextBox"   Text="{Binding Options.ApiLink, Mode=TwoWay}" />
-					<TextBox Margin="5 10 0 10" Height="20"	Name="apiKeyTextBox"  Text="{Binding Options.Apikey, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="userIdTextBox"    Text="{Binding Options.UserID, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="objectIdTextBox"  Text="{Binding Options.ObjecID, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding Options.ProgramPath, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding Options.ProcessName, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding Options.PusherKey, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherHttpAuthorizerTextBox" Text="{Binding Options.PusherAuthorizer, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="apiTextBox"   Text="{Binding OptionsService.Options.ApiLink, Mode=TwoWay}" />
+					<TextBox Margin="5 10 0 10" Height="20"	Name="apiKeyTextBox"  Text="{Binding OptionsService.Options.Apikey, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="userIdTextBox"    Text="{Binding OptionsService.Options.UserID, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="objectIdTextBox"  Text="{Binding OptionsService.Options.ObjecID, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding OptionsService.Options.ProgramPath, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding OptionsService.Options.ProcessName, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding OptionsService.Options.PusherKey, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherHttpAuthorizerTextBox" Text="{Binding OptionsService.Options.PusherAuthorizer, Mode=TwoWay}"/>
 
 				</StackPanel>
 

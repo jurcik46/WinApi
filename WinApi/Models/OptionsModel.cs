@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinApi.Models
 {
-    class OptionsModel
+    public class OptionsModel
     {
         public string ApiLink { get; set; }
         public string Apikey { get; set; }

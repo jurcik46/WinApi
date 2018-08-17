@@ -18,12 +18,14 @@ namespace WinApi.ViewModels
             {
                 // Create design time view services and models
                 //SimpleIoc.Default.Register<ITestService, DesignTestService>();
+
             }
             else
             {
                 // Create run time view services and models
                 // SimpleIoc.Default.Register<ITestService, TestService>();
                 SimpleIoc.Default.Register<IPasswordService, PasswordService>();
+                SimpleIoc.Default.Register<IOptionsService, OptionsService>();
 
             }
 
@@ -40,7 +42,7 @@ namespace WinApi.ViewModels
 
             if (!SimpleIoc.Default.IsRegistered<OptionsViewModel>())
             {
-                SimpleIoc.Default.Register<OptionsViewModel>();
+                SimpleIoc.Default.Register(() => new OptionsViewModel(ServiceLocator.Current.GetInstance<IOptionsService>()));
             }
 
             if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
