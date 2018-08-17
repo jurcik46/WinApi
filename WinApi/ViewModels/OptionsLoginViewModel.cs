@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using Notifications.Wpf;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using WinApi.Interfaces;
 using WinApi.Interfaces.Service;
+using WinApi.Messages;
 using WinApi.Service;
 using WinApi.Views;
 
@@ -37,29 +39,18 @@ namespace WinApi.ViewModels
 
         private bool CanEnter(IClosable win)
         {
-            //var notificationManager = new NotificationManager();
-            //notificationManager.Show(new NotificationContent
-            //{
-            //    Title = Properties.Settings.Default.password,
-            //    Message = this.Passwrod,
-            //    Type = NotificationType.Success
-            //}, expirationTime: TimeSpan.FromSeconds(2));
             if (this.OptionsWindow != null)
                 return (this.OptionsWindow.IsLoaded) ? false : true;
-
-            if (this.Passwrod == Properties.Settings.Default.password)
-            {
-                return true;
-            }
             else
-            {
-                return false;
-            }
-
+                return true;
         }
 
         private void EnterToOptions(IClosable win)
         {
+
+
+            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Success, ExpTime = 4 });
+
             this.OptionsWindow = new OptionsWindowView();
             this.OptionsWindow.Show();
             if (win != null)

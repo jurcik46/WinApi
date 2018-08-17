@@ -49,6 +49,19 @@ namespace WinApi.ViewModels
 
             // Test. = Properties.Resources.online;
             this.CommandInit();
+            this.MessagesInit();
+        }
+
+        private void MessagesInit()
+        {
+
+            Messenger.Default.Register<NotifiMessage>(this, (message) =>
+            {
+
+                this._notificationManager.Show(new NotificationContent { Title = message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
+
+            });
+
         }
 
         private void CommandInit()

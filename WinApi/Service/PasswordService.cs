@@ -7,14 +7,17 @@ namespace WinApi.Service
 {
     public class PasswordService : IPasswordService
     {
-        private string _password;
+        private string _password = Properties.Settings.Default.password;
         private string _enterPassword;
         public string Password { get => _password; set => _password = value; }
         public string EnteredPassword { get => _enterPassword; set => _enterPassword = value; }
 
         public PasswordService()
         {
-
+            if (Properties.Settings.Default.password == "")
+            {
+                CreatePass("admin");
+            }
         }
 
         /// <summary>
@@ -46,15 +49,6 @@ namespace WinApi.Service
         {
             Properties.Settings.Default.password = GetHashString(heslo);
             Properties.Settings.Default.Save();
-            // Create the file.
-            /*
-            using (FileStream fs = File.Create(passwordFile))
-            {
-                Byte[] info = new UTF8Encoding(true).GetBytes(GetHashString(heslo));
-                // Add some information to the file.
-                fs.Write(info, 0, info.Length);
-            }*/
-
         }
 
         public bool ComperPassword(string enteredPassword)
@@ -62,11 +56,6 @@ namespace WinApi.Service
 
             string enteredPasswordHash = "";
             string sourcPassword = Properties.Settings.Default.password;
-            /*using (StreamReader sr = File.OpenText(passwordFile))
-            {
-                sourcPassword = sr.ReadLine();        
-            }
-            */
 
             enteredPasswordHash = GetHashString(enteredPassword);
             return String.Equals(enteredPasswordHash, sourcPassword);
