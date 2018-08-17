@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using WinApi.Interfaces.Service;
+using WinApi.Service;
 
 namespace WinApi.ViewModels
 {
@@ -21,6 +23,7 @@ namespace WinApi.ViewModels
             {
                 // Create run time view services and models
                 // SimpleIoc.Default.Register<ITestService, TestService>();
+                SimpleIoc.Default.Register<IPasswordService, PasswordService>();
 
             }
 
@@ -40,10 +43,10 @@ namespace WinApi.ViewModels
                 SimpleIoc.Default.Register<OptionsViewModel>();
             }
 
-            //if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
-            //{
-            //    SimpleIoc.Default.Register<OptionsLoginViewModel>();
-            //}
+            if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
+            {
+                SimpleIoc.Default.Register(() => new OptionsLoginViewModel(ServiceLocator.Current.GetInstance<IPasswordService>()));
+            }
         }
 
         public static void Cleanup()
@@ -51,7 +54,8 @@ namespace WinApi.ViewModels
             // TODO Clear the ViewModels
         }
 
-        // public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
+        public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
+        public static OptionsLoginViewModel OptionsLoginViewModel => ServiceLocator.Current.GetInstance<OptionsLoginViewModel>();
 
 
     }

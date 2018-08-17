@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WinApi.Interfaces;
+using WinApi.Interfaces.Service;
+using WinApi.Service;
 using WinApi.Views;
 
 namespace WinApi.ViewModels
@@ -15,11 +18,13 @@ namespace WinApi.ViewModels
     public class OptionsLoginViewModel : ViewModelBase
     {
         private string _passwrod;
+        private IPasswordService _passwordService;
         private OptionsWindowView OptionsWindow;
-        private RelayCommand<Window> _enter;
+        private RelayCommand<IClosable> _enter;
 
-        public OptionsLoginViewModel()
+        public OptionsLoginViewModel(IPasswordService passwordService)
         {
+            this._passwordService = passwordService;
             this.CommandInit();
         }
 
@@ -27,10 +32,10 @@ namespace WinApi.ViewModels
 
         private void CommandInit()
         {
-            this.Enter = new RelayCommand<Window>(EnterToOptions, CanEnter);
+            this.Enter = new RelayCommand<IClosable>(EnterToOptions, CanEnter);
         }
 
-        private bool CanEnter(Window win)
+        private bool CanEnter(IClosable win)
         {
             //var notificationManager = new NotificationManager();
             //notificationManager.Show(new NotificationContent
@@ -53,7 +58,7 @@ namespace WinApi.ViewModels
 
         }
 
-        private void EnterToOptions(Window win)
+        private void EnterToOptions(IClosable win)
         {
             this.OptionsWindow = new OptionsWindowView();
             this.OptionsWindow.Show();
@@ -66,6 +71,6 @@ namespace WinApi.ViewModels
 
 
         public string Passwrod { get => _passwrod; set => _passwrod = value; }
-        public RelayCommand<Window> Enter { get => _enter; set => _enter = value; }
+        public RelayCommand<IClosable> Enter { get => _enter; set => _enter = value; }
     }
 }

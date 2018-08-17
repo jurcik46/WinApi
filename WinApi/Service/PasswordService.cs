@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using WinApi.Interfaces.Service;
 
 namespace WinApi.Service
 {
-    class PasswordService
+    public class PasswordService : IPasswordService
     {
+        private string _password;
+        private string _enterPassword;
+        public string Password { get => _password; set => _password = value; }
+        public string EnteredPassword { get => _enterPassword; set => _enterPassword = value; }
+
         public PasswordService()
         {
 
@@ -19,7 +22,7 @@ namespace WinApi.Service
         /// </summary>
         /// <param name="inputString"></param>
         /// <returns></returns>
-        public static byte[] GetHash(string inputString)
+        public byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = SHA256.Create();
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
@@ -30,7 +33,7 @@ namespace WinApi.Service
         /// <param name="inputString"> Heslo </param>
         /// <returns></returns>
 
-        public static string GetHashString(string inputString)
+        public string GetHashString(string inputString)
         {
             StringBuilder sb = new StringBuilder();
             foreach (byte b in GetHash(inputString))

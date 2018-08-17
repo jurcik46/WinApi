@@ -2,20 +2,21 @@
 using System.Windows;
 using System.Windows.Controls;
 using WinApi.ViewModels;
+using WinApi.Interfaces;
 
 namespace WinApi.Views
 {
     /// <summary>
     /// Interaction logic for OptionsLoginWindowView.xaml
     /// </summary>
-    public partial class OptionsLoginWindowView : Window
+    public partial class OptionsLoginWindowView : Window, IClosable
     {
 
         public OptionsLoginWindowView()
         {
 
             InitializeComponent();
-            this.DataContext = new OptionsLoginViewModel();
+            this.DataContext = ViewModelLocator.OptionsLoginViewModel;
         }
 
         private void optionsPassowrdBox_PasswordChanged(object sender, RoutedEventArgs e)
@@ -47,7 +48,6 @@ namespace WinApi.Views
                 passwordBox.BorderThickness = new Thickness(1);
                 passwordBox.ToolTip = null;
                 passwordBox.Background = Brushes.White;
-
                 enterPasswordButton.IsEnabled = true;
 
             }
