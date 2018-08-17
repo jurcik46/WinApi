@@ -152,6 +152,8 @@
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />
     <Compile Include="Code\Signature.cs" />
+    <Compile Include="Service\PasswordService.cs" />
+    <Compile Include="Service\PusherService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\OptionsLoginViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
@@ -248,6 +250,7 @@
     <Resource Include="test.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

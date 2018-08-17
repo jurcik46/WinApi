@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using Hardcodet.Wpf.TaskbarNotification;
 using Notifications.Wpf;
-using System;
+using System.Windows;
 using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +32,8 @@ namespace WinApi.ViewModels
         {
             Aaa = "/Resources/Icons/online.ico";
             //var notificationManager = new NotificationManager();
-            _notificationManager.Show("asdsadasdasd");
-            _notificationManager.Show(new NotificationContent { Title = "asdad", Message = "asdsad" });
+            //_notificationManager.Show("asdsadasdasd");
+            // _notificationManager.Show(new NotificationContent { Title = "asdad", Message = "asdsad" });
 
             //notificationManager.Show(new NotificationContent
             //{
@@ -49,7 +49,6 @@ namespace WinApi.ViewModels
 
             // Test. = Properties.Resources.online;
             this.CommandInit();
-
         }
 
         private void CommandInit()

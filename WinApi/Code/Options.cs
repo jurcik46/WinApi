@@ -57,7 +57,8 @@ namespace WinApi.Models
         /// Metoda na nacitanie nastaveni zo suboru do Data
         /// </summary>
 
-        public void LoadOption() {
+        public void LoadOption()
+        {
 
             try
             {
@@ -74,11 +75,11 @@ namespace WinApi.Models
                 this.Data.InProcess = Properties.Settings.Default.InProcess;
                 this.Data.Succes = true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 this.Data.Succes = false;
             }
-         
+
             // this.Data.ModuleID = Properties.Settings.Default.ModuleID;
             /*
             if (File.Exists(optionsFile))
@@ -89,7 +90,7 @@ namespace WinApi.Models
             }
             
             */
-       
+
         }
 
 
@@ -101,7 +102,7 @@ namespace WinApi.Models
         /// <returns></returns>
         public static byte[] GetHash(string inputString)
         {
-            HashAlgorithm algorithm = SHA256.Create();  
+            HashAlgorithm algorithm = SHA256.Create();
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
         /// <summary>
@@ -122,9 +123,10 @@ namespace WinApi.Models
         /// <summary>
         /// Metoda na vytvorenie suboru option hashom hesla
         /// </summary>
-        public void CreatePass(string heslo) {
-            Properties.Settings.Default.password = GetHashString(heslo);
-            Properties.Settings.Default.Save();
+        public void CreatePass(string heslo)
+        {
+            //  Properties.Settings.Default.password = GetHashString(heslo);
+            // Properties.Settings.Default.Save();
             // Create the file.
             /*
             using (FileStream fs = File.Create(passwordFile))
@@ -140,7 +142,8 @@ namespace WinApi.Models
         /// </summary>
         /// <param name="enteredPassword"> Heslo ktore sa porovna option ulozenim </param>
         /// <returns></returns>
-        public bool ComperPassword(string enteredPassword) {
+        public bool ComperPassword(string enteredPassword)
+        {
 
             string enteredPasswordHash = "";
             string sourcPassword = Properties.Settings.Default.password;
@@ -152,7 +155,7 @@ namespace WinApi.Models
 
             enteredPasswordHash = GetHashString(enteredPassword);
             return String.Equals(enteredPasswordHash, sourcPassword);
-           }        
+        }
     }
-            #endregion
+    #endregion
 }

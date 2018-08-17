@@ -40,10 +40,10 @@ namespace WinApi.ViewModels
                 SimpleIoc.Default.Register<OptionsViewModel>();
             }
 
-            if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
-            {
-                SimpleIoc.Default.Register<OptionsLoginViewModel>();
-            }
+            //if (!SimpleIoc.Default.IsRegistered<OptionsLoginViewModel>())
+            //{
+            //    SimpleIoc.Default.Register<OptionsLoginViewModel>();
+            //}
         }
 
         public static void Cleanup()
