@@ -151,10 +151,11 @@
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Messages\TestMessage.cs" />
     <Compile Include="Models\FileData.cs" />
-    <Compile Include="Models\OptionsData.cs" />
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />
     <Compile Include="Code\Signature.cs" />
+    <Compile Include="Models\OptionsModel.cs" />
+    <Compile Include="Models\SignatureModel.cs" />
     <Compile Include="Service\PasswordService.cs" />
     <Compile Include="Service\PusherService.cs" />
     <Compile Include="Settings.cs" />
@@ -166,9 +167,6 @@
     <Compile Include="Views\ChangePasswordUserControl.xaml.cs">
       <DependentUpon>ChangePasswordUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Nastavenia.xaml.cs">
-      <DependentUpon>Nastavenia.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\OptionsLoginWindowView.xaml.cs">
       <DependentUpon>OptionsLoginWindowView.xaml</DependentUpon>
     </Compile>
@@ -178,21 +176,11 @@
     <Compile Include="Views\TrayIconView.xaml.cs">
       <DependentUpon>TrayIconView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TrayInView.xaml.cs">
-      <DependentUpon>TrayInView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Vstup.xaml.cs">
-      <DependentUpon>Vstup.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\ChangePasswordUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Nastavenia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,14 +193,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TrayIconView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TrayInView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Vstup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

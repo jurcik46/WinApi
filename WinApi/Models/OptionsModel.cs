@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WinApi.Models
 {
-    class OptionsData
+    class OptionsModel
     {
         public string ApiLink { get; set; }
         public string Apikey { get; set; }
         public string UserID { get; set; }
         public string ObjecID { get; set; }
-     //   public string ModuleID { get; set; }
         public string ProgramPath { get; set; }
         public string ProcessName { get; set; }
         public string PusherKey { get; set; }
@@ -24,7 +23,7 @@ namespace WinApi.Models
 
         public override string ToString()
         {
-            return base.ToString() + ": ApiLink - " + ApiLink + ", Apikey - " + Apikey + ", UserID - " + UserID + ", ModuleID - " /*+ ModuleID*/ + ", ProgramPath - "
+            return base.ToString() + ": ApiLink - " + ApiLink + ", Apikey - " + Apikey + ", UserID - " + UserID + ", ModuleID - " + ", ProgramPath - "
                 + ProgramPath + ", ProcessName - " + ProcessName + ", PusherKey" + PusherKey + ", Succes - " + Succes + ", InProcess - " + InProcess;
         }
     }

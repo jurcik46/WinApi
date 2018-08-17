@@ -55,12 +55,12 @@ namespace WinApi.ViewModels
                 {
                     win.Close();
                 }
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Success, ExpTime = 4 });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
 
             }
             else
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = NotificationType.Error, ExpTime = 4 });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 4 });
 
             }
 

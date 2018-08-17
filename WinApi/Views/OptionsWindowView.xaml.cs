@@ -13,7 +13,7 @@ namespace WinApi.Views
         public OptionsWindowView()
         {
             InitializeComponent();
-            this.DataContext = new ViewModelLocator.OptionsViewModel;
+            this.DataContext = ViewModelLocator.OptionsViewModel;
         }
     }
 
