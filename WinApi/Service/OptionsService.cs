@@ -52,8 +52,8 @@ namespace WinApi.Service
 
             Properties.Settings.Default.Save();
 
-            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Options Setting", Msg = "Nastavenia boli uspesne ulozene", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
-
+            // Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Options Setting", Msg = "Nastavenia boli uspesne ulozene", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
+            //System.Threading.Thread.Sleep(1500);
         }
     }
 }

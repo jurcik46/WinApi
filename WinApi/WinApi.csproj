@@ -150,7 +150,6 @@
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
-    <Compile Include="Messages\TestMessage.cs" />
     <Compile Include="Models\FileData.cs" />
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />

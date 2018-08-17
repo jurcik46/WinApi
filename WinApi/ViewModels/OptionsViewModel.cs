@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using WinApi.Interfaces.Service;
 using WinApi.Messages;
 using WinApi.Models;
@@ -33,9 +34,12 @@ namespace WinApi.ViewModels
         {
             return true;
         }
+
         private void SaveOptionsToSetting()
         {
             OptionsService.SaveOptionsToSetting();
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
 
         public RelayCommand SaveOptions { get => _saveOptions; set => _saveOptions = value; }
