@@ -139,6 +139,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\Api.cs" />
+    <Compile Include="API\Model\SignatureFileModel.cs" />
     <Compile Include="Code\MyException.cs" />
     <Compile Include="Commands\RestartAppCommand.cs" />
     <Compile Include="Commands\ExitAppCommand.cs" />
@@ -149,17 +150,22 @@
     <Compile Include="Interfaces\IClosable.cs" />
     <Compile Include="Interfaces\Model\IApiOptionModel.cs" />
     <Compile Include="Interfaces\Model\IPusherOptionModel.cs" />
+    <Compile Include="Interfaces\Model\ISignatureFileModel.cs.cs" />
     <Compile Include="Interfaces\Model\ISignatureOptionModel.cs" />
     <Compile Include="Interfaces\Service\IOptionsService.cs" />
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
+    <Compile Include="Interfaces\Service\IRestService.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
+    <Compile Include="Models\ApiOptionModel.cs" />
     <Compile Include="Models\FileData.cs" />
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />
     <Compile Include="Code\Signature.cs" />
     <Compile Include="Models\OptionsModel.cs" />
-    <Compile Include="Models\SignatureModel.cs" />
+    <Compile Include="Models\PusherOptionModel.cs" />
+    <Compile Include="Models\SignatureFileModel.cs" />
+    <Compile Include="Models\SignatureOptionModel.cs" />
     <Compile Include="Service\OptionsService.cs" />
     <Compile Include="Service\PasswordService.cs" />
     <Compile Include="Service\PusherService.cs" />
@@ -248,8 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\Enum\" />
-    <Folder Include="API\Model\" />
-    <Folder Include="API\Respone\" />
     <Folder Include="Desing\" />
     <Folder Include="Resources\Language\" />
   </ItemGroup>

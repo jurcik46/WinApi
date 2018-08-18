@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace WinApi.Interfaces.Model
 {
-    interface ISignatureOptionModel
+    public interface ISignatureFileModel
     {
-
-        string ProgramPath { get; set; }
-        string ProcessName { get; set; }
+        string PdfFilePath { get; set; }
+        string Hash { get; set; }
+        byte[] File { get; set; }
 
     }
 }

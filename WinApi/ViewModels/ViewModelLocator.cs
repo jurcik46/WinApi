@@ -26,6 +26,7 @@ namespace WinApi.ViewModels
                 // SimpleIoc.Default.Register<ITestService, TestService>();
                 SimpleIoc.Default.Register<IPasswordService, PasswordService>();
                 SimpleIoc.Default.Register<IOptionsService, OptionsService>();
+                SimpleIoc.Default.Register<IRestService, RestService>();
 
             }
 

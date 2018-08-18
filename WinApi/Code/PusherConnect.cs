@@ -1,292 +1,290 @@
-﻿//using System;
-//using PusherClient;
-//using System.Text;
-//using System.Net;
-//using Serilog;
-//using System.IO;
-//using RestSharp;
-//using WinApi.Code;
-//using WinApi.Models;
-//using WinApi.ViewModel;
-//using RestSharp.Deserializers;
-//using Hardcodet.Wpf.TaskbarNotification;
+﻿using system;
+using pusherclient;
+using system.text;
+using system.net;
+using serilog;
+using system.io;
+using restsharp;
+using winapi.code;
+using winapi.models;
+using winapi.viewmodel;
+using restsharp.deserializers;
+using hardcodet.wpf.taskbarnotification;
 
-//namespace WinApi
-//{
-//    class PusherConnect
-//    {
+namespace winapi
+{
+    class pusherconnect
+    {
 
-//        public Pusher _pusher = null;
-//        public Channel _channel = null;
-//        private TaskbarIcon _trayIcon;
-//        private Options opt;
-//        private string appName;
-//        private RestClient client = new RestClient();
-//        private Uri myUri;
-//        public Boolean Proces { get => Proces; set { Proces = false; } }
-//        internal FileData Data { get => data; set => data = value; }
-//        public TaskbarIcon TrayIcon { get => _trayIcon; set => _trayIcon = value; }
+        public pusher _pusher = null;
+        public channel _channel = null;
+        private taskbaricon _trayicon;
+        private options opt;
+        private string appname;
+        private restclient client = new restclient();
+        private uri myuri;
+        public boolean proces { get => proces; set { proces = false; } }
+        internal filedata data { get => data; set => data = value; }
+        public taskbaricon trayicon { get => _trayicon; set => _trayicon = value; }
 
-//        private FileData data;
-
-
-//        #region pusher
-//        public PusherConnect(bool encryption, string cluester, Options options, string appName)
-//        {
-//            // add api uri to RestClient
-//            opt = options;
-//            this.appName = appName;
-//            myUri = new Uri(opt.Data.ApiLink);
-//            client.BaseUrl = myUri.OriginalString;
-
-//            if (opt.Data.PusherON)
-//            {
-//                _pusher = new Pusher(opt.Data.PusherKey, new PusherOptions()
-//                {
-//                    Authorizer = new HttpAuthorizer(opt.Data.PusherAuthorizer),
-//                    Encrypted = encryption,
-//                    Cluster = cluester
-//                });
-//                InitPusher();
-//            }
-
-//        }
+        private filedata data;
 
 
+        #region pusher
+        public pusherconnect(bool encryption, string cluester, options options, string appname)
+        {
+            // add api uri to restclient
+            opt = options;
+            this.appname = appname;
+            myuri = new uri(opt.data.apilink);
+            client.baseurl = myuri.originalstring;
 
-//        private void InitPusher()
-//        {
-//            _channel = _pusher.Subscribe("private-bozp-" + opt.Data.ObjecID);
-//            _pusher.Connect();
-//        }
-//        /// <summary>
-//        /// Metoda na poslanie spravy pre pusher 
-//        /// </summary>
-//        /// <param name="eventType"> pre aky event </param>
-//        /// <param name="msgType"> typ spravy</param>
-//        /// <param name="msg"> samotna sprava</param>
-//        public void send(string msg)
-//        {
+            if (opt.data.pusheron)
+            {
+                _pusher = new pusher(opt.data.pusherkey, new pusheroptions()
+                {
+                    authorizer = new httpauthorizer(opt.data.pusherauthorizer),
+                    encrypted = encryption,
+                    cluster = cluester
+                });
+                initpusher();
+            }
 
-//            Log.Information("Odoslanie správy pre pusher: Event = client-event-{0}, Msg = {1}", opt.Data.UserID, msg);
-//            _channel.Trigger(String.Format("client-event-{0}", opt.Data.UserID), new { status = msg });
-//        }
-
-//        /// <summary>
-//        /// Metoda na overenie pripojenia 
-//        /// </summary>
-//        /// <param name="URL"> URL addresa</param>
-//        /// <returns></returns>
-//        public bool CheckConnection(String URL)
-//        {
-
-//            try
-//            {
-//                Log.Information("Check Connection na URL : {0}", URL);
-//                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-//                request.Timeout = 5000;
-//                request.Credentials = CredentialCache.DefaultNetworkCredentials;
-//                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-//                if (response.StatusCode == HttpStatusCode.OK)
-//                    return true;
-//                else
-//                    return false;
-//            }
-//            catch
-//            {
-
-//                return false;
-
-//            }
-//        }
-
-
-//        #endregion
-
-//        #region eventFunctions
-
-//        /// <summary>
-//        /// Metoda na zistanie od APIcka ci je dostupny dokument pre podpisanie  
-//        /// 
-//        /// </summary>
-//        public void GetInfo()
-//        {
-//            TrayIcon.ShowBalloonTip(appName, "Hľadám nový súbory na podpísanie", BalloonIcon.Info);
-//            //TrayIcon.ShowCustomBalloon(ballon, System.Windows.Controls.Primitives.PopupAnimation.Slide, 3000);
-//            RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-//            var request = new RestRequest
-//            {
-//                Resource = @"/getinfo.json?api_key=" + opt.Data.Apikey,
-//                Method = Method.POST,
-//                RequestFormat = DataFormat.Json,
-
-//            };
-
-
-//            request.AddParameter("object_id", opt.Data.ObjecID);
-//            request.AddParameter("user_id", opt.Data.UserID);
-//            //request.AddParameter("module_id", opt.Data.ModuleID);
-
-
-//            var response = client.Execute(request);
-
-//            if (response.StatusCode == 0)
-//            {
-//                Log.Warning("GetInfo Request zlyhal pre sietove spojenie {0}", opt.Data.ToString());
-//                throw new MyException("Zlyhalo pripojenie k internetu");
-//            }
-//            data = deserial.Deserialize<FileData>(response);
-
-//            if (data.Status != "ok")
-//            {
-
-//                Log.Warning("GetInfo Request žiadny súbor sa na podpísanie nenašiel {0} ", opt.Data.ToString());
-//                Log.Warning("Respon: {0}", data.ToString());
-//                if (opt.Data.PusherON)
-//                    send("404");
-//                throw new MyException("Nenašiel sa žiadny súbor na podpisanie");
-//            }
-//            else
-//            {
-//                Log.Information("GetInfo Request bol úspešný - Data: {0}", data.ToString());
-//                opt.Data.InProcess = true;
-//                byte[] file = Convert.FromBase64String(data.File);
-//                //string decodedString = Encoding.UTF8.GetString(file);
-//                TrayIcon.ShowBalloonTip(this.appName, "Súbor na podpísanie bol úspešne stiahnutý. Spúšťam aplikáciu na podpísanie", BalloonIcon.Info);
-//                EventSignature(data.Link, data.Hash, file);
-
-//            }
-
-
-//        }
-//        /// <summary>
-//        /// Metoda na poslanie podpisaneho suboru pre APIcko 
-//        /// </summary>
-//        /// <param name="hash">Hash suboru</param>
-//        /// <param name="paramFileBytes"> Subor v bytoch  </param>
-//        /// <param name="link"> Odkaz kam sa ma subor ulozit </param>
-//        public void UploadFile(string hash, byte[] paramFileBytes, string link, string path)
-//        {
-//            TrayIcon.ShowBalloonTip(this.appName, "Prebieha nahrávanie súbor na server", BalloonIcon.Info);
-//            RestSharp.Deserializers.JsonDeserializer deserial = new JsonDeserializer();
-//            var request = new RestRequest
-//            {
-//                Resource = @"/uploadfile.json?api_key=" + opt.Data.Apikey,
-//                Method = Method.POST,
-//                RequestFormat = DataFormat.Json,
-//            };
-
-
-//            //    String file = Convert.ToBase64String(paramFileBytes);
-//            // file = file.Replace('+', '-');
-//            // file = file.Replace('/', '_');
-//            //   Console.WriteLine(file);
-//            //  request.AddHeader("Content-Type", "multipart/form-data");
-//            request.AddParameter("user_id", opt.Data.UserID);
-//            request.AddParameter("object_id", opt.Data.ObjecID);
-//            //   request.AddParameter("module_id", opt.Data.ModuleID);
-//            //  request.AddParameter("file", "asd");
-//            request.AddParameter("hash", hash);
-//            request.AddParameter("link", link);
-
-//            request.AddFile("filee", path + hash);
-//            FileData status = new FileData();
-//            var response = client.Execute(request);
-
-//            status = deserial.Deserialize<FileData>(response);
-//            opt.Data.InProcess = false;
-
-//            if (status.Status != "ok")
-//            {
-//                Log.Warning("Súbor sa nepodarilo nahrať REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
-//                Log.Warning("Súbor sa nepodarilo nahrať RESPON: {0} ", status.ToString());
-//                if (opt.Data.PusherON)
-//                    send("500");
-//                throw new MyException("Súbor sa nepodarilo nahrať");
-
-//            }
-//            else
-//            {
-//                Log.Information("Súbor bol úspešne nahraný  REQUEST : {0} , Hash {1} , Link {2}", opt.Data.ToString(), hash, link);
-//                Log.Information("Súbor bol úspešne nahraný  RESPON : {0} ", status.ToString());
-//                if (opt.Data.PusherON)
-//                    send("200");
-//                throw new MyException("Súbor bol úspešne nahraný");
-
-//            }
-//        }
-//        /// <summary>
-//        /// Metoda na spustenie eventu podpisovanie 
-//        /// </summary>
-//        /// <param name="link"> Odkaz kam sa ma subor ulozit /bozp/2000/1/1 </param>
-//        /// <param name="hash"> Hash suboru</param>
-//        /// <param name="file">Obsah suboru </param>
-//        private void EventSignature(string link, string hash, byte[] file)
-//        {
-
-//            hash += data.Link.Substring(data.Link.LastIndexOf("."));
-//            string directhoryPath = data.Link.Replace('/', '\\');
-//            directhoryPath = directhoryPath.Substring(1, directhoryPath.LastIndexOf("\\"));
-//            try
-//            {
-//                if (!Directory.Exists(directhoryPath))
-//                {
-//                    Directory.CreateDirectory(directhoryPath);
-//                    Log.Information("Vytváram  zložku : {0}", directhoryPath);
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                Log.Warning("Nepodarilo sa vytvoriť zložku : {0} : Exception {1}", directhoryPath, ex.Message);
-//                throw new MyException("Nepodarilo sa vytvoriť zložku pre dokument");
-//            }
-
-//            try
-//            {
-//                Log.Information("Vytváram prijatý súbor Hash: {0}", hash);
-//                System.IO.File.WriteAllBytes(directhoryPath + hash, file);
-//            }
-//            catch (Exception ex)
-//            {
-//                Log.Warning("Nepodarilo sa vytvoriť dokument Hash: {0} : Exception {1}", hash, ex.Message);
-//                throw new MyException("Nepodarilo sa uložiť dokument");
-//            }
-
-//            opt.Data.ProcessName = String.Format(opt.Data.ProcessName, hash, directhoryPath);
+        }
 
 
 
-//            Signature test = new Signature(hash, directhoryPath, opt.Data);
+        private void initpusher()
+        {
+            _channel = _pusher.subscribe("private-bozp-" + opt.data.objecid);
+            _pusher.connect();
+        }
+        /// <summary>
+        /// metoda na poslanie spravy pre pusher 
+        /// </summary>
+        /// <param name="eventtype"> pre aky event </param>
+        /// <param name="msgtype"> typ spravy</param>
+        /// <param name="msg"> samotna sprava</param>
+        public void send(string msg)
+        {
 
-//            if (test.SignFile())
-//            {
+            log.information("odoslanie správy pre pusher: event = client-event-{0}, msg = {1}", opt.data.userid, msg);
+            _channel.trigger(string.format("client-event-{0}", opt.data.userid), new { status = msg });
+        }
+
+        /// <summary>
+        /// metoda na overenie pripojenia 
+        /// </summary>
+        /// <param name="url"> url addresa</param>
+        /// <returns></returns>
+        public bool checkconnection(string url)
+        {
+
+            try
+            {
+                log.information("check connection na url : {0}", url);
+                httpwebrequest request = (httpwebrequest)webrequest.create(url);
+                request.timeout = 5000;
+                request.credentials = credentialcache.defaultnetworkcredentials;
+                httpwebresponse response = (httpwebresponse)request.getresponse();
+
+                if (response.statuscode == httpstatuscode.ok)
+                    return true;
+                else
+                    return false;
+            }
+            catch
+            {
+
+                return false;
+
+            }
+        }
 
 
-//                Stream pdffile = File.OpenRead(directhoryPath + hash);
-//                Byte[] bytes = File.ReadAllBytes(directhoryPath + hash);
-//                try
-//                {
-//                    UploadFile(hash, bytes, link, directhoryPath);
-//                }
-//                catch (MyException ex)
-//                {
+        #endregion
 
-//                    throw new MyException(ex.Message);
-//                }
-//                finally
-//                {
-//                    data = null;
-//                }
-//            }
+        #region eventfunctions
 
+        /// <summary>
+        /// metoda na zistanie od apicka ci je dostupny dokument pre podpisanie  
+        /// 
+        /// </summary>
+        public void getinfo()
+        {
+            trayicon.showballoontip(appname, "hľadám nový súbory na podpísanie", balloonicon.info);
+            //trayicon.showcustomballoon(ballon, system.windows.controls.primitives.popupanimation.slide, 3000);
+            restsharp.deserializers.jsondeserializer deserial = new jsondeserializer();
+            var request = new restrequest
+            {
+                resource = @"/getinfo.json?api_key=" + opt.data.apikey,
+                method = method.post,
+                requestformat = dataformat.json,
 
-
-
-//        }
-//        #endregion
+            };
 
 
+            request.addparameter("object_id", opt.data.objecid);
+            request.addparameter("user_id", opt.data.userid);
+            //request.addparameter("module_id", opt.data.moduleid);
+
+
+            var response = client.execute(request);
+
+            if (response.statuscode == 0)
+            {
+                log.warning("getinfo request zlyhal pre sietove spojenie {0}", opt.data.tostring());
+                throw new myexception("zlyhalo pripojenie k internetu");
+            }
+            data = deserial.deserialize<filedata>(response);
+
+            if (data.status != "ok")
+            {
+
+                log.warning("getinfo request žiadny súbor sa na podpísanie nenašiel {0} ", opt.data.tostring());
+                log.warning("respon: {0}", data.tostring());
+                if (opt.data.pusheron)
+                    send("404");
+                throw new myexception("nenašiel sa žiadny súbor na podpisanie");
+            }
+            else
+            {
+                log.information("getinfo request bol úspešný - data: {0}", data.tostring());
+                opt.data.inprocess = true;
+                byte[] file = convert.frombase64string(data.file);
+                //string decodedstring = encoding.utf8.getstring(file);
+                trayicon.showballoontip(this.appname, "súbor na podpísanie bol úspešne stiahnutý. spúšťam aplikáciu na podpísanie", balloonicon.info);
+                eventsignature(data.link, data.hash, file);
+
+            }
+
+
+        }
+        /// <summary>
+        /// metoda na poslanie podpisaneho suboru pre apicko 
+        /// </summary>
+        /// <param name="hash">hash suboru</param>
+        /// <param name="paramfilebytes"> subor v bytoch  </param>
+        /// <param name="link"> odkaz kam sa ma subor ulozit </param>
+        public void uploadfile(string hash, byte[] paramfilebytes, string link, string path)
+        {
+            trayicon.showballoontip(this.appname, "prebieha nahrávanie súbor na server", balloonicon.info);
+            restsharp.deserializers.jsondeserializer deserial = new jsondeserializer();
+            var request = new restrequest
+            {
+                resource = @"/uploadfile.json?api_key=" + opt.data.apikey,
+                method = method.post,
+                requestformat = dataformat.json,
+            };
+
+
+            //    string file = convert.tobase64string(paramfilebytes);
+            // file = file.replace('+', '-');
+            // file = file.replace('/', '_');
+            //   console.writeline(file);
+            //  request.addheader("content-type", "multipart/form-data");
+            request.addparameter("user_id", opt.data.userid);
+            request.addparameter("object_id", opt.data.objecid);
+            //   request.addparameter("module_id", opt.data.moduleid);
+            //  request.addparameter("file", "asd");
+            request.addparameter("hash", hash);
+            request.addparameter("link", link);
+
+            request.addfile("filee", path + hash);
+            filedata status = new filedata();
+            var response = client.execute(request);
+
+            status = deserial.deserialize<filedata>(response);
+            opt.data.inprocess = false;
+
+            if (status.status != "ok")
+            {
+                log.warning("súbor sa nepodarilo nahrať request : {0} , hash {1} , link {2}", opt.data.tostring(), hash, link);
+                log.warning("súbor sa nepodarilo nahrať respon: {0} ", status.tostring());
+                if (opt.data.pusheron)
+                    send("500");
+                throw new myexception("súbor sa nepodarilo nahrať");
+
+            }
+            else
+            {
+                log.information("súbor bol úspešne nahraný  request : {0} , hash {1} , link {2}", opt.data.tostring(), hash, link);
+                log.information("súbor bol úspešne nahraný  respon : {0} ", status.tostring());
+                if (opt.data.pusheron)
+                    send("200");
+                throw new myexception("súbor bol úspešne nahraný");
+
+            }
+        }
+        /// <summary>
+        /// metoda na spustenie eventu podpisovanie 
+        /// </summary>
+        /// <param name="link"> odkaz kam sa ma subor ulozit /bozp/2000/1/1 </param>
+        /// <param name="hash"> hash suboru</param>
+        /// <param name="file">obsah suboru </param>
+        private void eventsignature(string link, string hash, byte[] file)
+        {
+
+            hash += data.link.substring(data.link.lastindexof("."));
+            string directhorypath = data.link.replace('/', '\\');
+            directhorypath = directhorypath.substring(1, directhorypath.lastindexof("\\"));
+            try
+            {
+                if (!directory.exists(directhorypath))
+                {
+                    directory.createdirectory(directhorypath);
+                    log.information("vytváram  zložku : {0}", directhorypath);
+                }
+            }
+            catch (exception ex)
+            {
+                log.warning("nepodarilo sa vytvoriť zložku : {0} : exception {1}", directhorypath, ex.message);
+                throw new myexception("nepodarilo sa vytvoriť zložku pre dokument");
+            }
+
+            try
+            {
+                log.information("vytváram prijatý súbor hash: {0}", hash);
+                system.io.file.writeallbytes(directhorypath + hash, file);
+            }
+            catch (exception ex)
+            {
+                log.warning("nepodarilo sa vytvoriť dokument hash: {0} : exception {1}", hash, ex.message);
+                throw new myexception("nepodarilo sa uložiť dokument");
+            }
+
+            opt.data.processname = string.format(opt.data.processname, hash, directhorypath);
+
+
+
+            signature test = new signature(hash, directhorypath, opt.data);
+
+            if (test.signfile())
+            {
+
+
+                stream pdffile = file.openread(directhorypath + hash);
+                byte[] bytes = file.readallbytes(directhorypath + hash);
+                try
+                {
+                    uploadfile(hash, bytes, link, directhorypath);
+                }
+                catch (myexception ex)
+                {
+
+                    throw new myexception(ex.message);
+                }
+                finally
+                {
+                    data = null;
+                }
+            }
+
+
+
+
+        }
+        #endregion
 
 
 
@@ -296,5 +294,7 @@
 
 
 
-//    }
-//}
+
+
+    }
+}
