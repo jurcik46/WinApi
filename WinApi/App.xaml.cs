@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
+using GalaSoft.MvvmLight.Threading;
 
 namespace WinApi
 {
@@ -24,9 +24,9 @@ namespace WinApi
 
             //create the notifyicon (it'option a resource declared in TrayIcon.xaml
             notifyIcon = (TaskbarIcon)FindResource("TrayIconTaskbar");
+            DispatcherHelper.Initialize();
 
-            
-        //    notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info  );
+            //    notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info  );
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -37,5 +37,5 @@ namespace WinApi
     }
 
 
-   
+
 }

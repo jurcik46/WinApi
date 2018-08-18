@@ -37,7 +37,9 @@ namespace WinApi.ViewModels
 
         private void SaveOptionsToSetting()
         {
+
             OptionsService.SaveOptionsToSetting();
+            //System.Threading.Thread.Sleep(2000);
             System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             Application.Current.Shutdown();
         }
