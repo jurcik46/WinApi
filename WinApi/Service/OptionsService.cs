@@ -14,13 +14,16 @@ namespace WinApi.Service
     public class OptionsService : IOptionsService
     {
         public OptionsModel Options { get; set; }
-        public ApiOptionModel ApiOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public PusherOptionModel PusherOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public SignatureOptionModel SignatureOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ApiOptionModel ApiOptions { get; set; }
+        public PusherOptionModel PusherOptions { get; set; }
+        public SignatureOptionModel SignatureOptions { get; set; }
 
         public OptionsService()
         {
             this.Options = new OptionsModel();
+            this.ApiOptions = new ApiOptionModel();
+            this.PusherOptions = new PusherOptionModel();
+            this.SignatureOptions = new SignatureOptionModel();
             LoadOptionsFromSetting();
         }
 

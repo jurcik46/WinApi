@@ -36,18 +36,18 @@
 
 				<!-- Texboxy s nastaveniamy -->
 				<StackPanel Grid.Column="1" Grid.Row="0">
-					<TextBox Margin="5 10 0 10" Height="20"	Name="apiTextBox"   Text="{Binding OptionsService.Options.ApiLink, Mode=TwoWay}" />
-					<TextBox Margin="5 10 0 10" Height="20"	Name="apiKeyTextBox"  Text="{Binding OptionsService.Options.Apikey, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="userIdTextBox"    Text="{Binding OptionsService.Options.UserID, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="objectIdTextBox"  Text="{Binding OptionsService.Options.ObjecID, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding OptionsService.Options.ProgramPath, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding OptionsService.Options.ProcessName, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding OptionsService.Options.PusherKey, Mode=TwoWay}"/>
-					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherHttpAuthorizerTextBox" Text="{Binding OptionsService.Options.PusherAuthorizer, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="apiTextBox"   Text="{Binding OptionsService.ApiOptions.ApiLink, Mode=TwoWay}" />
+					<TextBox Margin="5 10 0 10" Height="20"	Name="apiKeyTextBox"  Text="{Binding OptionsService.ApiOptions.Apikey, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="userIdTextBox"    Text="{Binding OptionsService.ApiOptions.UserID, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="objectIdTextBox"  Text="{Binding OptionsService.ApiOptions.ObjectID, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="programPathTextBox"  Text="{Binding OptionsService.SignatureOptions.ProgramPath, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="processNameTextBox"  Text="{Binding OptionsService.SignatureOptions.ProcessName, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherKeyTextBox"   Text="{Binding OptionsService.PusherOptions.PusherKey, Mode=TwoWay}"/>
+					<TextBox Margin="5 10 0 10" Height="20"	Name="pusherHttpAuthorizerTextBox" Text="{Binding OptionsService.PusherOptions.PusherAuthorizer, Mode=TwoWay}"/>
 
 				</StackPanel>
 
-				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding Data.PusherON}" Name="pusherOnCheckBox" FontWeight="Bold"/>
+				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding PusherOptions.PusherON}" Name="pusherOnCheckBox" FontWeight="Bold"/>
 			</Grid>
 
 			<local:ChangePasswordUserControl/>

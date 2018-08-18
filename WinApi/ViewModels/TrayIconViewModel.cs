@@ -66,11 +66,11 @@ namespace WinApi.ViewModels
 
         private void CommandInit()
         {
-            this.Options = new RelayCommand(this.ShowOptions, this.CanShowOptions);
+            this.Options = new RelayCommand(this.ShowOptionsLogin, this.CanShowOptionsLogin);
 
         }
 
-        private bool CanShowOptions()
+        private bool CanShowOptionsLogin()
         {
             if (this.OptionsLoginWindow != null)
                 return (this.OptionsLoginWindow.IsLoaded) ? false : true;
@@ -78,7 +78,7 @@ namespace WinApi.ViewModels
                 return true;
         }
 
-        private void ShowOptions()
+        private void ShowOptionsLogin()
         {
             this.OptionsLoginWindow = new OptionsLoginWindowView();
             this.OptionsLoginWindow.Show();

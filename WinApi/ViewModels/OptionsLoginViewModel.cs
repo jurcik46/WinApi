@@ -57,6 +57,8 @@ namespace WinApi.ViewModels
                 }
                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdsad", Msg = "asdsad", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
 
+                var test = ViewModelLocator.RestService.GetDocumentToSignature();
+                Console.WriteLine(test.Hash);
             }
             else
             {
