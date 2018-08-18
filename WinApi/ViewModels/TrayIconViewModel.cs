@@ -13,17 +13,20 @@ using WinApi.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.CommandWpf;
 using WinApi.Views;
+using System;
 
 namespace WinApi.ViewModels
 {
     public class TrayIconViewModel : ViewModelBase
     {
         private RelayCommand _options;
+        private RelayCommand _signature;
         private string _aaa;
         private OptionsLoginWindowView OptionsLoginWindow;
         private readonly NotificationManager _notificationManager = new NotificationManager();
         public string Aaa { get => _aaa; set => _aaa = value; }
         public RelayCommand Options { get => _options; set => _options = value; }
+        public RelayCommand Signature { get => _signature; set => _signature = value; }
 
 
         public string ToolTipText { get; set; } = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
@@ -52,6 +55,7 @@ namespace WinApi.ViewModels
             this.MessagesInit();
         }
 
+        #region Message and Command Init
         private void MessagesInit()
         {
 
@@ -67,9 +71,25 @@ namespace WinApi.ViewModels
         private void CommandInit()
         {
             this.Options = new RelayCommand(this.ShowOptionsLogin, this.CanShowOptionsLogin);
+            this.Signature = new RelayCommand(this.DoSignature, this.CanSignature);
+        }
+        #endregion
 
+        #region Signature double click Command
+        private bool CanSignature()
+        {
+            return true;
         }
 
+        private void DoSignature()
+        {
+            var test = ViewModelLocator.RestService.GetDocumentToSignature();
+            Console.WriteLine(test.Hash);
+
+        }
+        #endregion
+
+        #region Options login command
         private bool CanShowOptionsLogin()
         {
             if (this.OptionsLoginWindow != null)
@@ -84,6 +104,7 @@ namespace WinApi.ViewModels
             this.OptionsLoginWindow.Show();
         }
 
+        #endregion
 
 
 
