@@ -10,7 +10,9 @@ namespace WinApi.Interfaces.Service
     public interface IOptionsService
     {
         OptionsModel Options { get; set; }
-
+        ApiOptionModel ApiOptions { get; set; }
+        PusherOptionModel PusherOptions { get; set; }
+        SignatureOptionModel SignatureOptions { get; set; }
         void LoadOptionsFromSetting();
         void SaveOptionsToSetting();
 

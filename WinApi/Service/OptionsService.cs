@@ -14,6 +14,9 @@ namespace WinApi.Service
     public class OptionsService : IOptionsService
     {
         public OptionsModel Options { get; set; }
+        public ApiOptionModel ApiOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public PusherOptionModel PusherOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public SignatureOptionModel SignatureOptions { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public OptionsService()
         {
@@ -23,15 +26,15 @@ namespace WinApi.Service
 
         public void LoadOptionsFromSetting()
         {
-            this.Options.ApiLink = Properties.Settings.Default.ApiLink;
-            this.Options.Apikey = Properties.Settings.Default.ApiKey;
-            this.Options.ObjecID = Properties.Settings.Default.ObjecID;
-            this.Options.UserID = Properties.Settings.Default.UserID;
-            this.Options.ProgramPath = Properties.Settings.Default.ProgramPath;
-            this.Options.ProcessName = Properties.Settings.Default.ProcessName;
-            this.Options.PusherKey = Properties.Settings.Default.PusherKey;
-            this.Options.PusherAuthorizer = Properties.Settings.Default.PusherAuthorizer;
-            this.Options.PusherON = Properties.Settings.Default.PusherON;
+            this.ApiOptions.ApiLink = Properties.Settings.Default.ApiLink;
+            this.ApiOptions.Apikey = Properties.Settings.Default.ApiKey;
+            this.ApiOptions.ObjectID = Properties.Settings.Default.ObjecID;
+            this.ApiOptions.UserID = Properties.Settings.Default.UserID;
+            this.SignatureOptions.ProgramPath = Properties.Settings.Default.ProgramPath;
+            this.SignatureOptions.ProcessName = Properties.Settings.Default.ProcessName;
+            this.PusherOptions.PusherKey = Properties.Settings.Default.PusherKey;
+            this.PusherOptions.PusherAuthorizer = Properties.Settings.Default.PusherAuthorizer;
+            this.PusherOptions.PusherON = Properties.Settings.Default.PusherON;
             this.Options.Succes = Properties.Settings.Default.Success;
             this.Options.InProcess = Properties.Settings.Default.InProcess;
             this.Options.Succes = true;
@@ -41,15 +44,15 @@ namespace WinApi.Service
         {
             Task.Run(() =>
             {
-                Properties.Settings.Default.ApiLink = this.Options.ApiLink;
-                Properties.Settings.Default.ApiKey = this.Options.Apikey;
-                Properties.Settings.Default.ObjecID = this.Options.ObjecID;
-                Properties.Settings.Default.UserID = this.Options.UserID;
-                Properties.Settings.Default.ProgramPath = this.Options.ProgramPath;
-                Properties.Settings.Default.ProcessName = this.Options.ProcessName;
-                Properties.Settings.Default.PusherKey = this.Options.PusherKey;
-                Properties.Settings.Default.PusherAuthorizer = this.Options.PusherAuthorizer;
-                Properties.Settings.Default.PusherON = this.Options.PusherON;
+                Properties.Settings.Default.ApiLink = this.ApiOptions.ApiLink;
+                Properties.Settings.Default.ApiKey = this.ApiOptions.Apikey;
+                Properties.Settings.Default.ObjecID = this.ApiOptions.ObjectID;
+                Properties.Settings.Default.UserID = this.ApiOptions.UserID;
+                Properties.Settings.Default.ProgramPath = this.SignatureOptions.ProgramPath;
+                Properties.Settings.Default.ProcessName = this.SignatureOptions.ProcessName;
+                Properties.Settings.Default.PusherKey = this.PusherOptions.PusherKey;
+                Properties.Settings.Default.PusherAuthorizer = this.PusherOptions.PusherAuthorizer;
+                Properties.Settings.Default.PusherON = this.PusherOptions.PusherON;
                 Properties.Settings.Default.Success = this.Options.Succes;
                 Properties.Settings.Default.InProcess = this.Options.InProcess;
 

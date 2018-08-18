@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WinApi.Interfaces.Model;
 
 namespace WinApi.Models
 {
-    public class OptionsModel
+    public class OptionsModel : IApiOptionModel, IPusherOptionModel, ISignatureOptionModel
     {
         public string ApiLink { get; set; }
         public string Apikey { get; set; }
         public string UserID { get; set; }
-        public string ObjecID { get; set; }
+        public string ObjectID { get; set; }
         public string ProgramPath { get; set; }
         public string ProcessName { get; set; }
         public string PusherKey { get; set; }

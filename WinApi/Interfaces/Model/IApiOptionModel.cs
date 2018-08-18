@@ -11,6 +11,6 @@ namespace WinApi.Interfaces.Model
         string ApiLink { get; set; }
         string Apikey { get; set; }
         string UserID { get; set; }
-        string ObjecID { get; set; }
+        string ObjectID { get; set; }
     }
 }
