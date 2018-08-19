@@ -28,7 +28,6 @@ namespace WinApi.ViewModels
                 SimpleIoc.Default.Register<IOptionsService, OptionsService>();
                 SimpleIoc.Default.Register<IRestService, RestService>();
                 SimpleIoc.Default.Register<ISignatureService, SignatureService>();
-
             }
 
             RegisterViewModels();
@@ -65,11 +64,12 @@ namespace WinApi.ViewModels
         }
 
         public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
-        public static IRestService RestService => ServiceLocator.Current.GetInstance<IRestService>();
-        public static ISignatureService SignatureService => ServiceLocator.Current.GetInstance<ISignatureService>();
         public static OptionsLoginViewModel OptionsLoginViewModel => ServiceLocator.Current.GetInstance<OptionsLoginViewModel>();
         public static ChangePasswordViewModel ChangePasswordViewModel => ServiceLocator.Current.GetInstance<ChangePasswordViewModel>();
         public static OptionsViewModel OptionsViewModel => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+        public static IRestService RestService => ServiceLocator.Current.GetInstance<IRestService>();
+        public static ISignatureService SignatureService => ServiceLocator.Current.GetInstance<ISignatureService>();
+
 
 
     }

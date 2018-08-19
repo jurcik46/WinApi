@@ -8,5 +8,7 @@ namespace WinApi.Interfaces.Service
 {
     public interface ISignatureService
     {
+
+        void StartSign();
     }
 }

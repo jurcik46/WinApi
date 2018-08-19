@@ -26,6 +26,7 @@ namespace WinApi.ViewModels
         private string _aaa;
         private Icon _icon;
         private IRestService _restService;
+        private ISignatureService _signatureService;
         private OptionsLoginWindowView OptionsLoginWindow;
         private readonly NotificationManager _notificationManager = new NotificationManager();
         public Icon Icon
@@ -51,6 +52,7 @@ namespace WinApi.ViewModels
             //this.Icon = Properties.Resources.online;
             //Console.WriteLine(Properties.Resources.online);
             this._restService = ViewModelLocator.RestService;
+            this._signatureService = ViewModelLocator.SignatureService;
             Aaa = "/Resources/Icons/online.ico";
             //var notificationManager = new NotificationManager();
             //_notificationManager.Show("asdsadasdasd");
@@ -97,8 +99,9 @@ namespace WinApi.ViewModels
 
         private void DoSignature()
         {
-            var test = ViewModelLocator.RestService.GetDocumentToSignature();
-            Console.WriteLine(test.Hash);
+            this._signatureService.StartSign();
+
+            //var test = ViewModelLocator.RestService.GetDocumentToSignature();
             //Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
         }
         #endregion
