@@ -1,146 +1,146 @@
-﻿//using System;
-//using System.Diagnostics;
-//using System.Threading;
-//using System.IO;
-//using System.Runtime.InteropServices;
-//using WinApi.Models;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using Serilog;
-//using System.Threading.Tasks;
-//using System.Net;
+﻿//using system;
+//using system.diagnostics;
+//using system.threading;
+//using system.io;
+//using system.runtime.interopservices;
+//using winapi.models;
+//using system.collections.generic;
+//using system.linq;
+//using system.text;
+//using serilog;
+//using system.threading.tasks;
+//using system.net;
 
-//namespace WinApi
+//namespace winapi
 //{
-//    class Signature
+//    class signature
 //    {
-//        private string SignProgramPath { get; set; }
-//        private string FilePath { get; set; }
-//        private string ProcessName { get; set; }
+//        private string signprogrampath { get; set; }
+//        private string filepath { get; set; }
+//        private string processname { get; set; }
 
 
 
-//        public Signature(string fileName, string filePath, OptionsData options)
+//        public signature(string filename, string filepath, optionsdata options)
 //        {
-//            SignProgramPath = options.ProgramPath;
-//            FilePath = filePath + fileName;
-//            ProcessName = options.ProcessName;
+//            signprogrampath = options.programpath;
+//            filepath = filepath + filename;
+//            processname = options.processname;
 //        }
 
 
-//        #region Sign
+//        #region sign
 //        /// <summary>
-//        /// Metoda na otvorenie suboru v procese a po ulozenej zmene jeho zatvorenie
+//        /// metoda na otvorenie suboru v procese a po ulozenej zmene jeho zatvorenie
 //        /// </summary>
 //        /// <returns></returns>
-//        public bool SignFile()
+//        public bool signfile()
 //        {
 
 //            bool result = false;
 
-//            var SignTimeout = Properties.Settings.Default.singTimeOut; ;
+//            var signtimeout = properties.settings.default.singtimeout; ;
 
-//            var startInfo = new ProcessStartInfo(this.SignProgramPath, this.FilePath);
+//            var startinfo = new processstartinfo(this.signprogrampath, this.filepath);
 
-//            // Process.Start(startInfo);
-//            using (var process = Process.Start(startInfo))
+//            // process.start(startinfo);
+//            using (var process = process.start(startinfo))
 //            {
-//                var fileInfo = new FileInfo(this.FilePath);
-//                var lastWrite = fileInfo.LastWriteTime;
+//                var fileinfo = new fileinfo(this.filepath);
+//                var lastwrite = fileinfo.lastwritetime;
 
 //                var counter = 0;
-//                var foundWindow = false;
-//                TimeSpan diff;
+//                var foundwindow = false;
+//                timespan diff;
 
 //                do
 //                {
-//                    Thread.Sleep(1000);
-//                    fileInfo.Refresh();
-//                    diff = fileInfo.LastWriteTime - lastWrite;
+//                    thread.sleep(1000);
+//                    fileinfo.refresh();
+//                    diff = fileinfo.lastwritetime - lastwrite;
 
 //                    counter++;
-//                    if (diff.TotalSeconds > 1)
+//                    if (diff.totalseconds > 1)
 //                    {
 //                        result = true;
 //                        break;
 //                    }
-//                    var found = FindWindowAndClose(false);
-//                    if (!foundWindow && found)
+//                    var found = findwindowandclose(false);
+//                    if (!foundwindow && found)
 //                    {
-//                        //Logger.Debug(SignServiceEvents.SignFileWindowFound, "Sign application window found for the first time in {Iteration}. iteration.", counter);
-//                        foundWindow = true;
+//                        //logger.debug(signserviceevents.signfilewindowfound, "sign application window found for the first time in {iteration}. iteration.", counter);
+//                        foundwindow = true;
 //                    }
-//                    if (counter <= 4 || !foundWindow || (found))
+//                    if (counter <= 4 || !foundwindow || (found))
 //                    {
 //                        continue;
 //                    }
-//                    //Logger.Debug(SignServiceEvents.SignFileWindowClosed, "Sign application closed before timeout in {Iteration}. iteration.", counter);
+//                    //logger.debug(signserviceevents.signfilewindowclosed, "sign application closed before timeout in {iteration}. iteration.", counter);
 //                    break;
-//                } while (counter < SignTimeout);
+//                } while (counter < signtimeout);
 
-//                var ForceClose = true;
+//                var forceclose = true;
 
-//                if (process != null && !process.HasExited && (ForceClose || result))
+//                if (process != null && !process.hasexited && (forceclose || result))
 //                {
-//                    //Messenger.Default.Send(new BusyMessage(this, callerReference, Resources.StarterClosing));
-//                    process.CloseMainWindow();
+//                    //messenger.default.send(new busymessage(this, callerreference, resources.starterclosing));
+//                    process.closemainwindow();
 //                }
-//                if (ForceClose)
+//                if (forceclose)
 //                {
-//                    //Messenger.Default.Send(new BusyMessage(this, callerReference, Resources.SignerClosing));
+//                    //messenger.default.send(new busymessage(this, callerreference, resources.signerclosing));
 
-//                    FindWindowAndClose(true);
+//                    findwindowandclose(true);
 //                }
-//                fileInfo.Refresh();
-//                diff = fileInfo.LastWriteTime - lastWrite;
-//                Log.Information("FileInfo {0} TimeDifference {1} ", fileInfo, diff.TotalSeconds);
-//                //Logger.With("FileInfo", fileInfo).With("TimeDifference", diff.TotalSeconds).Debug(SignServiceEvents.SignFileAfterWait);
-//                result = diff.TotalSeconds > 1;
+//                fileinfo.refresh();
+//                diff = fileinfo.lastwritetime - lastwrite;
+//                log.information("fileinfo {0} timedifference {1} ", fileinfo, diff.totalseconds);
+//                //logger.with("fileinfo", fileinfo).with("timedifference", diff.totalseconds).debug(signserviceevents.signfileafterwait);
+//                result = diff.totalseconds > 1;
 //            }
 //            return result;
 //        }
 
 
 //        /// <summary>
-//        /// Metoda na na najdenie okna a zatvorenie 
+//        /// metoda na na najdenie okna a zatvorenie 
 //        /// </summary>
 //        /// <param name="close"></param>
 //        /// <returns></returns>
-//        private bool FindWindowAndClose(bool close)
+//        private bool findwindowandclose(bool close)
 //        {
-//            //FilePath = Path.GetFileName(FilePath);
-//            var caption = string.Format(this.ProcessName, this.FilePath);// + " - Visual Studio Code";//string.Format(SettingsService.SignWindowCaptionFormat, FilePath);
-//            var windowPtr = FindWindowByCaption(IntPtr.Zero, caption);
-//            if (windowPtr == IntPtr.Zero)
+//            //filepath = path.getfilename(filepath);
+//            var caption = string.format(this.processname, this.filepath);// + " - visual studio code";//string.format(settingsservice.signwindowcaptionformat, filepath);
+//            var windowptr = findwindowbycaption(intptr.zero, caption);
+//            if (windowptr == intptr.zero)
 //            {
-//                //  Logger.Debug(SignServiceEvents.WindowNotFound, "Window not found: {Caption}", caption);
+//                //  logger.debug(signserviceevents.windownotfound, "window not found: {caption}", caption);
 
 //                return false;
 //            }
 //            if (!close)
 //            {
-//                // Logger.Debug(SignServiceEvents.WindowFound, "Window found: {Caption}", caption);
+//                // logger.debug(signserviceevents.windowfound, "window found: {caption}", caption);
 //                return true;
 //            }
-//            //Logger.Debug(SignServiceEvents.WindowFoundAndClosing, "Window found and closing: {Caption}", caption);
-//            SendMessage(windowPtr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+//            //logger.debug(signserviceevents.windowfoundandclosing, "window found and closing: {caption}", caption);
+//            sendmessage(windowptr, wm_close, intptr.zero, intptr.zero);
 //            return false;
 //        }
 
 //        /// <summary>
-//        /// Find window by Caption only. Note you must pass IntPtr.Zero as the first parameter.
+//        /// find window by caption only. note you must pass intptr.zero as the first parameter.
 //        /// </summary>
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA2101:SpecifyMarshalingForPInvokeStringArguments", MessageId = "1")]
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")]
-//        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
-//        static extern IntPtr FindWindowByCaption(IntPtr ZeroOnly, string lpWindowName);
+//        [system.diagnostics.codeanalysis.suppressmessage("microsoft.globalization", "ca2101:specifymarshalingforpinvokestringarguments", messageid = "1")]
+//        [system.diagnostics.codeanalysis.suppressmessage("microsoft.design", "ca1060:movepinvokestonativemethodsclass")]
+//        [dllimport("user32.dll", entrypoint = "findwindow", setlasterror = true)]
+//        static extern intptr findwindowbycaption(intptr zeroonly, string lpwindowname);
 
-//        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1060:MovePInvokesToNativeMethodsClass")]
-//        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-//        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+//        [system.diagnostics.codeanalysis.suppressmessage("microsoft.design", "ca1060:movepinvokestonativemethodsclass")]
+//        [dllimport("user32.dll", charset = charset.auto)]
+//        static extern intptr sendmessage(intptr hwnd, uint32 msg, intptr wparam, intptr lparam);
 
-//        const UInt32 WM_CLOSE = 0x0010;
+//        const uint32 wm_close = 0x0010;
 
 //        #endregion
 
