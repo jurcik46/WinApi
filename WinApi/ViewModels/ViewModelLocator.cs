@@ -38,6 +38,7 @@ namespace WinApi.ViewModels
         {
             if (!SimpleIoc.Default.IsRegistered<TrayIconViewModel>())
             {
+                //SimpleIoc.Default.Register(() => new TrayIconViewModel(ServiceLocator.Current.GetInstance<IRestService>()));
                 SimpleIoc.Default.Register<TrayIconViewModel>();
             }
 

@@ -147,6 +147,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
+    <Compile Include="Enums\TrayIcons.cs" />
     <Compile Include="Interfaces\IClosable.cs" />
     <Compile Include="Interfaces\Model\IApiOptionModel.cs" />
     <Compile Include="Interfaces\Model\IPusherOptionModel.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Interfaces\Service\IOptionsService.cs" />
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
     <Compile Include="Interfaces\Service\IRestService.cs" />
+    <Compile Include="Messages\ChangeIconMessage.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
@@ -253,7 +255,7 @@
     <Resource Include="test.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\Enum\" />
+    <Folder Include="API\Enums\" />
     <Folder Include="Desing\" />
     <Folder Include="Resources\Language\" />
   </ItemGroup>

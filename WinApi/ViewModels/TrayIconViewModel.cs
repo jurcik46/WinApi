@@ -14,6 +14,8 @@ using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.CommandWpf;
 using WinApi.Views;
 using System;
+using WinApi.Interfaces.Service;
+using System.Drawing;
 
 namespace WinApi.ViewModels
 {
@@ -22,17 +24,33 @@ namespace WinApi.ViewModels
         private RelayCommand _options;
         private RelayCommand _signature;
         private string _aaa;
+        private Icon _icon;
+        private IRestService _restService;
         private OptionsLoginWindowView OptionsLoginWindow;
         private readonly NotificationManager _notificationManager = new NotificationManager();
+        public Icon Icon
+        {
+            get { return _icon; }
+            set
+            {
+                _icon = value;
+                RaisePropertyChanged();
+            }
+        }
         public string Aaa { get => _aaa; set => _aaa = value; }
         public RelayCommand Options { get => _options; set => _options = value; }
         public RelayCommand Signature { get => _signature; set => _signature = value; }
+
 
 
         public string ToolTipText { get; set; } = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
 
         public TrayIconViewModel()
         {
+            // this.Icon = new System.Drawing.Icon(@"..\Properties\Icons\YourIcon.ico");
+            //this.Icon = Properties.Resources.online;
+            //Console.WriteLine(Properties.Resources.online);
+            this._restService = ViewModelLocator.RestService;
             Aaa = "/Resources/Icons/online.ico";
             //var notificationManager = new NotificationManager();
             //_notificationManager.Show("asdsadasdasd");
@@ -58,14 +76,10 @@ namespace WinApi.ViewModels
         #region Message and Command Init
         private void MessagesInit()
         {
-
             Messenger.Default.Register<NotifiMessage>(this, (message) =>
             {
-
                 this._notificationManager.Show(new NotificationContent { Title = message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
-
             });
-
         }
 
         private void CommandInit()
@@ -85,6 +99,8 @@ namespace WinApi.ViewModels
         {
             var test = ViewModelLocator.RestService.GetDocumentToSignature();
             Console.WriteLine(test.Hash);
+            Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
+
 
         }
         #endregion
