@@ -53,6 +53,31 @@ namespace WinApi.Service
 
         }
 
+        public bool UploadSignedDocument(string hash, string pdfFilePath)
+        {
+            //Logger.Debug(RestServiceEvents.EmployeesLastChange);
+            //using (Logger.BeginTimedOperation(RestServiceEvents.EmployeesLastChange))
+            //{
+            try
+            {
+                var status = Api.UploadDocument(hash, pdfFilePath);
+                if (status != null)
+                {
+                    return true;
+                }
+                // Logger.Warning(RestServiceEvents.LastChangeNull);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Logger.Error(ex, RestServiceEvents.EmployeesLastChangeError);
+                //  ex.ShowError(this, DialogService, SettingsService.ShowSyncErrors);
+                _api = null;
+                return false;
+            }
+            //  }
+        }
+
 
 
     }

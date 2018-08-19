@@ -44,6 +44,7 @@ namespace WinApi.API
             }
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
             {
+                Console.WriteLine("aaaa");
                 //    Logger.With("Request", request)
                 //        .With("Response", response)
                 //        .With("Type", typeof(T).FullName)
@@ -51,11 +52,14 @@ namespace WinApi.API
             }
             else
             {
+                Console.WriteLine("bbbb");
+
                 //Logger.With("Request", request)
                 //    .With("Response", response)
                 //    .With("Type", typeof(T).FullName)
                 //    .Debug(EntranceAPIEvents.ExecuteTypeSuccess, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
             }
+            Console.WriteLine(response.Data);
             return response.Data;
         }
 
@@ -75,6 +79,27 @@ namespace WinApi.API
             request.AddParameter("user_id", this.UserID, ParameterType.GetOrPost);
 
             var result = Execute<SignatureFileModel>(request);
+            return result;
+        }
+
+        public UploadDocumentModel UploadDocument(string hash, string pdfFilePath)
+        {
+            var request = new RestRequest
+            {
+                Resource = @"/uploadfile.json",
+                Method = Method.POST,
+                RequestFormat = DataFormat.Json
+            };
+
+            request.AddParameter("object_id", this.ObjectID, ParameterType.GetOrPost);
+            request.AddParameter("user_id", this.UserID, ParameterType.GetOrPost);
+
+            request.AddParameter("hash", hash, ParameterType.GetOrPost);
+            request.AddParameter("pdf_file_path", pdfFilePath, ParameterType.GetOrPost);
+
+            request.AddFile("file", pdfFilePath);
+
+            var result = Execute<UploadDocumentModel>(request);
             return result;
         }
 

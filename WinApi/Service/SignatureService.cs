@@ -25,9 +25,6 @@ namespace WinApi.Service
 
         public SignatureService(IRestService restService, IOptionsService optionsService)
         {
-            Console.WriteLine(optionsService.SignatureOptions.ProcessName);
-            Console.WriteLine(optionsService.SignatureOptions.ProgramPath);
-            Console.WriteLine("asdasdas");
             this.RestService = restService;
             this.SignatureOptionModel = optionsService.SignatureOptions;
             // this.SignatureFileModel = signatureFileModel;
@@ -40,22 +37,29 @@ namespace WinApi.Service
             if (this.SignatureFileModel != null)
             {
                 string directhoryPath = this.SignatureFileModel.PdfFilePath.Replace('/', '\\');
-                //prida typ suboru na konci hashu
+                // prida typ suboru na konci hashu
                 string fileName = this.SignatureFileModel.Hash + this.SignatureFileModel.PdfFilePath.Substring(this.SignatureFileModel.PdfFilePath.LastIndexOf("."));
-                //Vytvori processname z options a vyplni paramatere {0} - filename {1} - directhoryPath
+                // Vytvori processname z options a vyplni paramatere {0} - filename {1} - directhoryPath
                 string processName = string.Format(this.SignatureOptionModel.ProcessName, fileName, directhoryPath); ;
 
-
+                /// vytvori nove zlozku 
                 if (CreateDirectory(ref directhoryPath))
                 {
                     Console.WriteLine(directhoryPath);
+                    // ulozi prijaty dokument do vytvorenej zlozky
                     if (SaveFile(directhoryPath, fileName, this.SignatureFileModel.File))
                     {
                         string filePath = directhoryPath + fileName;
-
+                        // spusti podpisovaci program 
                         if (SignFile(processName, this.SignatureOptionModel.ProgramPath, filePath))
                         {
-                            Console.WriteLine("Uspesne podpisany dokument");
+
+                            if (RestService.UploadSignedDocument(this.SignatureFileModel.Hash, this.SignatureFileModel.PdfFilePath.Substring(1, this.SignatureFileModel.PdfFilePath.Length - 1)))
+                                Console.WriteLine("Uspesne podpisany dokument");
+                            else
+                                Console.WriteLine("asdadas");
+
+
                         }
                     }
                 }
