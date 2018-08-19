@@ -161,7 +161,6 @@
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
-    <Compile Include="Models\FileData.cs" />
     <Compile Include="Code\Options.cs" />
     <Compile Include="Code\PusherConnect.cs" />
     <Compile Include="Code\Signature.cs" />
