@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinApi.Interfaces.Model
 {
-    interface ISignatureOptionModel
+    public interface ISignatureOptionModel
     {
 
         string ProgramPath { get; set; }

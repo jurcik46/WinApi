@@ -10,7 +10,7 @@ using WinApi.Interfaces.Service;
 
 namespace WinApi.Service
 {
-    class RestService : IRestService
+    public class RestService : IRestService
     {
         private Api _api;
 
