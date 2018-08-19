@@ -99,9 +99,7 @@ namespace WinApi.ViewModels
         {
             var test = ViewModelLocator.RestService.GetDocumentToSignature();
             Console.WriteLine(test.Hash);
-            Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
-
-
+            //Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
         }
         #endregion
 

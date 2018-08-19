@@ -156,6 +156,7 @@
     <Compile Include="Interfaces\Service\IOptionsService.cs" />
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
     <Compile Include="Interfaces\Service\IRestService.cs" />
+    <Compile Include="Interfaces\Service\ISignatureService.cs" />
     <Compile Include="Messages\ChangeIconMessage.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Service\PasswordService.cs" />
     <Compile Include="Service\PusherService.cs" />
     <Compile Include="Service\RestService.cs" />
+    <Compile Include="Service\SignatureService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\OptionsLoginViewModel.cs" />
