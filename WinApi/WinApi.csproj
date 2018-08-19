@@ -140,6 +140,7 @@
     </ApplicationDefinition>
     <Compile Include="API\Api.cs" />
     <Compile Include="API\Model\SignatureFileModel.cs" />
+    <Compile Include="API\Model\UploadDocumentModel.cs" />
     <Compile Include="Code\MyException.cs" />
     <Compile Include="Commands\RestartAppCommand.cs" />
     <Compile Include="Commands\ExitAppCommand.cs" />
