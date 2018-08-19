@@ -95,7 +95,7 @@ namespace WinApi.API
             request.AddParameter("user_id", this.UserID, ParameterType.GetOrPost);
 
             request.AddParameter("hash", hash, ParameterType.GetOrPost);
-            request.AddParameter("pdf_file_path", pdfFilePath, ParameterType.GetOrPost);
+            request.AddParameter("pdf_file_path", "/" + pdfFilePath, ParameterType.GetOrPost);
 
             request.AddFile("file", pdfFilePath);
 
