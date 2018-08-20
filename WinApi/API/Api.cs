@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using GalaSoft.MvvmLight.Messaging;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinApi.API.Model;
 using WinApi.Interfaces.Model;
+using WinApi.Messages;
 
 namespace WinApi.API
 {
@@ -39,9 +41,17 @@ namespace WinApi.API
             var response = client.Execute<T>(request);
             if (response.ErrorException != null)
             {
+                if (response.StatusCode == 0)
+                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Document bol uspesne stiahnuty", Msg = "Aplikácia  je pripojena k internetu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
+                Console.WriteLine((int)response.StatusCode);
+                Console.WriteLine(response.ErrorException);
+                Console.WriteLine(response.ErrorMessage);
+                Console.WriteLine("neni aaaaaa");
                 //Logger.With("Request", request).With("Response", response).With("Type", typeof(T).FullName).Error(response.ErrorException, EntranceAPIEvents.ExecuteTypeError);
                 return null;
             }
+
+            Console.WriteLine((int)response.StatusCode);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
             {
                 Console.WriteLine("aaaa");
@@ -52,6 +62,8 @@ namespace WinApi.API
             }
             else
             {
+                Console.WriteLine(response.ResponseStatus);
+                Console.WriteLine(response.StatusCode);
                 Console.WriteLine("bbbb");
 
                 //Logger.With("Request", request)
@@ -59,7 +71,6 @@ namespace WinApi.API
                 //    .With("Type", typeof(T).FullName)
                 //    .Debug(EntranceAPIEvents.ExecuteTypeSuccess, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
             }
-            Console.WriteLine(response.Data);
             return response.Data;
         }
 
