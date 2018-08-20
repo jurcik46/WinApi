@@ -68,11 +68,6 @@ namespace WinApi.ViewModels
         #region Message and Command Init
         private void MessagesInit()
         {
-            //Messenger.Default.Register<NotifiMessage>(this, (message) =>
-            //{
-            //    this._notificationManager.Show(new NotificationContent { Title = message.AppName + message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
-            //});
-
             Messenger.Default.Register<ChangeIconMessage>(this, (message) =>
             {
                 switch (message.Icon)
@@ -102,7 +97,15 @@ namespace WinApi.ViewModels
         #region Signature double click Command
         private bool CanSignature()
         {
-            return (!_signatureService.InProcces);
+            if (!_signatureService.InProcces)
+            {
+                return true;
+            }
+            else
+            {
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Msg = "Prave sa vykonava process", IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 30 });
+                return false;
+            }
         }
 
         private void DoSignature()
