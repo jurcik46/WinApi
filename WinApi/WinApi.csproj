@@ -156,10 +156,12 @@
     <Compile Include="Interfaces\Model\ISignatureOptionModel.cs" />
     <Compile Include="Interfaces\Service\IOptionsService.cs" />
     <Compile Include="Interfaces\Service\IPasswordService.cs" />
+    <Compile Include="Interfaces\Service\IPusherService.cs" />
     <Compile Include="Interfaces\Service\IRestService.cs" />
     <Compile Include="Interfaces\Service\ISignatureService.cs" />
     <Compile Include="Messages\ChangeIconMessage.cs" />
     <Compile Include="Messages\NotifiMessage.cs" />
+    <Compile Include="Messages\BozpStatusPusherMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
     <Compile Include="Code\Options.cs" />
@@ -169,6 +171,11 @@
     <Compile Include="Models\PusherOptionModel.cs" />
     <Compile Include="Models\SignatureFileModel.cs" />
     <Compile Include="Models\SignatureOptionModel.cs" />
+    <Compile Include="Resources\Language\SK.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SK.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\OptionsService.cs" />
     <Compile Include="Service\PasswordService.cs" />
     <Compile Include="Service\PusherService.cs" />
@@ -231,6 +238,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language\SK.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SK.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -259,7 +270,6 @@
   <ItemGroup>
     <Folder Include="API\Enums\" />
     <Folder Include="Desing\" />
-    <Folder Include="Resources\Language\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

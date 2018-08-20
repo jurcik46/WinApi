@@ -60,18 +60,20 @@ namespace WinApi.Service
                 Properties.Settings.Default.InProcess = this.Options.InProcess;
 
                 Properties.Settings.Default.Save();
-            }).ContinueWith(async t =>
-            {
 
                 //DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 //{
-                //    //    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Options Setting", Msg = "Nastavenia boli uspesne ulozene", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 3 });
+                //    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "dd", Msg = "dd", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
+
                 //});
 
-                await Task.Delay(TimeSpan.FromSeconds(4));
+            }).ContinueWith(async t =>
+            {
 
+
+                await Task.Delay(TimeSpan.FromSeconds(4));
             });
-            //System.Threading.Thread.Sleep(1500);
+
         }
     }
 }
