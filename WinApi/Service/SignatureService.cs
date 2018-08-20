@@ -9,23 +9,31 @@ using System.Threading;
 using System.IO;
 using System.Runtime.InteropServices;
 using WinApi.Interfaces.Model;
+using GalaSoft.MvvmLight.Messaging;
+using WinApi.Messages;
+using WinApi.ViewModels;
+using System.Resources;
+using System.Reflection;
 
 namespace WinApi.Service
 {
     public class SignatureService : ISignatureService
     {
 
-
+        private bool _inProcces = false;
         private IRestService _restService;
         private ISignatureOptionModel _signatureOptionModel;
         private ISignatureFileModel _signatureFileModel;
         public IRestService RestService { get => _restService; set => _restService = value; }
         public ISignatureOptionModel SignatureOptionModel { get => _signatureOptionModel; set => _signatureOptionModel = value; }
         public ISignatureFileModel SignatureFileModel { get => _signatureFileModel; set => _signatureFileModel = value; }
+        public bool InProcces { get => _inProcces; set => _inProcces = value; }
 
         public SignatureService(IRestService restService, IOptionsService optionsService)
         {
             this.RestService = restService;
+            Console.WriteLine("star podpis");
+
             this.SignatureOptionModel = optionsService.SignatureOptions;
             // this.SignatureFileModel = signatureFileModel;
         }
@@ -33,41 +41,45 @@ namespace WinApi.Service
         #region Start signature 
         public void StartSign()
         {
-            this.SignatureFileModel = RestService.GetDocumentToSignature();
-            if (this.SignatureFileModel != null)
+            SignatureFileModel = RestService.GetDocumentToSignature();
+            if (SignatureFileModel != null)
             {
-                string directhoryPath = this.SignatureFileModel.PdfFilePath.Replace('/', '\\');
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Docustaaaart", Msg = ViewModelLocator.rm.GetString("test"), IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
+                Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
+                InProcces = true;
+                string directhoryPath = SignatureFileModel.PdfFilePath.Replace('/', '\\');
                 // prida typ suboru na konci hashu
-                string fileName = this.SignatureFileModel.Hash + this.SignatureFileModel.PdfFilePath.Substring(this.SignatureFileModel.PdfFilePath.LastIndexOf("."));
+                string fileName = SignatureFileModel.Hash + SignatureFileModel.PdfFilePath.Substring(SignatureFileModel.PdfFilePath.LastIndexOf("."));
                 // Vytvori processname z options a vyplni paramatere {0} - filename {1} - directhoryPath
-                string processName = string.Format(this.SignatureOptionModel.ProcessName, fileName, directhoryPath); ;
+                string processName = string.Format(SignatureOptionModel.ProcessName, fileName, directhoryPath); ;
 
                 /// vytvori nove zlozku 
                 if (CreateDirectory(ref directhoryPath))
                 {
+                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdasd", Msg = "Apasdasdtu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
                     Console.WriteLine(directhoryPath);
                     // ulozi prijaty dokument do vytvorenej zlozky
-                    if (SaveFile(directhoryPath, fileName, this.SignatureFileModel.File))
+                    if (SaveFile(directhoryPath, fileName, SignatureFileModel.File))
                     {
                         string filePath = directhoryPath + fileName;
                         // spusti podpisovaci program 
-                        if (SignFile(processName, this.SignatureOptionModel.ProgramPath, filePath))
+                        if (SignFile(processName, SignatureOptionModel.ProgramPath, filePath))
                         {
-
-                            if (RestService.UploadSignedDocument(this.SignatureFileModel.Hash, this.SignatureFileModel.PdfFilePath.Substring(1, this.SignatureFileModel.PdfFilePath.Length - 1)))
-                                Console.WriteLine("Uspesne podpisany dokument");
+                            if (RestService.UploadSignedDocument(SignatureFileModel.Hash, SignatureFileModel.PdfFilePath.Substring(1, SignatureFileModel.PdfFilePath.Length - 1)))
+                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Document", Msg = "Document bol uspesne podpisany a nahrany ", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
                             else
                                 Console.WriteLine("asdadas");
-
-
                         }
                     }
                 }
             }
             else
             {
-                return;
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "nenasiel sa nic", Msg = "start", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
             }
+
+            Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Online });
+            InProcces = false;
         }
         #endregion
 
