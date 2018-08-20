@@ -23,12 +23,14 @@ namespace WinApi.ViewModels
     {
         private RelayCommand _options;
         private RelayCommand _signature;
-        private string _aaa;
         private Icon _icon;
-        private IRestService _restService;
+        private string _toolTipText = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
+        private IPusherService _pusherService;
+        //private IRestService _restService;
         private ISignatureService _signatureService;
         private OptionsLoginWindowView OptionsLoginWindow;
         private readonly NotificationManager _notificationManager = new NotificationManager();
+
         public Icon Icon
         {
             get { return _icon; }
@@ -38,39 +40,27 @@ namespace WinApi.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public string Aaa { get => _aaa; set => _aaa = value; }
         public RelayCommand Options { get => _options; set => _options = value; }
         public RelayCommand Signature { get => _signature; set => _signature = value; }
 
 
-
-        public string ToolTipText { get; set; } = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
+        public string ToolTipText
+        {
+            get { return _toolTipText; }
+            set
+            {
+                _toolTipText = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public TrayIconViewModel()
         {
-            // this.Icon = new System.Drawing.Icon(@"..\Properties\Icons\YourIcon.ico");
-            //this.Icon = Properties.Resources.online;
-            //Console.WriteLine(Properties.Resources.online);
-            this._restService = ViewModelLocator.RestService;
             this._signatureService = ViewModelLocator.SignatureService;
-            Aaa = "/Resources/Icons/online.ico";
-            //var notificationManager = new NotificationManager();
-            //_notificationManager.Show("asdsadasdasd");
-            // _notificationManager.Show(new NotificationContent { Title = "asdad", Message = "asdsad" });
-
-            //notificationManager.Show(new NotificationContent
-            //{
-            //    Title = "Sample notification",
-            //    Message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            //    Type = NotificationType.Success
-            //}, expirationTime: TimeSpan.FromSeconds(60));
+            this._pusherService = ViewModelLocator.PusherService;
 
 
-            //var timer = new System.Timers.Timer { Interval = 1000 };
-            //timer.Elapsed += (sender, args) => _notificationManager.Show("Pink string from another thread!");
-            //timer.Start();
 
-            // Test. = Properties.Resources.online;
             this.CommandInit();
             this.MessagesInit();
         }
@@ -78,9 +68,27 @@ namespace WinApi.ViewModels
         #region Message and Command Init
         private void MessagesInit()
         {
-            Messenger.Default.Register<NotifiMessage>(this, (message) =>
+            //Messenger.Default.Register<NotifiMessage>(this, (message) =>
+            //{
+            //    this._notificationManager.Show(new NotificationContent { Title = message.AppName + message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
+            //});
+
+            Messenger.Default.Register<ChangeIconMessage>(this, (message) =>
             {
-                this._notificationManager.Show(new NotificationContent { Title = message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
+                switch (message.Icon)
+                {
+                    case Enums.TrayIcons.Online:
+                        break;
+                    case Enums.TrayIcons.Offline:
+                        Console.WriteLine("asdas");
+                        ToolTipText = "offfline";
+                        break;
+                    case Enums.TrayIcons.Working:
+                        ToolTipText = "working";
+                        break;
+                    default:
+                        break;
+                }
             });
         }
 
@@ -94,15 +102,16 @@ namespace WinApi.ViewModels
         #region Signature double click Command
         private bool CanSignature()
         {
-            return true;
+            return (!_signatureService.InProcces);
         }
 
         private void DoSignature()
         {
-            this._signatureService.StartSign();
+            Task.Run(() =>
+            {
+                _signatureService.StartSign();
 
-            //var test = ViewModelLocator.RestService.GetDocumentToSignature();
-            //Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
+            });
         }
         #endregion
 
