@@ -7,34 +7,31 @@ using WinApi.Messages;
 using Hardcodet.Wpf.TaskbarNotification;
 using GalaSoft.MvvmLight.Messaging;
 using WinApi.ViewModels;
+using Notifications.Wpf;
+using System.Threading;
 
 namespace WinApi.Views
 {
     public partial class TrayIconView
     {
+        private readonly NotificationManager _notificationManager = new NotificationManager();
+
         public TrayIconView()
         {
             this.RegistrationMessage();
         }
 
+        #region Message Registration
         private void RegistrationMessage()
         {
             Messenger.Default.Register<ShowBallonTipMessage>(this, (message) =>
             {
-
                 trayIconTaskbar.ShowBalloonTip(message.Title, message.Msg, message.IconType);
-
-                // ITestService test = ServiceLocator.Current.GetInstance<ITestService>();
-                // test.Test = message.ButtonText;
             });
 
-            Messenger.Default.Register<ShowBallonTipMessage>(this, (message) =>
+            Messenger.Default.Register<NotifiMessage>(this, (message) =>
             {
-
-                trayIconTaskbar.ShowBalloonTip(message.Title, message.Msg, message.IconType);
-
-                // ITestService test = ServiceLocator.Current.GetInstance<ITestService>();
-                // test.Test = message.ButtonText;
+                this._notificationManager.Show(new NotificationContent { Title = message.AppName + message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
             });
 
             Messenger.Default.Register<ChangeIconMessage>(this, (message) =>
@@ -54,14 +51,7 @@ namespace WinApi.Views
                         break;
                 }
             });
-
-            //  tb = (TaskbarIcon)Application.Current.FindResource("MyTray");
-
-
         }
-
-        private void trayIconTaskbar_TrayMouseDoubleClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-        }
+        #endregion
     }
 }
