@@ -47,7 +47,7 @@
 
 				</StackPanel>
 
-				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding PusherOptions.PusherON}" Name="pusherOnCheckBox" FontWeight="Bold"/>
+				<CheckBox Grid.Column="0" Grid.ColumnSpan="1" Margin="5" Grid.Row="1"  Content="Pusher On" IsChecked="{Binding OptionsService.PusherOptions.PusherON}" Name="pusherOnCheckBox" FontWeight="Bold"/>
 			</Grid>
 
 			<local:ChangePasswordUserControl/>
