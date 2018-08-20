@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using System.Reflection;
+using System.Resources;
 using WinApi.Interfaces.Service;
 using WinApi.Service;
 
@@ -28,6 +30,7 @@ namespace WinApi.ViewModels
                 SimpleIoc.Default.Register<IOptionsService, OptionsService>();
                 SimpleIoc.Default.Register<IRestService, RestService>();
                 SimpleIoc.Default.Register<ISignatureService, SignatureService>();
+                SimpleIoc.Default.Register<IPusherService, PusherService>();
             }
 
             RegisterViewModels();
@@ -38,7 +41,6 @@ namespace WinApi.ViewModels
         {
             if (!SimpleIoc.Default.IsRegistered<TrayIconViewModel>())
             {
-                //SimpleIoc.Default.Register(() => new TrayIconViewModel(ServiceLocator.Current.GetInstance<IRestService>()));
                 SimpleIoc.Default.Register<TrayIconViewModel>();
             }
 
@@ -68,7 +70,9 @@ namespace WinApi.ViewModels
         public static ChangePasswordViewModel ChangePasswordViewModel => ServiceLocator.Current.GetInstance<ChangePasswordViewModel>();
         public static OptionsViewModel OptionsViewModel => ServiceLocator.Current.GetInstance<OptionsViewModel>();
         public static IRestService RestService => ServiceLocator.Current.GetInstance<IRestService>();
+        public static IPusherService PusherService => ServiceLocator.Current.GetInstance<IPusherService>();
         public static ISignatureService SignatureService => ServiceLocator.Current.GetInstance<ISignatureService>();
+        public static ResourceManager rm = new ResourceManager("WinApi.Resources.Language.SK", Assembly.GetExecutingAssembly());
 
 
 
