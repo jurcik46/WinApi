@@ -7,6 +7,8 @@ using WinApi.API;
 using WinApi.Models;
 using WinApi.Interfaces.Model;
 using WinApi.Interfaces.Service;
+using GalaSoft.MvvmLight.Messaging;
+using WinApi.Messages;
 
 namespace WinApi.Service
 {
@@ -14,18 +16,15 @@ namespace WinApi.Service
     {
         private Api _api;
 
-
         public RestService(IOptionsService optionsService)
         {
             this.OptionsService = optionsService;
         }
 
         internal IOptionsService OptionsService;
-
         internal Api Api => _api ?? (_api = new Api(this.OptionsService.ApiOptions));
 
-
-
+        #region Get document to sign
         public ISignatureFileModel GetDocumentToSignature()
         {
             //Logger.Debug(RestServiceEvents.EmployeesLastChange);
@@ -36,14 +35,25 @@ namespace WinApi.Service
                 var document = Api.GetDocument();
                 if (document != null)
                 {
-                    ISignatureFileModel fileModel = new SignatureFileModel(document);
-                    return fileModel;
+                    Console.WriteLine(document.Status);
+                    if (document.Status == 200)
+                    {
+                        ISignatureFileModel fileModel = new SignatureFileModel(document);
+                        return fileModel;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 // Logger.Warning(RestServiceEvents.LastChangeNull);
                 return null;
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Msg = "Aplikácia  je pripojena k internetu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
+
                 // Logger.Error(ex, RestServiceEvents.EmployeesLastChangeError);
                 //  ex.ShowError(this, DialogService, SettingsService.ShowSyncErrors);
                 _api = null;
@@ -52,7 +62,9 @@ namespace WinApi.Service
             //  }
 
         }
+        #endregion
 
+        #region Upload signed document
         public bool UploadSignedDocument(string hash, string pdfFilePath)
         {
             //Logger.Debug(RestServiceEvents.EmployeesLastChange);
@@ -63,7 +75,10 @@ namespace WinApi.Service
                 var status = Api.UploadDocument(hash, pdfFilePath);
                 if (status != null)
                 {
-                    return true;
+                    if (status.Status == 200)
+                        return true;
+                    else
+                        return false;
                 }
                 // Logger.Warning(RestServiceEvents.LastChangeNull);
                 return false;
@@ -77,6 +92,7 @@ namespace WinApi.Service
             }
             //  }
         }
+        #endregion
 
 
 
