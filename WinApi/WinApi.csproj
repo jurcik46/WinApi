@@ -141,7 +141,6 @@
     <Compile Include="API\Api.cs" />
     <Compile Include="API\Model\SignatureFileModel.cs" />
     <Compile Include="API\Model\UploadDocumentModel.cs" />
-    <Compile Include="Code\MyException.cs" />
     <Compile Include="Commands\RestartAppCommand.cs" />
     <Compile Include="Commands\ExitAppCommand.cs" />
     <Compile Include="Commands\CloseWindowCommand.cs" />
@@ -164,9 +163,6 @@
     <Compile Include="Messages\BozpStatusPusherMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
-    <Compile Include="Code\Options.cs" />
-    <Compile Include="Code\PusherConnect.cs" />
-    <Compile Include="Code\Signature.cs" />
     <Compile Include="Models\OptionsModel.cs" />
     <Compile Include="Models\PusherOptionModel.cs" />
     <Compile Include="Models\SignatureFileModel.cs" />
