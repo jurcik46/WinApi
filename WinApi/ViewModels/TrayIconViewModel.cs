@@ -103,7 +103,7 @@ namespace WinApi.ViewModels
             }
             else
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Msg = "Prave sa vykonava process", IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 30 });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("inProccesDocument"), IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 5 });
                 return false;
             }
         }

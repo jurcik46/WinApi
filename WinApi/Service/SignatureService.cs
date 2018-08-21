@@ -32,7 +32,6 @@ namespace WinApi.Service
         public SignatureService(IRestService restService, IOptionsService optionsService)
         {
             this.RestService = restService;
-            Console.WriteLine("star podpis");
 
             this.SignatureOptionModel = optionsService.SignatureOptions;
             // this.SignatureFileModel = signatureFileModel;
@@ -41,11 +40,13 @@ namespace WinApi.Service
         #region Start signature 
         public void StartSign()
         {
+            Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
+
+            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("searchDocument"), IconType = Notifications.Wpf.NotificationType.Information, });
             SignatureFileModel = RestService.GetDocumentToSignature();
             if (SignatureFileModel != null)
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Docustaaaart", Msg = ViewModelLocator.rm.GetString("test"), IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
-                Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("savingDocument"), IconType = Notifications.Wpf.NotificationType.Information });
                 InProcces = true;
                 string directhoryPath = SignatureFileModel.PdfFilePath.Replace('/', '\\');
                 // prida typ suboru na konci hashu
@@ -56,26 +57,43 @@ namespace WinApi.Service
                 /// vytvori nove zlozku 
                 if (CreateDirectory(ref directhoryPath))
                 {
-                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "asdasd", Msg = "Apasdasdtu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
-                    Console.WriteLine(directhoryPath);
                     // ulozi prijaty dokument do vytvorenej zlozky
                     if (SaveFile(directhoryPath, fileName, SignatureFileModel.File))
                     {
                         string filePath = directhoryPath + fileName;
+
+                        Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("startSignDocument"), IconType = Notifications.Wpf.NotificationType.Information });
                         // spusti podpisovaci program 
                         if (SignFile(processName, SignatureOptionModel.ProgramPath, filePath))
                         {
+                            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successSignDocumet"), IconType = Notifications.Wpf.NotificationType.Success });
+                            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("uploadDocument"), IconType = Notifications.Wpf.NotificationType.Information });
                             if (RestService.UploadSignedDocument(SignatureFileModel.Hash, SignatureFileModel.PdfFilePath.Substring(1, SignatureFileModel.PdfFilePath.Length - 1)))
-                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Document", Msg = "Document bol uspesne podpisany a nahrany ", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
+                            {
+                                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "200" });
+                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successUploadDocument"), IconType = Notifications.Wpf.NotificationType.Success });
+                            }
                             else
-                                Console.WriteLine("asdadas");
+                            {
+                                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "500" });
+                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failUploadDocument"), IconType = Notifications.Wpf.NotificationType.Error });
+                            }
                         }
                     }
+                    else
+                    {
+                        Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failSavingDocument"), IconType = Notifications.Wpf.NotificationType.Error });
+                    }
+                }
+                else
+                {
+                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failSavingDocument"), IconType = Notifications.Wpf.NotificationType.Error });
                 }
             }
             else
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "nenasiel sa nic", Msg = "start", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("notFoundDocument"), IconType = Notifications.Wpf.NotificationType.Warning });
+                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "404" });
             }
 
             Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Online });
