@@ -180,4 +180,10 @@
   <data name="loginTitle" xml:space="preserve">
     <value>Vstup do nastavení</value>
   </data>
+  <data name="savedSetting" xml:space="preserve">
+    <value>Heslo bolo úspešne zmenene</value>
+  </data>
+  <data name="settingTitle" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
 </root>

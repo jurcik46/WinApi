@@ -36,7 +36,7 @@ namespace WinApi.ViewModels
         {
 
             _passwordService.CreatePass(this.Password1);
-            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Zmena hesla", Msg = "Heslo bolo uspesne zmenene", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
+            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("settingTitle"), Msg = ViewModelLocator.rm.GetString("savedSetting"), IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
 
         }
 

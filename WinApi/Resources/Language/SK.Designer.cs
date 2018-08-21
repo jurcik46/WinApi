@@ -187,6 +187,15 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heslo bolo úspešne zmenene.
+        /// </summary>
+        internal static string savedSetting {
+            get {
+                return ResourceManager.GetString("savedSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ukladám dokument.
         /// </summary>
         internal static string savingDocument {
@@ -201,6 +210,15 @@ namespace WinApi.Resources.Language {
         internal static string searchDocument {
             get {
                 return ResourceManager.GetString("searchDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nastavenia.
+        /// </summary>
+        internal static string settingTitle {
+            get {
+                return ResourceManager.GetString("settingTitle", resourceCulture);
             }
         }
         
