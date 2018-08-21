@@ -135,6 +135,12 @@
   <data name="foundDocument" xml:space="preserve">
     <value>Dokument na podpísanie bol úspešne stiahnutý</value>
   </data>
+  <data name="iconTitleDefualt" xml:space="preserve">
+    <value>Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu</value>
+  </data>
+  <data name="iconTitleWorking" xml:space="preserve">
+    <value>Pravé prebieha podpisovanie</value>
+  </data>
   <data name="inProccesDocument" xml:space="preserve">
     <value>Pravé sa vykonáva podpisovanie</value>
   </data>

@@ -115,6 +115,24 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu.
+        /// </summary>
+        internal static string iconTitleDefualt {
+            get {
+                return ResourceManager.GetString("iconTitleDefualt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pravé prebieha podpisovanie.
+        /// </summary>
+        internal static string iconTitleWorking {
+            get {
+                return ResourceManager.GetString("iconTitleWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pravé sa vykonáva podpisovanie.
         /// </summary>
         internal static string inProccesDocument {

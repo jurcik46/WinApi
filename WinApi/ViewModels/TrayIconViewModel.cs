@@ -24,7 +24,7 @@ namespace WinApi.ViewModels
         private RelayCommand _options;
         private RelayCommand _signature;
         private Icon _icon;
-        private string _toolTipText = "Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu";
+        private string _toolTipText = ViewModelLocator.rm.GetString("iconTitleDefualt");
         private IPusherService _pusherService;
         //private IRestService _restService;
         private ISignatureService _signatureService;
@@ -73,13 +73,13 @@ namespace WinApi.ViewModels
                 switch (message.Icon)
                 {
                     case Enums.TrayIcons.Online:
+                        ToolTipText = ViewModelLocator.rm.GetString("iconTitleDefualt");
                         break;
                     case Enums.TrayIcons.Offline:
-                        Console.WriteLine("asdas");
-                        ToolTipText = "offfline";
+                        ToolTipText = ViewModelLocator.rm.GetString("lostConnection");
                         break;
                     case Enums.TrayIcons.Working:
-                        ToolTipText = "working";
+                        ToolTipText = ViewModelLocator.rm.GetString("iconTitleWorking");
                         break;
                     default:
                         break;
