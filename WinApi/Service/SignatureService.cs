@@ -48,6 +48,7 @@ namespace WinApi.Service
             {
                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("savingDocument"), IconType = Notifications.Wpf.NotificationType.Information });
                 InProcces = true;
+                // prehodi lomku 
                 string directhoryPath = SignatureFileModel.PdfFilePath.Replace('/', '\\');
                 // prida typ suboru na konci hashu
                 string fileName = SignatureFileModel.Hash + SignatureFileModel.PdfFilePath.Substring(SignatureFileModel.PdfFilePath.LastIndexOf("."));

@@ -126,7 +126,8 @@ namespace WinApi.Service
         {
             Messenger.Default.Register<BozpStatusPusherMessage>(this, (message) =>
             {
-                SendBozpStatus(message.Status);
+                if (_pusherOption.PusherON)
+                    SendBozpStatus(message.Status);
                 //log.information("odoslanie správy pre pusher: event = client-event-{0}, msg = {1}", opt.data.userid, msg);
             });
         }
