@@ -174,4 +174,10 @@
   <data name="uploadDocument" xml:space="preserve">
     <value>Prebieha nahrávanie dokumentu na server</value>
   </data>
+  <data name="failedLogin" xml:space="preserve">
+    <value>Zadali ste nesprávne heslo</value>
+  </data>
+  <data name="loginTitle" xml:space="preserve">
+    <value>Vstup do nastavení</value>
+  </data>
 </root>

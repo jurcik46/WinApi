@@ -79,6 +79,15 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Zadali ste nesprávne heslo.
+        /// </summary>
+        internal static string failedLogin {
+            get {
+                return ResourceManager.GetString("failedLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Podpisovanie sa nepodarilo skúste znova.
         /// </summary>
         internal static string failedSignDocument {
@@ -138,6 +147,15 @@ namespace WinApi.Resources.Language {
         internal static string inProccesDocument {
             get {
                 return ResourceManager.GetString("inProccesDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vstup do nastavení.
+        /// </summary>
+        internal static string loginTitle {
+            get {
+                return ResourceManager.GetString("loginTitle", resourceCulture);
             }
         }
         
