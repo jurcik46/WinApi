@@ -25,9 +25,8 @@ namespace WinApi.Service
             _pusherOption = optionsService.PusherOptions;
             _apiOtion = optionsService.ApiOptions;
             _signatureService = signatureService;
-            Console.WriteLine("star pusher");
-            Console.WriteLine(_pusherOption.PusherON);
 
+            MessagesInit();
             StartPusher();
         }
 
@@ -37,8 +36,6 @@ namespace WinApi.Service
         {
             if (_pusherOption.PusherON)
             {
-                Console.WriteLine(" pusher");
-
                 _pusher = new Pusher(_pusherOption.PusherKey, new PusherOptions()
                 {
                     Authorizer = new HttpAuthorizer(_pusherOption.PusherAuthorizer),
@@ -132,10 +129,8 @@ namespace WinApi.Service
         {
             Messenger.Default.Register<BozpStatusPusherMessage>(this, (message) =>
             {
+                SendBozpStatus(message.Status);
                 //log.information("odoslanie správy pre pusher: event = client-event-{0}, msg = {1}", opt.data.userid, msg);
-                _channel.Trigger(string.Format("client-event-{0}", _apiOtion.UserID), new { status = message.Status });
-
-                //this._notificationManager.Show(new NotificationContent { Title = message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
             });
         }
         #endregion
