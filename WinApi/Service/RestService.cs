@@ -35,7 +35,6 @@ namespace WinApi.Service
                 var document = Api.GetDocument();
                 if (document != null)
                 {
-                    Console.WriteLine(document.Status);
                     if (document.Status == 200)
                     {
                         ISignatureFileModel fileModel = new SignatureFileModel(document);
@@ -51,8 +50,9 @@ namespace WinApi.Service
             }
             catch (Exception ex)
             {
+                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "200" });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("failedSignDocument"), IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 10 });
                 Console.WriteLine(ex.Message);
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Msg = "Aplikácia  je pripojena k internetu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
 
                 // Logger.Error(ex, RestServiceEvents.EmployeesLastChangeError);
                 //  ex.ShowError(this, DialogService, SettingsService.ShowSyncErrors);
@@ -76,6 +76,7 @@ namespace WinApi.Service
                 if (status != null)
                 {
                     if (status.Status == 200)
+
                         return true;
                     else
                         return false;
