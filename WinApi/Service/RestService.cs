@@ -50,8 +50,6 @@ namespace WinApi.Service
             }
             catch (Exception ex)
             {
-                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "200" });
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("failedSignDocument"), IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 10 });
                 Console.WriteLine(ex.Message);
 
                 // Logger.Error(ex, RestServiceEvents.EmployeesLastChangeError);

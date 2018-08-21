@@ -65,7 +65,7 @@ namespace WinApi.Service
             if (state == ConnectionState.Connected)
             {
 
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Status pripojenia", Msg = "Aplikácia  je pripojena k internetu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 4 });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("connectionTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("onlineConnection"), IconType = Notifications.Wpf.NotificationType.Success });
                 Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Online });
 
                 _online = true;
@@ -75,7 +75,7 @@ namespace WinApi.Service
 
                 if (_online)
                 {
-                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Status pripojenia", Msg = "Aplikácia stratila pripojenie k internetu", IconType = Notifications.Wpf.NotificationType.Warning, ExpTime = 4 });
+                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("connectionTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("lostConnection"), IconType = Notifications.Wpf.NotificationType.Error });
                     Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Offline });
 
                     _online = false;
@@ -93,10 +93,7 @@ namespace WinApi.Service
         {
             if (error != null)
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Status pripojenia", Msg = "Aplikácia stratila pripojenie k internetu", IconType = Notifications.Wpf.NotificationType.Warning, ExpTime = 4 });
-                Messenger.Default.Send<ShowBallonTipMessage>(new ShowBallonTipMessage() { Title = "Status pripojenia", Msg = "Aplikácia stratila pripojenie k internetu", IconType = Hardcodet.Wpf.TaskbarNotification.BalloonIcon.Error });
 
-                //trayIconTaskbar.ShowBalloonTip("Chyba", error.ToString(), BalloonIcon.Error);
                 //Log.Error("Pusher Error Msg = {0}", error.ToString());
             }
 

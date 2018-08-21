@@ -124,11 +124,29 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aplikácia stratila pripojenie k internetu.
+        /// </summary>
+        internal static string lostConnection {
+            get {
+                return ResourceManager.GetString("lostConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nenašiel sa žiadny dokument na podpisanie.
         /// </summary>
         internal static string notFoundDocument {
             get {
                 return ResourceManager.GetString("notFoundDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aplikácia  je pripojena k internetu.
+        /// </summary>
+        internal static string onlineConnection {
+            get {
+                return ResourceManager.GetString("onlineConnection", resourceCulture);
             }
         }
         

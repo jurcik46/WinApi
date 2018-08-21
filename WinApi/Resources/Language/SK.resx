@@ -123,6 +123,9 @@
   <data name="connectionTitle" xml:space="preserve">
     <value>Status pripojenia</value>
   </data>
+  <data name="failedSignDocument" xml:space="preserve">
+    <value>Podpisovanie sa nepodarilo skúste znova</value>
+  </data>
   <data name="failSavingDocument" xml:space="preserve">
     <value>Nepodarilo sa uložiť dokument</value>
   </data>
@@ -135,8 +138,14 @@
   <data name="inProccesDocument" xml:space="preserve">
     <value>Pravé sa vykonáva podpisovanie</value>
   </data>
+  <data name="lostConnection" xml:space="preserve">
+    <value>Aplikácia stratila pripojenie k internetu</value>
+  </data>
   <data name="notFoundDocument" xml:space="preserve">
     <value>Nenašiel sa žiadny dokument na podpisanie</value>
+  </data>
+  <data name="onlineConnection" xml:space="preserve">
+    <value>Aplikácia  je pripojena k internetu</value>
   </data>
   <data name="savingDocument" xml:space="preserve">
     <value>Ukladám dokument</value>
