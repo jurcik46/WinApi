@@ -61,11 +61,137 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tesssddsfsdfsdfs.
+        ///   Looks up a localized string similar to Zlyhalo pripojenie k internetu.
         /// </summary>
-        internal static string test {
+        internal static string connectionMsg {
             get {
-                return ResourceManager.GetString("test", resourceCulture);
+                return ResourceManager.GetString("connectionMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status pripojenia.
+        /// </summary>
+        internal static string connectionTitle {
+            get {
+                return ResourceManager.GetString("connectionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podpisovanie sa nepodarilo skúste znova.
+        /// </summary>
+        internal static string failedSignDocument {
+            get {
+                return ResourceManager.GetString("failedSignDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nepodarilo sa uložiť dokument.
+        /// </summary>
+        internal static string failSavingDocument {
+            get {
+                return ResourceManager.GetString("failSavingDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokument sa nepodarilo nahrať na server.
+        /// </summary>
+        internal static string failUploadDocument {
+            get {
+                return ResourceManager.GetString("failUploadDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokument na podpísanie bol úspešne stiahnutý.
+        /// </summary>
+        internal static string foundDocument {
+            get {
+                return ResourceManager.GetString("foundDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pravé sa vykonáva podpisovanie.
+        /// </summary>
+        internal static string inProccesDocument {
+            get {
+                return ResourceManager.GetString("inProccesDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nenašiel sa žiadny dokument na podpisanie.
+        /// </summary>
+        internal static string notFoundDocument {
+            get {
+                return ResourceManager.GetString("notFoundDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ukladám dokument.
+        /// </summary>
+        internal static string savingDocument {
+            get {
+                return ResourceManager.GetString("savingDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hľadám nový dokument na podpísanie.
+        /// </summary>
+        internal static string searchDocument {
+            get {
+                return ResourceManager.GetString("searchDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podpisovanie.
+        /// </summary>
+        internal static string signatureTitle {
+            get {
+                return ResourceManager.GetString("signatureTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spúšťam aplikáciu na podpísanie.
+        /// </summary>
+        internal static string startSignDocument {
+            get {
+                return ResourceManager.GetString("startSignDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokument bol uspesne podpisany..
+        /// </summary>
+        internal static string successSignDocumet {
+            get {
+                return ResourceManager.GetString("successSignDocumet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokument bol úspešne nahraný.
+        /// </summary>
+        internal static string successUploadDocument {
+            get {
+                return ResourceManager.GetString("successUploadDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prebieha nahrávanie dokumentu na server.
+        /// </summary>
+        internal static string uploadDocument {
+            get {
+                return ResourceManager.GetString("uploadDocument", resourceCulture);
             }
         }
     }
