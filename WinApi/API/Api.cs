@@ -42,16 +42,15 @@ namespace WinApi.API
             if (response.ErrorException != null)
             {
                 if (response.StatusCode == 0)
-                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = "Document bol uspesne stiahnuty", Msg = "Aplikácia  je pripojena k internetu", IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 30 });
-                Console.WriteLine((int)response.StatusCode);
-                Console.WriteLine(response.ErrorException);
-                Console.WriteLine(response.ErrorMessage);
-                Console.WriteLine("neni aaaaaa");
+                    Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("connectionTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("connectionMsg"), IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 10 });
+                //Console.WriteLine((int)response.StatusCode);
+                //Console.WriteLine(response.ErrorException);
+                //Console.WriteLine(response.ErrorMessage);
+                //Console.WriteLine("neni aaaaaa");
                 //Logger.With("Request", request).With("Response", response).With("Type", typeof(T).FullName).Error(response.ErrorException, EntranceAPIEvents.ExecuteTypeError);
                 return null;
             }
 
-            Console.WriteLine((int)response.StatusCode);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
             {
                 Console.WriteLine("aaaa");
@@ -62,9 +61,9 @@ namespace WinApi.API
             }
             else
             {
-                Console.WriteLine(response.ResponseStatus);
-                Console.WriteLine(response.StatusCode);
-                Console.WriteLine("bbbb");
+                //Console.WriteLine(response.ResponseStatus);
+                //Console.WriteLine(response.StatusCode);
+                //Console.WriteLine("bbbb");
 
                 //Logger.With("Request", request)
                 //    .With("Response", response)
