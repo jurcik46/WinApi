@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinApi.ViewModels;
+using WpfAnimatedGif;
 
 namespace WinApi.Views
 {
@@ -22,13 +24,21 @@ namespace WinApi.Views
         public NotifiWindowView()
         {
             InitializeComponent();
+            this.DataContext = ViewModelLocator.NotifiWindowViewModel;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Right - this.Width;
+            //this.Left = desktopWorkingArea.Right - this.Width;
+            this.Left = desktopWorkingArea.Left;
             this.Top = desktopWorkingArea.Bottom - this.Height;
+
+            //var image = new BitmapImage();
+            //image.BeginInit();
+            //image.UriSource = new Uri(@"pack://application:,,,/Resources/img/Reload-1s-50px.gif");
+            //image.EndInit();
+            //ImageBehavior.SetAnimatedSource(loading, image);
         }
     }
 }

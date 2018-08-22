@@ -60,6 +60,7 @@ namespace WinApi.Service
             if (SignatureFileModel != null)
             {
                 // Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("savingDocument"), IconType = Notifications.Wpf.NotificationType.Information });
+                Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "asda" });
                 InProcces = true;
                 // prehodi lomku 
                 string directhoryPath = SignatureFileModel.PdfFilePath.Replace('/', '\\');
@@ -89,7 +90,8 @@ namespace WinApi.Service
                             }
                             else
                             {
-                                notifiWin.Close();
+                                CloseNotifiWin(notifiWin);
+
                                 Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "500" });
                                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failUploadDocument"), IconType = Notifications.Wpf.NotificationType.Error });
                             }
@@ -97,31 +99,22 @@ namespace WinApi.Service
                     }
                     else
                     {
-                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                        {
-                            notifiWin.Close();
+                        CloseNotifiWin(notifiWin);
 
-                        });
                         Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failSavingDocument"), IconType = Notifications.Wpf.NotificationType.Error });
                     }
                 }
                 else
                 {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                    {
-                        notifiWin.Close();
+                    CloseNotifiWin(notifiWin);
 
-                    });
                     Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failSavingDocument"), IconType = Notifications.Wpf.NotificationType.Error });
                 }
             }
             else
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    notifiWin.Close();
+                CloseNotifiWin(notifiWin);
 
-                });
                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("notFoundDocument"), IconType = Notifications.Wpf.NotificationType.Warning });
                 Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "404" });
             }
@@ -129,11 +122,8 @@ namespace WinApi.Service
             Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Online });
             InProcces = false;
             Thread.Sleep(3);
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-                notifiWin.Close();
 
-            });
+            CloseNotifiWin(notifiWin);
         }
 
         private void CloseNotifiWin(Window notifiWin)
@@ -143,7 +133,6 @@ namespace WinApi.Service
                 notifiWin.Close();
 
             });
-
         }
 
         #endregion

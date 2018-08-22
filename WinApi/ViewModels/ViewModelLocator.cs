@@ -58,6 +58,11 @@ namespace WinApi.ViewModels
             {
                 SimpleIoc.Default.Register(() => new ChangePasswordViewModel(ServiceLocator.Current.GetInstance<IPasswordService>()));
             }
+            if (!SimpleIoc.Default.IsRegistered<NotifiWindowViewModel>())
+            {
+                SimpleIoc.Default.Register<NotifiWindowViewModel>();
+            }
+
         }
 
         public static void Cleanup()
@@ -69,6 +74,7 @@ namespace WinApi.ViewModels
         public static OptionsLoginViewModel OptionsLoginViewModel => ServiceLocator.Current.GetInstance<OptionsLoginViewModel>();
         public static ChangePasswordViewModel ChangePasswordViewModel => ServiceLocator.Current.GetInstance<ChangePasswordViewModel>();
         public static OptionsViewModel OptionsViewModel => ServiceLocator.Current.GetInstance<OptionsViewModel>();
+        public static NotifiWindowViewModel NotifiWindowViewModel => ServiceLocator.Current.GetInstance<NotifiWindowViewModel>();
         public static IRestService RestService => ServiceLocator.Current.GetInstance<IRestService>();
         public static IPusherService PusherService => ServiceLocator.Current.GetInstance<IPusherService>();
         public static ISignatureService SignatureService => ServiceLocator.Current.GetInstance<ISignatureService>();

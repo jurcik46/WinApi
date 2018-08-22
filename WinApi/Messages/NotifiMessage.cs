@@ -13,7 +13,7 @@ namespace WinApi.Messages
         private string _title;
         private string _msg;
         private NotificationType _iconType;
-        private int _expTime = 20;
+        private int _expTime = 5;
 
         public string Title { get => _title; set => _title = value; }
         public string Msg { get => _msg; set => _msg = value; }
