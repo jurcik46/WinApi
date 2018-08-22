@@ -162,6 +162,7 @@
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\BozpStatusPusherMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
+    <Compile Include="Messages\SignatureStatusMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
     <Compile Include="Models\OptionsModel.cs" />
     <Compile Include="Models\PusherOptionModel.cs" />
@@ -179,12 +180,16 @@
     <Compile Include="Service\SignatureService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\NotifiWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsLoginViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\ChangePasswordUserControl.xaml.cs">
       <DependentUpon>ChangePasswordUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotifiWindowView.xaml.cs">
+      <DependentUpon>NotifiWindowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OptionsLoginWindowView.xaml.cs">
       <DependentUpon>OptionsLoginWindowView.xaml</DependentUpon>
@@ -200,6 +205,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\ChangePasswordUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotifiWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +275,12 @@
   <ItemGroup>
     <Folder Include="API\Enums\" />
     <Folder Include="Desing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\Reload-1s-50px.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
