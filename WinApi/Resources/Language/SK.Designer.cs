@@ -241,7 +241,7 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dokument bol uspesne podpisany..
+        ///   Looks up a localized string similar to Dokument bol úspešne podpísaný..
         /// </summary>
         internal static string successSignDocumet {
             get {

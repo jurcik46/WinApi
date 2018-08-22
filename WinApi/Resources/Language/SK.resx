@@ -166,7 +166,7 @@
     <value>Spúšťam aplikáciu na podpísanie</value>
   </data>
   <data name="successSignDocumet" xml:space="preserve">
-    <value>Dokument bol uspesne podpisany.</value>
+    <value>Dokument bol úspešne podpísaný.</value>
   </data>
   <data name="successUploadDocument" xml:space="preserve">
     <value>Dokument bol úspešne nahraný</value>
