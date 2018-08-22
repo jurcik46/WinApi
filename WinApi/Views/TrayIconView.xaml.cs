@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinApi.Messages;
-using Hardcodet.Wpf.TaskbarNotification;
+﻿using WinApi.Messages;
 using GalaSoft.MvvmLight.Messaging;
-using WinApi.ViewModels;
 using Notifications.Wpf;
-using System.Threading;
 
 namespace WinApi.Views
 {
     public partial class TrayIconView
     {
         private readonly NotificationManager _notificationManager = new NotificationManager();
+        private NotificationContent conetn;
+        // private NotificationArea _n = new NotificationArea();
 
         public TrayIconView()
         {
+            conetn = new NotificationContent();
+
+            //_n.MaxItems = 1;
+            // _n.Position = NotificationPosition.BottomLeft;
             this.RegistrationMessage();
         }
 
@@ -31,7 +29,11 @@ namespace WinApi.Views
 
             Messenger.Default.Register<NotifiMessage>(this, (message) =>
             {
-                this._notificationManager.Show(new NotificationContent { Title = message.AppName + message.Title, Message = message.Msg, Type = message.IconType }, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
+                conetn.Title = message.Title;
+                conetn.Message = message.Msg;
+                conetn.Type = message.IconType;
+
+                this._notificationManager.Show(conetn, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
             });
 
             Messenger.Default.Register<ChangeIconMessage>(this, (message) =>

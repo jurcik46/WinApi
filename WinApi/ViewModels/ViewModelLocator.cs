@@ -75,6 +75,5 @@ namespace WinApi.ViewModels
         public static ResourceManager rm = new ResourceManager("WinApi.Resources.Language.SK", Assembly.GetExecutingAssembly());
 
 
-
     }
 }

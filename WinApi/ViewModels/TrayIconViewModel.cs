@@ -60,7 +60,6 @@ namespace WinApi.ViewModels
             this._pusherService = ViewModelLocator.PusherService;
 
 
-
             this.CommandInit();
             this.MessagesInit();
         }
@@ -97,6 +96,15 @@ namespace WinApi.ViewModels
         #region Signature double click Command
         private bool CanSignature()
         {
+            //// Create the notification object
+            //var newNotification = new Notification()
+            //{
+            //    Title = "Machine error",
+            //    Message = "Error!! Please check your Machine Code and Try Again"
+            //};
+            //// call the ShowNotificationWindow Method with the notification object
+            //_notifserve.ShowNotificationWindow(newNotification);
+
             if (!_signatureService.InProcces)
             {
                 return true;
