@@ -56,7 +56,7 @@
     <ApplicationIcon>test.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>3C5B99CC49BBB6768A89C03C11690218D7381DB9</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>EE69169F00B6788913D232B3C25494FCB171FA7A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>WinApi_TemporaryKey.pfx</ManifestKeyFile>
@@ -165,7 +165,6 @@
     <Compile Include="Messages\NotifiMessage.cs" />
     <Compile Include="Messages\BozpStatusPusherMessage.cs" />
     <Compile Include="Messages\ShowBallonTipMessage.cs" />
-    <Compile Include="Messages\SignatureStatusMessage.cs" />
     <Compile Include="Models\ApiOptionModel.cs" />
     <Compile Include="Models\OptionsModel.cs" />
     <Compile Include="Models\PusherOptionModel.cs" />
@@ -183,7 +182,6 @@
     <Compile Include="Service\SignatureService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="ViewModels\NotifiWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsLoginViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\TrayIconViewModel.cs" />
@@ -255,6 +253,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="WinApi_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

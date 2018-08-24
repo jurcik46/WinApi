@@ -3,39 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:gif="http://wpfanimatedgif.codeplex.com"
-        xmlns:local="clr-namespace:WinApi.Views"
+        xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         mc:Ignorable="d"
-		WindowStyle="ToolWindow"
-		ResizeMode="NoResize"
-        Title="BOZP - Status podpisovania" Height="200" Width="300"
+        Title="ToastWindow"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Topmost="True"
+        ShowActivated="False"
+        d:DesignWidth="900"
+        d:DesignHeight="600"
 		Loaded="Window_Loaded"
-		>
-	<Border Margin="10">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="20"/>
-			</Grid.ColumnDefinitions>
-
-			<Grid.RowDefinitions>
-				<RowDefinition Height="20"/>
-				<RowDefinition Height="20"/>
-				<RowDefinition Height="20"/>
-				<RowDefinition Height="20"/>
-				<RowDefinition Height="20"/>
-			</Grid.RowDefinitions>
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="Hľadám dokument na podpísanie" />
-			<Image Grid.Row="0" Grid.Column="1" x:Name="loading" gif:ImageBehavior.AnimatedSource="{Binding  LoadingIcon}" />
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="Ukladám dokument" />
-			<Image Grid.Row="1" Grid.Column="1" x:Name="loaag" gif:ImageBehavior.AnimatedSource="{Binding  LoadingIcon}" />
-
-			<TextBlock Grid.Row="2" Grid.Column="0" Text="Spúšťam aplikáciu na podpísanie" />
-			<Image Grid.Row="2" Grid.Column="1" x:Name="losaag" gif:ImageBehavior.AnimatedSource="{Binding  LoadingIcon}" />
-
-			<TextBlock Grid.Row="3" Grid.Column="0" Text="Spúšťam aplikáciu na podpísanie" />
-			<Image Grid.Row="3" Grid.Column="1" x:Name="loadag" gif:ImageBehavior.AnimatedSource="{Binding  LoadingIcon}" />
-		</Grid>
-
-	</Border>
+		Deactivated="Window_Deactivated">
+	<notifications:NotificationArea MaxItems="1" Position="BottomRight" Margin="8" x:Name="WindowArea"/>
 </Window>

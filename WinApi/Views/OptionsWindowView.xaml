@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:WinApi.Views"
         mc:Ignorable="d"
-        Title="OptionsWindowView" Height="600" Width="600">
+        Title="Setting" Height="600" Width="600">
 	<Border Padding="10">
 		<StackPanel>
 			<Grid>

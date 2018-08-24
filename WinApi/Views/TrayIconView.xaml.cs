@@ -6,14 +6,12 @@ namespace WinApi.Views
 {
     public partial class TrayIconView
     {
-        private readonly NotificationManager _notificationManager = new NotificationManager();
-        private NotificationContent conetn;
-        // private NotificationArea _n = new NotificationArea();
+        private NotifiWindowView notifiWindow;
 
         public TrayIconView()
         {
-            conetn = new NotificationContent();
-
+            notifiWindow = new NotifiWindowView();
+            notifiWindow.Show();
             //_n.MaxItems = 1;
             // _n.Position = NotificationPosition.BottomLeft;
             this.RegistrationMessage();
@@ -27,14 +25,6 @@ namespace WinApi.Views
                 trayIconTaskbar.ShowBalloonTip(message.Title, message.Msg, message.IconType);
             });
 
-            Messenger.Default.Register<NotifiMessage>(this, (message) =>
-            {
-                conetn.Title = message.Title;
-                conetn.Message = message.Msg;
-                conetn.Type = message.IconType;
-
-                this._notificationManager.Show(conetn, expirationTime: System.TimeSpan.FromSeconds(message.ExpTime));
-            });
 
             Messenger.Default.Register<ChangeIconMessage>(this, (message) =>
             {
