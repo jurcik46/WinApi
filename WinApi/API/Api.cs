@@ -51,13 +51,17 @@ namespace WinApi.API
                 return null;
             }
 
+            Console.WriteLine(response.StatusCode);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
             {
                 Console.WriteLine("aaaa");
-                //    Logger.With("Request", request)
-                //        .With("Response", response)
-                //        .With("Type", typeof(T).FullName)
-                //        .Error(EntranceAPIEvents.ExecuteTypeError, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
+                return null;
+
+               // return null;
+               //    Logger.With("Request", request)
+               //        .With("Response", response)
+               //        .With("Type", typeof(T).FullName)
+               //        .Error(EntranceAPIEvents.ExecuteTypeError, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
             }
             else
             {

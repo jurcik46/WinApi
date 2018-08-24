@@ -6,7 +6,7 @@
       <Value Profile="(Default)">https://devel.ccsipro.sk/sendmail/web/api/api_ccsipro3/v1/winapii/</Value>
     </Setting>
     <Setting Name="ApiKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">asdfjkhafkshfdkjaskfhls1561561ds</Value>
+      <Value Profile="(Default)">asdfjkhafkshfdkjaskfhls1561561dsX</Value>
     </Setting>
     <Setting Name="ObjecID" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
@@ -15,10 +15,10 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="ProgramPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">c:\\program Files (x86)\\Notepad++\\notepad++.exe</Value>
+      <Value Profile="(Default)">C:\Program Files (x86)\Wacom sign pro PDF\signpro.exe</Value>
     </Setting>
     <Setting Name="ProcessName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\\Appky\\C#\\WinApi\\WinApi\\bin\\Debug\\{1}{0} - Notepad++</Value>
+      <Value Profile="(Default)">Wacom sign pro PDF - C:\Users\jurci\Documents\WinApi\WinApi\bin\Debug{1}</Value>
     </Setting>
     <Setting Name="PusherKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">31d14ddddef4c14b6ab5</Value>
@@ -27,7 +27,7 @@
       <Value Profile="(Default)">http://192.168.33.10/pusher/</Value>
     </Setting>
     <Setting Name="PusherON" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Success" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

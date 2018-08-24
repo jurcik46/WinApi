@@ -8,6 +8,7 @@ using WinApi.Models;
 using WinApi.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
+using System.Windows;
 
 namespace WinApi.Service
 {
@@ -69,7 +70,6 @@ namespace WinApi.Service
 
             }).ContinueWith(async t =>
             {
-
 
                 await Task.Delay(TimeSpan.FromSeconds(4));
             });

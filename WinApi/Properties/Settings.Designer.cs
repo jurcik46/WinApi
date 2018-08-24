@@ -12,7 +12,7 @@ namespace WinApi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,7 +37,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("asdfjkhafkshfdkjaskfhls1561561ds")]
+        [global::System.Configuration.DefaultSettingValueAttribute("asdfjkhafkshfdkjaskfhls1561561dsX")]
         public string ApiKey {
             get {
                 return ((string)(this["ApiKey"]));
@@ -73,7 +73,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\\\program Files (x86)\\\\Notepad++\\\\notepad++.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\Wacom sign pro PDF\\signpro.exe")]
         public string ProgramPath {
             get {
                 return ((string)(this["ProgramPath"]));
@@ -85,7 +85,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\Appky\\\\C#\\\\WinApi\\\\WinApi\\\\bin\\\\Debug\\\\{1}{0} - Notepad++")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Wacom sign pro PDF - C:\\Users\\jurci\\Documents\\WinApi\\WinApi\\bin\\Debug{1}")]
         public string ProcessName {
             get {
                 return ((string)(this["ProcessName"]));
@@ -121,7 +121,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool PusherON {
             get {
                 return ((bool)(this["PusherON"]));

@@ -61,6 +61,15 @@ namespace WinApi.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Podpisovanie bolo zrušené.
+        /// </summary>
+        internal static string closedDocument {
+            get {
+                return ResourceManager.GetString("closedDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zlyhalo pripojenie k internetu.
         /// </summary>
         internal static string connectionMsg {
@@ -237,6 +246,15 @@ namespace WinApi.Resources.Language {
         internal static string startSignDocument {
             get {
                 return ResourceManager.GetString("startSignDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Čakám na podpísanie dokumentu.
+        /// </summary>
+        internal static string successOpenDocument {
+            get {
+                return ResourceManager.GetString("successOpenDocument", resourceCulture);
             }
         }
         

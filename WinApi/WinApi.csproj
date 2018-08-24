@@ -243,6 +243,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language\SK.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -277,24 +278,6 @@
   <ItemGroup>
     <Folder Include="API\Enums\" />
     <Folder Include="Desing\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\img\Reload-1s-50px.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\loading.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\img\Reload-1s-20px.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\img\Reload-1s-200px.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\img\ok.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\img\error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

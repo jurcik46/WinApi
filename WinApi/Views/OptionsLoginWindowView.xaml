@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:WinApi.ViewModels"
 		mc:Ignorable="d"
-        Title="Vstup" Height="150" Width="150" MaxHeight="150" MaxWidth="150" MinWidth="150" MinHeight="150" WindowStartupLocation="CenterScreen">
+        Title="Login" Height="150" Width="150" MaxHeight="150" MaxWidth="150" MinWidth="150" MinHeight="150" WindowStartupLocation="CenterScreen">
 	<Grid>
 		<StackPanel VerticalAlignment="Center">
 			<TextBlock HorizontalAlignment="Center" Text="Heslo pre vstup"/>

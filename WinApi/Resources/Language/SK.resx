@@ -186,4 +186,10 @@
   <data name="settingTitle" xml:space="preserve">
     <value>Nastavenia</value>
   </data>
+  <data name="closedDocument" xml:space="preserve">
+    <value>Podpisovanie bolo zrušené</value>
+  </data>
+  <data name="successOpenDocument" xml:space="preserve">
+    <value>Čakám na podpísanie dokumentu</value>
+  </data>
 </root>

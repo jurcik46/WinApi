@@ -45,11 +45,11 @@ namespace WinApi.Service
 
             Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
 
-            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("searchDocument"), IconType = Notifications.Wpf.NotificationType.Information, });
+            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("searchDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
             SignatureFileModel = RestService.GetDocumentToSignature();
             if (SignatureFileModel != null)
             {
-                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("savingDocument"), IconType = Notifications.Wpf.NotificationType.Information });
+                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("savingDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                 InProcces = true;
                 // prehodi lomku 
                 string directhoryPath = SignatureFileModel.PdfFilePath.Replace('/', '\\');
@@ -58,6 +58,7 @@ namespace WinApi.Service
                 // Vytvori processname z options a vyplni paramatere {0} - filename {1} - directhoryPath
                 string processName = string.Format(SignatureOptionModel.ProcessName, fileName, directhoryPath); ;
 
+                Console.WriteLine(fileName);
                 /// vytvori nove zlozku 
                 if (CreateDirectory(ref directhoryPath))
                 {
@@ -66,22 +67,27 @@ namespace WinApi.Service
                     {
                         string filePath = directhoryPath + fileName;
 
-                        Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("startSignDocument"), IconType = Notifications.Wpf.NotificationType.Information });
+                        Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("startSignDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                         // spusti podpisovaci program 
                         if (SignFile(processName, SignatureOptionModel.ProgramPath, filePath))
                         {
                             //  Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successSignDocumet"), IconType = Notifications.Wpf.NotificationType.Success });
-                              Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("uploadDocument"), IconType = Notifications.Wpf.NotificationType.Information });
+                              Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("uploadDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                             if (RestService.UploadSignedDocument(SignatureFileModel.Hash, SignatureFileModel.PdfFilePath.Substring(1, SignatureFileModel.PdfFilePath.Length - 1)))
                             {
                                 Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "200" });
-                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successUploadDocument"), IconType = Notifications.Wpf.NotificationType.Success });
+                                Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successUploadDocument"), IconType = Notifications.Wpf.NotificationType.Success, ExpTime = 10 });
                             }
                             else
                             {
                                 Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "500" });
                                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("failUploadDocument"), IconType = Notifications.Wpf.NotificationType.Error });
                             }
+                        }
+                        else
+                        {
+                            Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "408" });
+                            Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("closedDocument"), IconType = Notifications.Wpf.NotificationType.Warning });
                         }
                     }
                     else
@@ -102,7 +108,6 @@ namespace WinApi.Service
 
             Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Online });
             InProcces = false;
-            Thread.Sleep(3);
 
         }
 
@@ -182,7 +187,6 @@ namespace WinApi.Service
 
             var startInfo = new ProcessStartInfo(programPath, pdfFilePath);
 
-            // Process.Start(startInfo);
             using (var process = Process.Start(startInfo))
             {
                 var fileInfo = new FileInfo(pdfFilePath);
@@ -208,7 +212,8 @@ namespace WinApi.Service
                     if (!foundWindow && found)
                     {
                         //Logger.Debug(SignServiceEvents.SignFileWindowFound, "Sign application window found for the first time in {Iteration}. iteration.", counter);
-                        foundWindow = true;
+                        foundWindow = true; 
+                        Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successOpenDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                     }
                     if (counter <= 4 || !foundWindow || (found))
                     {
