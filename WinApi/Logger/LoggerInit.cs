@@ -55,9 +55,9 @@ namespace WinApi.Logger
                 .Destructure.UsingAttributes()
                 .Destructure.AsScalar<CultureInfo>()
                 .CreateLogger();
-            Log.Logger.Information(ApplicationEvents.ApplicationStarted);
+
             Log.Logger.Information(ApplicationEvents.ApplicationStarted,
-                "Application started at {DateTime}, Version {Version:l}, Deploy {VersionDeploy:l}, Logging level: {level}, CurrentCulture: {CurrentCulture}, CurrentUICulture: {CurrentUICulture}",
+                "Application started at {DateTime}, Version {Version:l}, Logging level: {level}, CurrentCulture: {CurrentCulture}, CurrentUICulture: {CurrentUICulture}",
                 DateStart, Version, loggingLevelSwitch.MinimumLevel, culture, uiCulture);
             return Log.Logger;
         }
