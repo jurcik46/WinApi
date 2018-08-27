@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using Serilog.Core;
 using System.Reflection;
 using System.Resources;
 using WinApi.Interfaces.Service;
@@ -11,6 +12,8 @@ namespace WinApi.ViewModels
 {
     public static class ViewModelLocator
     {
+        private static LoggingLevelSwitch _loggingLevelSwitch;
+
 
         static ViewModelLocator()
         {
@@ -65,6 +68,9 @@ namespace WinApi.ViewModels
         {
             // TODO Clear the ViewModels
         }
+
+
+        public static LoggingLevelSwitch LoggingLevelSwitch => _loggingLevelSwitch ?? (_loggingLevelSwitch = new LoggingLevelSwitch());
 
         public static TrayIconViewModel TrayIconViewModel => ServiceLocator.Current.GetInstance<TrayIconViewModel>();
         public static OptionsLoginViewModel OptionsLoginViewModel => ServiceLocator.Current.GetInstance<OptionsLoginViewModel>();

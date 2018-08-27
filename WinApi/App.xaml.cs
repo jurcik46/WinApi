@@ -1,12 +1,9 @@
-﻿using System;
-using Hardcodet.Wpf.TaskbarNotification;
-using System.Collections.Generic;
-using System.Data;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Hardcodet.Wpf.TaskbarNotification;
 using System.Windows;
 using GalaSoft.MvvmLight.Threading;
+using WinApi.ViewModels;
+using Serilog.Events;
+using System;
 
 namespace WinApi
 {
@@ -26,7 +23,16 @@ namespace WinApi
             notifyIcon = (TaskbarIcon)FindResource("TrayIconTaskbar");
             DispatcherHelper.Initialize();
 
-            //    notifyIcon.ShowBalloonTip("asdasdas", "asdadassa", BalloonIcon.Info  );
+            ViewModelLocator.LoggingLevelSwitch.MinimumLevel = LogEventLevel.Information;
+            var currentCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var currentUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+            Logger.LoggerInit.ApplicationName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+
+            Logger.LoggerInit.Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            Console.WriteLine(Logger.LoggerInit.Version);
+
+            Serilog.Log.Logger = Logger.LoggerInit.InitializeApplicationLogger(ViewModelLocator.LoggingLevelSwitch, currentCulture, currentUICulture);
         }
 
         protected override void OnExit(ExitEventArgs e)

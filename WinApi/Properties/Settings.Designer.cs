@@ -37,7 +37,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("asdfjkhafkshfdkjaskfhls1561561dsX")]
+        [global::System.Configuration.DefaultSettingValueAttribute("asdfjkhafkshfdkjaskfhls1561561ds")]
         public string ApiKey {
             get {
                 return ((string)(this["ApiKey"]));

@@ -6,7 +6,7 @@
       <Value Profile="(Default)">https://devel.ccsipro.sk/sendmail/web/api/api_ccsipro3/v1/winapii/</Value>
     </Setting>
     <Setting Name="ApiKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)">asdfjkhafkshfdkjaskfhls1561561dsX</Value>
+      <Value Profile="(Default)">asdfjkhafkshfdkjaskfhls1561561ds</Value>
     </Setting>
     <Setting Name="ObjecID" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
