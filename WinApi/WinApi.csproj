@@ -172,6 +172,7 @@
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
     <Compile Include="Enums\ApplicationEvents.cs" />
+    <Compile Include="Enums\PusherServiceEvents.cs" />
     <Compile Include="Enums\RestServiceEvents.cs" />
     <Compile Include="Enums\SignatureServiceEvents.cs" />
     <Compile Include="Enums\TrayIcons.cs" />

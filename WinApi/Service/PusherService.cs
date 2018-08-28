@@ -1,12 +1,15 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using PusherClient;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinApi.Enums;
 using WinApi.Interfaces.Model;
 using WinApi.Interfaces.Service;
+using WinApi.Logger;
 using WinApi.Messages;
 
 namespace WinApi.Service
@@ -19,6 +22,9 @@ namespace WinApi.Service
         private IPusherOptionModel _pusherOption;
         private IApiOptionModel _apiOtion;
         private ISignatureService _signatureService;
+
+        public ILogger Logger => Log.Logger.ForContext<PusherService>();
+
 
         public PusherService(IOptionsService optionsService, ISignatureService signatureService)
         {
@@ -36,6 +42,9 @@ namespace WinApi.Service
         {
             if (_pusherOption.PusherON)
             {
+                Logger.With("PusherKey", _pusherOption.PusherKey)
+                    .Debug(PusherServiceEvents.StartPusher);
+
                 _pusher = new Pusher(_pusherOption.PusherKey, new PusherOptions()
                 {
                     Authorizer = new HttpAuthorizer(_pusherOption.PusherAuthorizer),
@@ -48,6 +57,9 @@ namespace WinApi.Service
 
         private void InitPusher()
         {
+            Logger.With("Subscribe", "private-bozp-" + _apiOtion.ObjectID)
+                    .Debug(PusherServiceEvents.InitPusher);
+
             _channel = _pusher.Subscribe("private-bozp-" + _apiOtion.ObjectID);
             _pusher.Connect();
 
@@ -93,8 +105,7 @@ namespace WinApi.Service
         {
             if (error != null)
             {
-
-                //Log.Error("Pusher Error Msg = {0}", error.ToString());
+                Logger.Error(error, PusherServiceEvents.PusherError);
             }
 
         }
@@ -105,8 +116,12 @@ namespace WinApi.Service
         {
             _channel.Bind(String.Format("event-{0}", _apiOtion.UserID), (dynamic data) =>
              {
+                 Logger.Debug(PusherServiceEvents.PusherBindingSign);
+
                  if (!_signatureService.InProcces)
                  {
+                     Logger.Information(PusherServiceEvents.PusherBindingSignStart);
+
                      Task.Run(() =>
                      {
                          _signatureService.StartSign();
@@ -137,6 +152,9 @@ namespace WinApi.Service
         public void SendBozpStatus(string msg)
         {
             //            log.information("odoslanie správy pre pusher: event = client-event-{0}, msg = {1}", opt.data.userid, msg);
+            Logger.With("Message", msg)
+                .Information(PusherServiceEvents.PusherBindingSignStart);
+
             _channel.Trigger(string.Format("client-event-{0}", _apiOtion.UserID), new { status = msg });
         }
         #endregion
