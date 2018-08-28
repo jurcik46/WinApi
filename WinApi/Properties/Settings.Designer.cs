@@ -73,7 +73,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("c:\\\\program Files (x86)\\\\Notepad++\\\\notepad++.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\Wacom sign pro PDF\\signpro.exe")]
         public string ProgramPath {
             get {
                 return ((string)(this["ProgramPath"]));
@@ -85,7 +85,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\Appky\\\\C#\\\\WinApi\\\\WinApi\\\\bin\\\\Debug\\\\{1}{0} - Notepad++")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Wacom sign pro PDF - D:\\Appky\\C#\\WinApi\\WinApi\\bin\\Debug{1}")]
         public string ProcessName {
             get {
                 return ((string)(this["ProcessName"]));
@@ -109,7 +109,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.33.10/pusher/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.33.10/pushe/")]
         public string PusherAuthorizer {
             get {
                 return ((string)(this["PusherAuthorizer"]));
@@ -128,30 +128,6 @@ namespace WinApi.Properties {
             }
             set {
                 this["PusherON"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Success {
-            get {
-                return ((bool)(this["Success"]));
-            }
-            set {
-                this["Success"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool InProcess {
-            get {
-                return ((bool)(this["InProcess"]));
-            }
-            set {
-                this["InProcess"] = value;
             }
         }
         
