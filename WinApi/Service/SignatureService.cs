@@ -44,8 +44,6 @@ namespace WinApi.Service
 
             this.SignatureOptionModel = optionsService.SignatureOptions;
 
-
-            // this.SignatureFileModel = signatureFileModel;
         }
 
         #region Start signature 
@@ -98,6 +96,7 @@ namespace WinApi.Service
                             }
                             else
                             {
+
                                 Messenger.Default.Send<BozpStatusPusherMessage>(new BozpStatusPusherMessage() { Status = "408" });
                                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("closedDocument"), IconType = Notifications.Wpf.NotificationType.Warning });
                             }
@@ -129,6 +128,8 @@ namespace WinApi.Service
         #region Create Directory
         private bool CreateDirectory(ref string directhoryPath)
         {
+            Logger.With("directhoryPath", directhoryPath)
+               .Debug(SignatureServiceEvents.CreateDirectory);
             //hash += data.link.substring(data.link.lastindexof("."));
             //  _appRomaingPath
             //var appRomaingPath = Path.Combine(LoggerInit.RoamingPath, LoggerInit.ApplicationName);
@@ -145,6 +146,8 @@ namespace WinApi.Service
             }
             catch (Exception ex)
             {
+                Logger.With("directhoryPath", directhoryPath)
+                  .Error(ex, SignatureServiceEvents.CreateDirectoryError);
                 //log.warning("nepodarilo sa vytvoriť zložku : {0} : exception {1}", directhorypath, ex.message);
                 return false;
                 //throw new myexception("nepodarilo sa vytvoriť zložku pre dokument");
@@ -161,8 +164,6 @@ namespace WinApi.Service
 
             try
             {
-                // Console.WriteLine(directhoryToSave + fileName);
-                //log.information("vytváram prijatý súbor hash: {0}", hash);
                 System.IO.File.WriteAllBytes(directhoryToSave + fileName, file);
                 return true;
             }
@@ -231,7 +232,7 @@ namespace WinApi.Service
                     var found = FindWindowAndClose(false, processName);
                     if (!foundWindow && found)
                     {
-                        //Logger.Debug(SignServiceEvents.SignFileWindowFound, "Sign application window found for the first time in {Iteration}. iteration.", counter);
+                        Logger.Debug(SignatureServiceEvents.SignFileWindowFound, "Sign application window found for the first time in {Iteration}. iteration.", counter);
                         foundWindow = true;
                         Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("successOpenDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                     }
@@ -239,7 +240,7 @@ namespace WinApi.Service
                     {
                         continue;
                     }
-                    //Logger.Debug(SignServiceEvents.SignFileWindowClosed, "Sign application closed before timeout in {Iteration}. iteration.", counter);
+                    Logger.Debug(SignatureServiceEvents.SignFileWindowClosed, "Sign application closed before timeout in {Iteration}. iteration.", counter);
                     break;
                 } while (counter < SignTimeout);
 
@@ -258,8 +259,8 @@ namespace WinApi.Service
                 }
                 fileInfo.Refresh();
                 diff = fileInfo.LastWriteTime - lastWrite;
-                //Log.Information("FileInfo {0} TimeDifference {1} ", fileInfo, diff.TotalSeconds);
-                //Logger.With("FileInfo", fileInfo).With("TimeDifference", diff.TotalSeconds).Debug(SignServiceEvents.SignFileAfterWait);
+                Log.Information("FileInfo {0} TimeDifference {1} ", fileInfo, diff.TotalSeconds);
+                Logger.With("FileInfo", fileInfo).With("TimeDifference", diff.TotalSeconds).Debug(SignatureServiceEvents.SignFileAfterWait);
                 result = diff.TotalSeconds > 1;
             }
             return result;
@@ -278,16 +279,16 @@ namespace WinApi.Service
             var windowPtr = FindWindowByCaption(IntPtr.Zero, caption);
             if (windowPtr == IntPtr.Zero)
             {
-                //  Logger.Debug(SignServiceEvents.WindowNotFound, "Window not found: {Caption}", caption);
+                Logger.Debug(SignatureServiceEvents.WindowNotFound, "Window not found: {Caption}", caption);
 
                 return false;
             }
             if (!close)
             {
-                // Logger.Debug(SignServiceEvents.WindowFound, "Window found: {Caption}", caption);
+                Logger.Debug(SignatureServiceEvents.WindowFound, "Window found: {Caption}", caption);
                 return true;
             }
-            //Logger.Debug(SignServiceEvents.WindowFoundAndClosing, "Window found and closing: {Caption}", caption);
+            Logger.Debug(SignatureServiceEvents.WindowFoundAndClosing, "Window found and closing: {Caption}", caption);
             SendMessage(windowPtr, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
             return false;
         }

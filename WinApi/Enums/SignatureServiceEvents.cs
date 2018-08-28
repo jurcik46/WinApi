@@ -10,8 +10,15 @@ namespace WinApi.Enums
     {
         StartSign,
         CreateDirectory,
+        CreateDirectoryError,
         SignFile,
         SaveFile,
-        SaveFileError
+        SaveFileError,
+        SignFileWindowFound,
+        SignFileWindowClosed,
+        SignFileAfterWait,
+        WindowNotFound,
+        WindowFound,
+        WindowFoundAndClosing
     }
 }
