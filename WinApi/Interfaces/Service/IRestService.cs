@@ -10,7 +10,7 @@ namespace WinApi.Interfaces.Service
     public interface IRestService
     {
         ISignatureFileModel GetDocumentToSignature();
-        bool UploadSignedDocument(string hash, string pdfFilePath);
+        bool UploadSignedDocument(string hash, string pdfFilePath, string file);
 
     }
 }

@@ -18,7 +18,7 @@
       <Value Profile="(Default)">C:\Program Files (x86)\Wacom sign pro PDF\signpro.exe</Value>
     </Setting>
     <Setting Name="ProcessName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Wacom sign pro PDF - C:\Users\jurci\Documents\WinApi\WinApi\bin\Debug{1}</Value>
+      <Value Profile="(Default)">Wacom sign pro PDF - D:\Appky\C#\WinApi\WinApi\bin\Debug{1}</Value>
     </Setting>
     <Setting Name="PusherKey" Type="System.String" Scope="User">
       <Value Profile="(Default)">31d14ddddef4c14b6ab5</Value>
@@ -28,12 +28,6 @@
     </Setting>
     <Setting Name="PusherON" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="Success" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="InProcess" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

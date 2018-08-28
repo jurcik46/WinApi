@@ -12,7 +12,7 @@ namespace WinApi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -85,7 +85,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Wacom sign pro PDF - C:\\Users\\jurci\\Documents\\WinApi\\WinApi\\bin\\Debug{1}")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Wacom sign pro PDF - D:\\Appky\\C#\\WinApi\\WinApi\\bin\\Debug{1}")]
         public string ProcessName {
             get {
                 return ((string)(this["ProcessName"]));
@@ -128,30 +128,6 @@ namespace WinApi.Properties {
             }
             set {
                 this["PusherON"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool Success {
-            get {
-                return ((bool)(this["Success"]));
-            }
-            set {
-                this["Success"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool InProcess {
-            get {
-                return ((bool)(this["InProcess"]));
-            }
-            set {
-                this["InProcess"] = value;
             }
         }
         

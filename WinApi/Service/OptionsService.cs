@@ -14,14 +14,12 @@ namespace WinApi.Service
 {
     public class OptionsService : IOptionsService
     {
-        public OptionsModel Options { get; set; }
         public ApiOptionModel ApiOptions { get; set; }
         public PusherOptionModel PusherOptions { get; set; }
         public SignatureOptionModel SignatureOptions { get; set; }
 
         public OptionsService()
         {
-            this.Options = new OptionsModel();
             this.ApiOptions = new ApiOptionModel();
             this.PusherOptions = new PusherOptionModel();
             this.SignatureOptions = new SignatureOptionModel();
@@ -39,9 +37,6 @@ namespace WinApi.Service
             this.PusherOptions.PusherKey = Properties.Settings.Default.PusherKey;
             this.PusherOptions.PusherAuthorizer = Properties.Settings.Default.PusherAuthorizer;
             this.PusherOptions.PusherON = Properties.Settings.Default.PusherON;
-            this.Options.Succes = Properties.Settings.Default.Success;
-            this.Options.InProcess = Properties.Settings.Default.InProcess;
-            this.Options.Succes = true;
         }
 
         public void SaveOptionsToSetting()
@@ -57,8 +52,6 @@ namespace WinApi.Service
                 Properties.Settings.Default.PusherKey = this.PusherOptions.PusherKey;
                 Properties.Settings.Default.PusherAuthorizer = this.PusherOptions.PusherAuthorizer;
                 Properties.Settings.Default.PusherON = this.PusherOptions.PusherON;
-                Properties.Settings.Default.Success = this.Options.Succes;
-                Properties.Settings.Default.InProcess = this.Options.InProcess;
 
                 Properties.Settings.Default.Save();
 

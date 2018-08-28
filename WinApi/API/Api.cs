@@ -1,14 +1,13 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using RestSharp;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using WinApi.API.Model;
+using WinApi.API.Enums;
 using WinApi.Interfaces.Model;
 using WinApi.Messages;
+using WinApi.Logger;
 
 namespace WinApi.API
 {
@@ -19,6 +18,8 @@ namespace WinApi.API
         private string _userId;
         private string _objectId;
 
+        public ILogger Logger => Log.Logger.ForContext<Api>();
+
         public Uri ApiLink { get => _apiLink; set => _apiLink = value; }
         public string ObjectID { get => _objectId; set => _objectId = value; }
         public string UserID { get => _userId; set => _userId = value; }
@@ -26,6 +27,7 @@ namespace WinApi.API
 
         public Api(IApiOptionModel apiOption)
         {
+            Logger.Debug(ApiEvents.Create, "Creating new instance of API with {ApiLink} and {Apikey}", apiOption.ApiLink, apiOption.Apikey);
             this.ApiLink = new Uri(apiOption.ApiLink, UriKind.Absolute);
             this.Apikey = apiOption.Apikey;
             this.ObjectID = apiOption.ObjectID;
@@ -35,7 +37,7 @@ namespace WinApi.API
 
         public T Execute<T>(RestRequest request) where T : class, new()
         {
-            // Logger.Debug(EntranceAPIEvents.ExecuteType, "EntranceAPI.Execute<{T}>({@request})", typeof(T).FullName, request);
+            Logger.Debug(ApiEvents.ExecuteType, "API.Execute<{T}>({@request})", typeof(T).FullName, request);
             var client = new RestClient { BaseUrl = this.ApiLink };
             request.AddParameter("api_key", this.Apikey, ParameterType.QueryString);
             var response = client.Execute<T>(request);
@@ -43,36 +45,29 @@ namespace WinApi.API
             {
                 if (response.StatusCode == 0)
                     Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModels.ViewModelLocator.rm.GetString("connectionTitle"), Msg = ViewModels.ViewModelLocator.rm.GetString("connectionMsg"), IconType = Notifications.Wpf.NotificationType.Error, ExpTime = 10 });
-                //Console.WriteLine((int)response.StatusCode);
-                //Console.WriteLine(response.ErrorException);
-                //Console.WriteLine(response.ErrorMessage);
-                //Console.WriteLine("neni aaaaaa");
-                //Logger.With("Request", request).With("Response", response).With("Type", typeof(T).FullName).Error(response.ErrorException, EntranceAPIEvents.ExecuteTypeError);
+
+                Logger.With("Request", request)
+                    .With("Response", response)
+                    .With("Type", typeof(T).FullName)
+                    .Error(response.ErrorException, ApiEvents.ExecuteTypeError);
                 return null;
             }
 
-            Console.WriteLine(response.StatusCode);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
             {
-                Console.WriteLine("aaaa");
+                Logger.With("Request", request)
+                    .With("Response", response)
+                    .With("Type", typeof(T).FullName)
+                    .Error(ApiEvents.ExecuteTypeError, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
                 return null;
 
-               // return null;
-               //    Logger.With("Request", request)
-               //        .With("Response", response)
-               //        .With("Type", typeof(T).FullName)
-               //        .Error(EntranceAPIEvents.ExecuteTypeError, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
             }
             else
             {
-                //Console.WriteLine(response.ResponseStatus);
-                //Console.WriteLine(response.StatusCode);
-                //Console.WriteLine("bbbb");
-
-                //Logger.With("Request", request)
-                //    .With("Response", response)
-                //    .With("Type", typeof(T).FullName)
-                //    .Debug(EntranceAPIEvents.ExecuteTypeSuccess, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
+                Logger.With("Request", request)
+                    .With("Response", response)
+                    .With("Type", typeof(T).FullName)
+                    .Debug(ApiEvents.ExecuteTypeSuccess, "Request on {Resource} returned {StatusCode}.\nResponse content: {Content}", request.Resource, response.StatusCode, response.Content);
             }
             return response.Data;
         }
@@ -80,7 +75,7 @@ namespace WinApi.API
 
         public SignatureFileModel GetDocument()
         {
-            //Logger.Debug(EntranceAPIEvents.GetLastChange, "{resource}, {parameter}, {value}", resource, parameter, value);
+            Logger.Debug(ApiEvents.GetDocument, "Object-id: {ObjectID}, User-id: {UserID}", this.ObjectID, this.UserID);
 
             var request = new RestRequest
             {
@@ -96,8 +91,11 @@ namespace WinApi.API
             return result;
         }
 
-        public UploadDocumentModel UploadDocument(string hash, string pdfFilePath)
+        public UploadDocumentModel UploadDocument(string hash, string pdfFilePath, string file)
         {
+            Logger.Debug(ApiEvents.UploadDocument, "Object-id: {ObjectID}, User-id: {UserID}, Hash: {hash}, PdfFilePath: {pdfFilePath} ", this.ObjectID, this.UserID, hash, pdfFilePath);
+
+
             var request = new RestRequest
             {
                 Resource = @"/uploadfile.json",
@@ -111,7 +109,7 @@ namespace WinApi.API
             request.AddParameter("hash", hash, ParameterType.GetOrPost);
             request.AddParameter("pdf_file_path", "/" + pdfFilePath, ParameterType.GetOrPost);
 
-            request.AddFile("file", pdfFilePath);
+            request.AddFile("file", file);
 
             var result = Execute<UploadDocumentModel>(request);
             return result;

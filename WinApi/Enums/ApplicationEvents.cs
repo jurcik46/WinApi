@@ -5,41 +5,41 @@ namespace WinApi.Enums
 {
     public enum ApplicationEvents
     {
-            DispatcherThread,
+        //       DispatcherThread,
 
-            CheckErrors,
+        //          CheckErrors,
 
-            CheckUpdate,
+        //          CheckUpdate,
 
-            [Description("Last check for update was less than 12 hours ago.")]
-            CheckUpdateCheckActual,
+        //[Description("Last check for update was less than 12 hours ago.")]
+        //CheckUpdateCheckActual,
 
-            [Description("Application is not deployed over network.")]
-            NotDeployed,
+        //[Description("Application is not deployed over network.")]
+        //NotDeployed,
 
-            [Description("No application update is available at a time.")]
-            UpdateNotAvailable,
+        //[Description("No application update is available at a time.")]
+        //UpdateNotAvailable,
 
-            [Description("Starting timer for application update reminder.")]
-            UpdateReminderStarted,
+        //[Description("Starting timer for application update reminder.")]
+        //UpdateReminderStarted,
 
-            [Description("Failed to initialize database.")]
-            DatabaseError,
+        //[Description("Failed to initialize database.")]
+        //DatabaseError,
 
-            SetLanguage,
+        //SetLanguage,
 
-            ApplicationEnded,
+        ApplicationEnded,
 
-            ApplicationStarted,
+        ApplicationStarted,
 
-            DispatcherUnhandledException,
+        //           DispatcherUnhandledException,
 
-            UnobservedTaskException,
+        //UnobservedTaskException,
 
-            CurrentDomainUnhandledException,
+        //CurrentDomainUnhandledException,
 
-            WindowAdjusted,
+        //WindowAdjusted,
 
-            TempFolderError,
+        //TempFolderError,
     }
 }

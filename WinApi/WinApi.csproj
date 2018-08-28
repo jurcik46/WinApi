@@ -56,10 +56,10 @@
     <ApplicationIcon>test.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>EE69169F00B6788913D232B3C25494FCB171FA7A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3A6D61CB6CD12346CB05D646738CF30F23E2D9B8</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WinApi_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>WinApi_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -162,6 +162,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\Api.cs" />
+    <Compile Include="API\Enums\ApiEvents.cs" />
     <Compile Include="API\Model\SignatureFileModel.cs" />
     <Compile Include="API\Model\UploadDocumentModel.cs" />
     <Compile Include="Commands\RestartAppCommand.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Commands\HideSampleWindowCommand.cs" />
     <Compile Include="Commands\ShowSampleWindowCommand.cs" />
     <Compile Include="Enums\ApplicationEvents.cs" />
+    <Compile Include="Enums\RestServiceEvents.cs" />
+    <Compile Include="Enums\SignatureServiceEvents.cs" />
     <Compile Include="Enums\TrayIcons.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Interfaces\IClosable.cs" />
@@ -279,6 +282,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="WinApi_1_TemporaryKey.pfx" />
     <None Include="WinApi_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -301,7 +305,6 @@
     <Resource Include="test.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\Enums\" />
     <Folder Include="Desing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
