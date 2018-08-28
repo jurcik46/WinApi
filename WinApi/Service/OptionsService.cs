@@ -9,6 +9,9 @@ using WinApi.Messages;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
 using System.Windows;
+using Serilog;
+using WinApi.Logger;
+using WinApi.Enums;
 
 namespace WinApi.Service
 {
@@ -17,6 +20,9 @@ namespace WinApi.Service
         public ApiOptionModel ApiOptions { get; set; }
         public PusherOptionModel PusherOptions { get; set; }
         public SignatureOptionModel SignatureOptions { get; set; }
+
+        public ILogger Logger => Log.Logger.ForContext<OptionsService>();
+
 
         public OptionsService()
         {
@@ -28,6 +34,9 @@ namespace WinApi.Service
 
         public void LoadOptionsFromSetting()
         {
+
+            Logger.Debug(OptionsServiceEvents.LoadSetting);
+
             this.ApiOptions.ApiLink = Properties.Settings.Default.ApiLink;
             this.ApiOptions.Apikey = Properties.Settings.Default.ApiKey;
             this.ApiOptions.ObjectID = Properties.Settings.Default.ObjecID;
@@ -43,6 +52,8 @@ namespace WinApi.Service
         {
             Task.Run(() =>
             {
+                Logger.Debug(OptionsServiceEvents.SaveSetting);
+
                 Properties.Settings.Default.ApiLink = this.ApiOptions.ApiLink;
                 Properties.Settings.Default.ApiKey = this.ApiOptions.Apikey;
                 Properties.Settings.Default.ObjecID = this.ApiOptions.ObjectID;

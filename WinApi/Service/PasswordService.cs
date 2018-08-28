@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Security.Cryptography;
 using System.Text;
+using WinApi.Enums;
 using WinApi.Interfaces.Service;
+using WinApi.Logger;
 
 namespace WinApi.Service
 {
@@ -10,10 +13,15 @@ namespace WinApi.Service
         private string _password = Properties.Settings.Default.password;
         public string Password { get => _password; set => _password = value; }
 
+        public ILogger Logger => Log.Logger.ForContext<PasswordService>();
+
+
         public PasswordService()
         {
             if (this.Password == "")
             {
+                Logger.Information(PasswordServiceEvents.CreateDefaultPass);
+
                 CreatePass("admin");
                 this.Password = Properties.Settings.Default.password;
             }
@@ -52,6 +60,7 @@ namespace WinApi.Service
 
         public bool ComperPassword(string enteredPassword)
         {
+            Logger.Debug(PasswordServiceEvents.ComperPassword);
 
             string enteredPasswordHash = "";
 

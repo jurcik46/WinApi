@@ -9,6 +9,7 @@ namespace WinApi.Enums
     public enum PusherServiceEvents
     {
         StartPusher,
+        StartPusherError,
         InitPusher,
         PusherBindingSign,
         PusherBindingSignStart,

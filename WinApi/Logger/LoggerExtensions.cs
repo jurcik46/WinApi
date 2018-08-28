@@ -14,12 +14,12 @@ namespace WinApi.Logger
     {
 
         public const string EventIdFormat = "<{{EventType:l}}.{{EventId}}> {0}";
-     //   public const string DiagnosticsFormat = "{0}\n{{@Diagnostics}}";
+        //   public const string DiagnosticsFormat = "{0}\n{{@Diagnostics}}";
         public static ConcurrentDictionary<Enum, int> ErrorsDictionary = new ConcurrentDictionary<Enum, int>();
         public static ConcurrentDictionary<Enum, ConcurrentBag<string>> RenderedErrorsDictionary = new ConcurrentDictionary<Enum, ConcurrentBag<string>>();
         public static bool ErrorsWarningSent = false;
 
-       // public static Func<bool, IDiagnostics> DiagnosticsFunc { get; set; }
+        // public static Func<bool, IDiagnostics> DiagnosticsFunc { get; set; }
 
         public static ILogger With(this ILogger logger, string propertyName, object value, bool nothingOnNull)
         {
@@ -184,7 +184,7 @@ namespace WinApi.Logger
             }
             var allPropertyValues = new object[] { eventId.GetType().Name, eventId }.Concat(propertyValues).ToArray();
             var allMessageTemplate = string.Format(EventIdFormat, messageTemplate);
-           // logger = logger.With("Diagnostics", DiagnosticsFunc?.Invoke(includeStackTrace));
+            // logger = logger.With("Diagnostics", DiagnosticsFunc?.Invoke(includeStackTrace));
             logger.Fatal(ex, allMessageTemplate, allPropertyValues);
         }
 
@@ -216,27 +216,27 @@ namespace WinApi.Logger
 
         public static void SendErrorsWarningMessage(ILogger logger)
         {
-            var errorCount = ErrorsDictionary.Sum(e => e.Value);
-            if (!ErrorsWarningSent && errorCount >= Constants.MinimalErrorCountToWarning)
-            {
-                var renderedErrors = new List<string>();
-                foreach (var entry in RenderedErrorsDictionary)
-                {
-                    renderedErrors.AddRange(entry.Value);
-                }
-                const string message = "Too many errors ({ErrorCount}) occured in specified interval of {Interval}s.\n\nList of events:\n{@ErrorsDictionary}\n\nRendered errors:\n{@RenderedErrorsDictionary:l}";
-               // logger.Fatal(ApplicationEvents.CheckErrors, message, false, errorCount, Constants.ErrorCountInterval.TotalSeconds, ErrorsDictionary, renderedErrors);
-                ErrorsWarningSent = true;
-            }
-            RenderedErrorsDictionary.Clear();
-            ErrorsDictionary.Clear();
+            //var errorCount = ErrorsDictionary.Sum(e => e.Value);
+            //if (!ErrorsWarningSent && errorCount >= Constants.MinimalErrorCountToWarning)
+            //{
+            //    var renderedErrors = new List<string>();
+            //    foreach (var entry in RenderedErrorsDictionary)
+            //    {
+            //        renderedErrors.AddRange(entry.Value);
+            //    }
+            //    const string message = "Too many errors ({ErrorCount}) occured in specified interval of {Interval}s.\n\nList of events:\n{@ErrorsDictionary}\n\nRendered errors:\n{@RenderedErrorsDictionary:l}";
+            //   // logger.Fatal(ApplicationEvents.CheckErrors, message, false, errorCount, Constants.ErrorCountInterval.TotalSeconds, ErrorsDictionary, renderedErrors);
+            //    ErrorsWarningSent = true;
+            //}
+            //RenderedErrorsDictionary.Clear();
+            //ErrorsDictionary.Clear();
         }
 
         private static void AddRenderedMessage(Enum eventId)
         {
             RenderedErrorsDictionary.AddOrUpdate(eventId, new ConcurrentBag<string>(), (id, list) =>
             {
-              //  list.Add(StringSink.LastEvent);
+                //  list.Add(StringSink.LastEvent);
                 return list;
             });
         }
