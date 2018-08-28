@@ -24,10 +24,10 @@
       <Value Profile="(Default)">31d14ddddef4c14b6ab5</Value>
     </Setting>
     <Setting Name="PusherAuthorizer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://192.168.33.10/pusher/</Value>
+      <Value Profile="(Default)">http://192.168.33.10/pushe/</Value>
     </Setting>
     <Setting Name="PusherON" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

@@ -109,7 +109,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.33.10/pusher/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.33.10/pushe/")]
         public string PusherAuthorizer {
             get {
                 return ((string)(this["PusherAuthorizer"]));
@@ -121,7 +121,7 @@ namespace WinApi.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool PusherON {
             get {
                 return ((bool)(this["PusherON"]));

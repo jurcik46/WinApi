@@ -35,7 +35,6 @@ namespace WinApi.Service
             MessagesInit();
             StartPusher();
 
-
         }
 
 
@@ -48,13 +47,17 @@ namespace WinApi.Service
                    .Debug(PusherServiceEvents.StartPusher);
                 try
                 {
+
                     _pusher = new Pusher(_pusherOption.PusherKey, new PusherOptions()
                     {
                         Authorizer = new HttpAuthorizer(_pusherOption.PusherAuthorizer),
                         Encrypted = true,
                         Cluster = "eu"
                     });
+
                     InitPusher();
+
+
                 }
                 catch (Exception ex)
                 {
