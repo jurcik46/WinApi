@@ -54,7 +54,7 @@ namespace WinApi.Service
             {
                 InProcces = true;
                 Messenger.Default.Send<ChangeIconMessage>(new ChangeIconMessage() { Icon = Enums.TrayIcons.Working });
-                this._appRomaingPath = Path.Combine(LoggerInit.RoamingPath, LoggerInit.ApplicationName);
+                this._appRomaingPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CCSIPRO", "winbozp");
 
                 Messenger.Default.Send<NotifiMessage>(new NotifiMessage() { Title = ViewModelLocator.rm.GetString("signatureTitle"), Msg = ViewModelLocator.rm.GetString("searchDocument"), IconType = Notifications.Wpf.NotificationType.Information, ExpTime = 300 });
                 SignatureFileModel = RestService.GetDocumentToSignature();
