@@ -117,14 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="offline" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\offline.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="connectionMsg" xml:space="preserve">
+    <value>Zlyhalo pripojenie k internetu</value>
   </data>
-  <data name="online" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\online.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="connectionTitle" xml:space="preserve">
+    <value>Status pripojenia</value>
   </data>
-  <data name="working" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\icons\working.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="failedSignDocument" xml:space="preserve">
+    <value>Podpisovanie sa nepodarilo skúste znova</value>
+  </data>
+  <data name="failSavingDocument" xml:space="preserve">
+    <value>Nepodarilo sa uložiť dokument</value>
+  </data>
+  <data name="failUploadDocument" xml:space="preserve">
+    <value>Dokument sa nepodarilo nahrať na server</value>
+  </data>
+  <data name="foundDocument" xml:space="preserve">
+    <value>Dokument na podpísanie bol úspešne stiahnutý</value>
+  </data>
+  <data name="iconTitleDefualt" xml:space="preserve">
+    <value>Dvojklik pre podpísanie a kliknutím pravým tlačidlom pre menu</value>
+  </data>
+  <data name="iconTitleWorking" xml:space="preserve">
+    <value>Pravé prebieha podpisovanie</value>
+  </data>
+  <data name="inProccesDocument" xml:space="preserve">
+    <value>Pravé sa vykonáva podpisovanie</value>
+  </data>
+  <data name="lostConnection" xml:space="preserve">
+    <value>Aplikácia stratila pripojenie k internetu</value>
+  </data>
+  <data name="notFoundDocument" xml:space="preserve">
+    <value>Nenašiel sa žiadny dokument na podpisanie</value>
+  </data>
+  <data name="onlineConnection" xml:space="preserve">
+    <value>Aplikácia  je pripojena k internetu</value>
+  </data>
+  <data name="savingDocument" xml:space="preserve">
+    <value>Ukladám dokument</value>
+  </data>
+  <data name="searchDocument" xml:space="preserve">
+    <value>Hľadám nový dokument na podpísanie</value>
+  </data>
+  <data name="signatureTitle" xml:space="preserve">
+    <value>Podpisovanie</value>
+  </data>
+  <data name="startSignDocument" xml:space="preserve">
+    <value>Spúšťam aplikáciu na podpísanie</value>
+  </data>
+  <data name="successSignDocumet" xml:space="preserve">
+    <value>Dokument bol úspešne podpísaný.</value>
+  </data>
+  <data name="successUploadDocument" xml:space="preserve">
+    <value>Dokument bol úspešne nahraný</value>
+  </data>
+  <data name="uploadDocument" xml:space="preserve">
+    <value>Prebieha nahrávanie dokumentu na server</value>
+  </data>
+  <data name="failedLogin" xml:space="preserve">
+    <value>Zadali ste nesprávne heslo</value>
+  </data>
+  <data name="loginTitle" xml:space="preserve">
+    <value>Vstup do nastavení</value>
+  </data>
+  <data name="savedSetting" xml:space="preserve">
+    <value>Heslo bolo úspešne zmenene</value>
+  </data>
+  <data name="settingTitle" xml:space="preserve">
+    <value>Nastavenia</value>
+  </data>
+  <data name="closedDocument" xml:space="preserve">
+    <value>Podpisovanie bolo zrušené</value>
+  </data>
+  <data name="successOpenDocument" xml:space="preserve">
+    <value>Čakám na podpísanie dokumentu</value>
   </data>
 </root>
