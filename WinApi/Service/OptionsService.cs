@@ -34,7 +34,12 @@ namespace WinApi.Service
 
         public void LoadOptionsFromSetting()
         {
-
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
             Logger.Debug(OptionsServiceEvents.LoadSetting);
 
             this.ApiOptions.ApiLink = Properties.Settings.Default.ApiLink;
