@@ -32,7 +32,7 @@ namespace WinApi.Logger
             {
                 throw new ArgumentNullException(nameof(Version));
             }
-            var logPathFoldere = Path.Combine(RoamingPath, ApplicationName);
+            var logPathFoldere = Path.Combine(RoamingPath, "CCSIPRO", ApplicationName);
 
             if (!Directory.Exists(logPathFoldere))
             {
